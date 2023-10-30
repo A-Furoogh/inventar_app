@@ -53,4 +53,9 @@ class AuthRepository {
 
     return Future.value(user);
   }
+
+  // logout
+  Future<void> logout() async {
+    return Future.value();
+  }
 }

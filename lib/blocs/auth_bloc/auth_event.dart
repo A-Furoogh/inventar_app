@@ -7,16 +7,6 @@ sealed class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class LoadBenutzerEvent extends AuthEvent {
-
-  final List<Benutzer> benutzer;
-
-  const LoadBenutzerEvent(this.benutzer);
-
-  @override
-  List<Object> get props => [];
-}
-
 final class SignUpEvent extends AuthEvent {
 
   final Benutzer benutzer;

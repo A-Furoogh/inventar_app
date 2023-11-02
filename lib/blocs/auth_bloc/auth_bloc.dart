@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:inventar_app/models/benutzer.dart';
@@ -19,6 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthenticatedState(benutzer));
       } catch (e) {
         emit(const UnauthenticatedState());
+        print('$e    Fehler beim Login !"From Auth_bloc"! ');
       }
     });
 

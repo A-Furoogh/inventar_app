@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:inventar_app/models/benutzer.dart';
@@ -5,7 +7,8 @@ import 'package:inventar_app/models/benutzer.dart';
 class AuthRepository {
 
   // Endpoint für die Authentifizierung
-  final String endpoint = 'http://localhost:3000/benutzer';
+  final String endpoint = 'http://192.168.178.22/myproject/mybenutzerapi.php';
+
 
   Future<bool> signUp(String benutzername, String passwort) async {
     Map<String, dynamic> body = {
@@ -33,6 +36,7 @@ class AuthRepository {
       Response response = await get(Uri.parse(endpoint));
       if (response.statusCode == 200) {
         final List result = jsonDecode(response.body);
+        print(result);
         return result.map((e) => Benutzer.fromJson(e)).toList();
       } else {
         throw Exception(response.reasonPhrase);

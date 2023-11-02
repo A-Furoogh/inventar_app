@@ -5,7 +5,7 @@ import 'package:inventar_app/models/artikel.dart';
 
 class ArtikelRepository {
 
-  String endpoint = "https://api.komiku.id/v1/";
+  String endpoint = "http://192.168.178.22/myproject/myartikelapi.php";
 
   Future<List<Artikel>> getArtikels() async {
     Response response = await get(Uri.parse(endpoint));

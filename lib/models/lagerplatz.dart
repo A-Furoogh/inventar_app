@@ -1,9 +1,9 @@
 class Lagerplatz {
   final int? platzId;
   final String lager;
-  final String regal;
-  final String fach;
-  final String ebene;
+  final int regal;
+  final int fach;
+  final int ebene;
 
   Lagerplatz({
     this.platzId,
@@ -17,9 +17,9 @@ class Lagerplatz {
     return Lagerplatz(
       platzId: int.parse(json['platzId']),
       lager: json['lager'],
-      regal: json['regal'],
-      fach: json['fach'],
-      ebene: json['ebene'],
+      regal: int.parse(json['regal']),
+      fach: int.parse(json['fach']),
+      ebene: int.parse(json['ebene']),
     );
   }
 

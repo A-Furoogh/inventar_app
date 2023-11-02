@@ -11,7 +11,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final AuthRepository _authRepository = AuthRepository();
 
   final TextEditingController _usernameController = TextEditingController();
@@ -58,6 +57,12 @@ class _LoginPageState extends State<LoginPage> {
                                   fillColor: Colors.white70,
                                   filled: true),
                               controller: _usernameController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Bitte geben Sie einen Benutzernamen ein.';
+                                }
+                                return null;
+                              },
                             ),
                           )
                         ],
@@ -75,6 +80,12 @@ class _LoginPageState extends State<LoginPage> {
                                   filled: true),
                               controller: _passwordController,
                               obscureText: true,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Bitte geben Sie ein Passwort ein.';
+                                }
+                                return null;
+                              },
                             ),
                           )
                         ],
@@ -82,10 +93,11 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
-                          BlocProvider.of<AuthBloc>(context)
-                            .add(LoginEvent(_usernameController.text, _passwordController.text)
-                            // Hier muss auch die SharedPreferences gesetzt werden.
-                          );
+                          if (_formKey.currentState!.validate()) {
+                            BlocProvider.of<AuthBloc>(context).add(LoginEvent(
+                                _usernameController.text,
+                                _passwordController.text));
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(200, 50),

@@ -24,6 +24,18 @@ class _ArtikelPageState extends State<ArtikelPage> {
           if (state is ArtikelLoadingState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ArtikelLoadedState) {
+            if(state is ArtikelSearchState){ ////////////////////////////////
+              return ListView.builder(
+                itemCount: state.artikel.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ArtikelTile(image: state.artikel[index].image, bezeichnung: state.artikel[index].bezeichnung, artikelId: state.artikel[index].artikelId.toString(), bestand: state.artikel[index].bestand)
+                  );
+                },
+              );
+            }
+            else {
             return ListView.builder(
               itemCount: state.artikel.length,
               itemBuilder: (context, index) {
@@ -33,6 +45,7 @@ class _ArtikelPageState extends State<ArtikelPage> {
                 );
               },
             );
+            }
           } else if (state is ArtikelErrorState) {
             return Center(child: Text(state.errorMessage));
           } else {

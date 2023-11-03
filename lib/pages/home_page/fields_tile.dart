@@ -32,7 +32,6 @@ class FieldWidget extends StatelessWidget {
             Text(name, style: const TextStyle(fontSize: 26))
           ]),
           onTap: () {
-            print("Tapped");
             onTap();
           },
         ),

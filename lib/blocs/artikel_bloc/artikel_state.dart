@@ -32,13 +32,6 @@ final class ArtikelErrorState extends ArtikelState {
   List<Object> get props => [errorMessage];
 }
 
-final class ArtikelInitial extends ArtikelState {
-  const ArtikelInitial();
-
-  @override
-  List<Object> get props => [];
-}
-
 final class ArtikelEmptyState extends ArtikelState {
   const ArtikelEmptyState();
 

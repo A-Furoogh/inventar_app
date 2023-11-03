@@ -55,4 +55,14 @@ class ArtikelRepository {
       throw Exception(response.reasonPhrase);
     }
   }
+
+  Future<List<Artikel>> searchArtikel(String search) async {
+    Response response = await get(Uri.parse("$endpoint?search=$search"));
+    if (response.statusCode == 200) {
+      final List result = jsonDecode(response.body);
+      return result.map((e) => Artikel.fromJson(e)).toList();
+    } else {
+      throw Exception(response.reasonPhrase);
+    }
+  }
 }

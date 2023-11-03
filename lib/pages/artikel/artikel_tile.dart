@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class ArtikelTile extends StatelessWidget {
@@ -28,11 +30,17 @@ class ArtikelTile extends StatelessWidget {
               Expanded( flex: 1,
                 child: Column(
                   children: [
-                    Image(
-                        image: AssetImage(image ?? 'assets/images/default_artikel.png'),
-                        width: 80,
-                        height: 80,
-                        fit: BoxFit.cover,
+                    if (image != null)
+                      Image.memory(
+                        base64Decode(image!),
+                        width: 100,
+                        height: 100,
+                      ),
+                    if (image == null)
+                      Image.asset(
+                        'assets/images/default_artikel.png',
+                        width: 100,
+                        height: 100,
                       ),
                       Text(
                         'Art.ID: $artikelId',

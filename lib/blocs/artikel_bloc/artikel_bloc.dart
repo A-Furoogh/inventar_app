@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:inventar_app/models/artikel.dart';
 import 'package:inventar_app/repositories/artikel_repository.dart';
 
 part 'artikel_event.dart';
@@ -9,10 +10,46 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
 
   final ArtikelRepository _artikelRepository;
 
-  ArtikelBloc(this._artikelRepository) : super(ArtikelInitial()) {
+  ArtikelBloc(this._artikelRepository) : super(const ArtikelLoadingState()) {
 
+    on<ArtikelLoadEvent>((event, emit) async {
+      emit(const ArtikelLoadingState());
+      try {
+        final List<Artikel> artikel = await _artikelRepository.getArtikels();
+        emit(ArtikelLoadedState(artikel));
+      } catch (e) {
+        emit(ArtikelErrorState(e.toString()));
+      }
+    });
 
-    on<ArtikelEvent>((event, emit) {
+    on<ArtikelAddEvent>((event, emit) async {
+      try {
+        await _artikelRepository.addArtikel(event.artikel);
+        final List<Artikel> artikel = await _artikelRepository.getArtikels();
+        emit(ArtikelLoadedState(artikel));
+      } catch (e) {
+        emit(ArtikelErrorState(e.toString()));
+      }
+    });
+
+    on<ArtikelUpdateEvent>((event, emit) async {
+      try {
+        await _artikelRepository.updateArtikel(event.artikel);
+        final List<Artikel> artikel = await _artikelRepository.getArtikels();
+        emit(ArtikelLoadedState(artikel));
+      } catch (e) {
+        emit(ArtikelErrorState(e.toString()));
+      }
+    });
+
+    on<ArtikelDeleteEvent>((event, emit) async {
+      try {
+        await _artikelRepository.deleteArtikel(event.artikel.artikelId!);
+        final List<Artikel> artikel = await _artikelRepository.getArtikels();
+        emit(ArtikelLoadedState(artikel));
+      } catch (e) {
+        emit(ArtikelErrorState(e.toString()));
+      }
     });
     
   }

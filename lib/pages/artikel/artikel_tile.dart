@@ -83,8 +83,8 @@ class ArtikelTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Beschreibung: $beschreibung',
-                        style: const TextStyle(fontSize: 16),
+                        '$beschreibung',
+                        style: const TextStyle(fontSize: 14),
                       ),
                     ],
                   ),

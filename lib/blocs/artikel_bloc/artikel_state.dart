@@ -1,40 +1,54 @@
 part of 'artikel_bloc.dart';
 
 sealed class ArtikelState extends Equatable {
-  const ArtikelState();
+
+  final List<Artikel> artikel;
+
+  const ArtikelState(this.artikel);
   
   @override
   List<Object> get props => [];
 }
 
 final class ArtikelLoadingState extends ArtikelState {
-  const ArtikelLoadingState();
+  const ArtikelLoadingState() : super( const []);
 
   @override
   List<Object> get props => [];
 }
 
 final class ArtikelLoadedState extends ArtikelState {
-  final List<Artikel> artikel;
 
-  const ArtikelLoadedState(this.artikel);
+  final List<Artikel> loadedArtikel;
+
+  const ArtikelLoadedState(this.loadedArtikel)  : super(loadedArtikel);
 
   @override
-  List<Object> get props => [artikel];
+  List<Object> get props => [loadedArtikel];
 }
 
 final class ArtikelErrorState extends ArtikelState {
   final String errorMessage;
 
-  const ArtikelErrorState(this.errorMessage);
+  const ArtikelErrorState(this.errorMessage) : super(const []);
 
   @override
   List<Object> get props => [errorMessage];
 }
 
 final class ArtikelEmptyState extends ArtikelState {
-  const ArtikelEmptyState();
+  const ArtikelEmptyState() : super(const []);
 
   @override
   List<Object> get props => [];
+}
+
+final class ArtikelSearchState extends ArtikelState {
+
+  final List<Artikel> searchedArtikel;
+
+  const ArtikelSearchState( this.searchedArtikel) : super(searchedArtikel);
+
+  @override
+  List<Object> get props => [ searchedArtikel];
 }

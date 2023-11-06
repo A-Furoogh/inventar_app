@@ -37,23 +37,28 @@ class _HomePageState extends State<HomePage> {
         color: const Color.fromARGB(255, 209, 235, 212),
         child: Center(
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const SizedBox(height: 20),
-              Text('Willkommen ${context.read<AuthBloc>().state.benutzer.benutzername}', style: const TextStyle(fontSize: 30)),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text('Willkommen ${context.read<AuthBloc>().state.benutzer.benutzername}', style: const TextStyle(fontSize: 30)),
+              ),
               // Oder watch statt read verwenden für automatisches rebuild
               // Text('Willkommen ${context.watch<AuthBloc>().state.benutzer.benutzername}', style: const TextStyle(fontSize: 20)),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Phoenix.rebirth(context);
-                },
-                child: const Text('Restart App'),
-          ),
-          SizedBox(
-            height: 500,
-            width: 350,
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ElevatedButton( // Renderoverflow Error hier
+                  onPressed: () {
+                    Phoenix.rebirth(context);
+                  },
+                  child: const Text('Restart App'),
+                        ),
+              ),
+          SizedBox( // Renderoverflow Error hier
+          // take the rest of the space
+          height: 470,
+          width: 350,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
@@ -65,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const ArtikelPage()));
                       },),
                       FieldWidget(image: "assets/images/artikel.png", name: "Artikel", onTap: () {
-                        Navigator.pushNamed(context, '/artikel');
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ArtikelPage()));
                       },),
                     ],
                   ),

@@ -56,13 +56,15 @@ class ArtikelRepository {
     }
   }
 
-  Future<List<Artikel>> searchArtikel(String search) async {
-    Response response = await get(Uri.parse("$endpoint?search=$search"));
-    if (response.statusCode == 200) {
-      final List result = jsonDecode(response.body);
-      return result.map((e) => Artikel.fromJson(e)).toList();
-    } else {
-      throw Exception(response.reasonPhrase);
-    }
+  Future<List<Artikel>> searchArtikel(String search) {
+    List<Artikel> searchedArtikel = [];
+    return getArtikels().then((artikel) {
+      for (Artikel a in artikel) {
+        if (a.bezeichnung.toLowerCase().contains(search.toLowerCase()) || a.artikelId.toString().contains(search)) {
+          searchedArtikel.add(a);
+        }
+      }
+      return searchedArtikel;
+    });
   }
 }

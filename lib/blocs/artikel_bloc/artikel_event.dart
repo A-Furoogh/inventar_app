@@ -41,14 +41,6 @@ final class ArtikelDeleteEvent extends ArtikelEvent {
   List<Object> get props => [artikel];
 }
 
-/*
-final class ArtikelClearEvent extends ArtikelEvent {
-  const ArtikelClearEvent();
-
-  @override
-  List<Object> get props => [];
-}
-
 final class ArtikelSearchEvent extends ArtikelEvent {
   final String search;
 
@@ -57,6 +49,15 @@ final class ArtikelSearchEvent extends ArtikelEvent {
   @override
   List<Object> get props => [search];
 }
+
+/*
+final class ArtikelClearEvent extends ArtikelEvent {
+  const ArtikelClearEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
 
 final class ArtikelSortEvent extends ArtikelEvent {
   final String sort;

@@ -51,6 +51,15 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
         emit(ArtikelErrorState(e.toString()));
       }
     });
+
+    on<ArtikelSearchEvent>((event, emit) async {
+      try {
+        final List<Artikel> artikel = await _artikelRepository.searchArtikel(event.search);
+        emit(ArtikelSearchState(artikel));
+      } catch (e) {
+        emit(ArtikelErrorState(e.toString()));
+      }
+    });
     
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
 import 'package:inventar_app/pages/artikel/artikel_tile.dart';
+import 'package:inventar_app/pages/artikel_crud/artikel_crud_page.dart';
 import 'package:inventar_app/repositories/artikel_repository.dart';
 
 class ArtikelPage extends StatefulWidget {
@@ -67,7 +68,7 @@ Widget build(BuildContext context) {
                       padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/artikel/add');
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ArtikelCrudPage()));
                         },
                         child: const Text('Artikel hinzufügen +'),
                       ),

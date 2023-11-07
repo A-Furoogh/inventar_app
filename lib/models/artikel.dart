@@ -5,8 +5,8 @@ class Artikel {
   final int bestand;
   final int? mindestbestand;
   final int? bestellgrenze;
-  final String? image;
-  final int? lagerplatzId;
+  String? image;
+  final String? lagerplatzId;
 
   Artikel({
     this.artikelId,
@@ -28,7 +28,7 @@ class Artikel {
       mindestbestand: json['mindestbestand'] != null ? int.parse(json['mindestbestand']) : null,
       bestellgrenze: json['bestellgrenze'] != null ? int.parse(json['bestellgrenze']) : null,
       image: json['image'],
-      lagerplatzId: json['lagerplatzId'] != null ? int.parse(json['lagerplatzId']) : null,
+      lagerplatzId: json['lagerplatzId'] ?? json['lagerplatzId'],
     );
   }
 

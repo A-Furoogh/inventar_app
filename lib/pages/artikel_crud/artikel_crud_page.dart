@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
+import 'package:inventar_app/models/artikel.dart';
 
 class ArtikelCrudPage extends StatefulWidget {
   const ArtikelCrudPage({super.key});
@@ -26,6 +29,7 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,17 +50,18 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
                     child: Row(
                       children: [
                         GestureDetector(
-                          onTap: _changeImage,
-                          child: _pickedImage != null ? Image.file(
-                              _pickedImage!,
-                              width: 150,
-                              height: 150,
-                              fit: BoxFit.cover) : const Image(
-                              image: AssetImage('assets/images/default_artikel.png'),
-                              width: 150,
-                              height: 150,
-                              fit: BoxFit.cover)
-                        ),
+                            onTap: _changeImage,
+                            child: _pickedImage != null
+                                ? Image.file(_pickedImage!,
+                                    width: 150,
+                                    height: 150,
+                                    fit: BoxFit.cover)
+                                : const Image(
+                                    image: AssetImage(
+                                        'assets/images/default_artikel.png'),
+                                    width: 150,
+                                    height: 150,
+                                    fit: BoxFit.cover)),
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
@@ -74,7 +79,8 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
                                                 color: Colors.grey),
                                             Text('Bezeichnung: ',
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                                    fontWeight:
+                                                        FontWeight.bold,
                                                     fontSize: 22)),
                                           ],
                                         ),
@@ -154,7 +160,8 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
                                               Text(
                                                 'Min.Bestand: ',
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                                    fontWeight:
+                                                        FontWeight.bold,
                                                     fontSize: 16),
                                               ),
                                             ],
@@ -191,7 +198,8 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
                             padding: EdgeInsets.all(4.0),
                             child: Row(
                               children: [
-                                Icon(Icons.label_important, color: Colors.grey),
+                                Icon(Icons.label_important,
+                                    color: Colors.grey),
                                 Text('Bestellgrenze: ',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -278,7 +286,8 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
                                     backgroundColor: Colors.amber,
                                     foregroundColor: Colors.black,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius:
+                                          BorderRadius.circular(15.0),
                                     )),
                                 child: const Row(
                                   children: [
@@ -301,7 +310,35 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 8.0),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            Artikel artikel = Artikel(
+                                bezeichnung: _bezeichnungController.text,
+                                bestand: int.parse(_bestandController.text),
+                                mindestbestand: _minBestandController
+                                        .text.isNotEmpty
+                                    ? int.parse(_minBestandController.text)
+                                    : 0,
+                                bestellgrenze: _bestellgrenzeController
+                                        .text.isNotEmpty
+                                    ? int.parse(_bestellgrenzeController.text)
+                                    : 0,
+                                beschreibung:
+                                    _beschreibungController.text.isNotEmpty
+                                        ? _beschreibungController.text
+                                        : null,
+                                lagerplatzId:
+                                    _lagerplatzIdController.isNotEmpty
+                                        ? _lagerplatzIdController
+                                        : null,
+                                image: _pickedImage != null
+                                    ? _pickedImage!.path
+                                    : null);
+                            // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
+                            BlocProvider.of<ArtikelBloc>(context).add(ArtikelAddEvent(artikel));
+                            Navigator.pop(context);
+                          }
+                        },
                         child: const Text('Hinzufügen',
                             style: TextStyle(fontSize: 26)),
                       ),
@@ -350,7 +387,7 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
     setState(() => _lagerplatzCodeController.text = scanResult);
   }
 
-Future<void> _changeImage() async {
+  Future<void> _changeImage() async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -389,7 +426,7 @@ Future<void> _changeImage() async {
     );
   }
 
-void _processImage(XFile? pickedFile) {
+  void _processImage(XFile? pickedFile) {
     if (pickedFile != null) {
       showDialog(
         context: context,
@@ -418,7 +455,7 @@ void _processImage(XFile? pickedFile) {
                 onPressed: () {
                   Navigator.of(context).pop();
                   setState(() {
-                     _pickedImage = File(pickedFile.path);
+                    _pickedImage = File(pickedFile.path);
                   });
                 },
                 child: const Text('Bestätigen'),
@@ -429,5 +466,4 @@ void _processImage(XFile? pickedFile) {
       );
     }
   }
-
 }

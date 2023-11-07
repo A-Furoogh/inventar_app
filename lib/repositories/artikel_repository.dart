@@ -1,4 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:inventar_app/models/artikel.dart';
@@ -28,6 +31,12 @@ class ArtikelRepository {
   }
 
   Future<void> addArtikel(Artikel artikel) async {
+
+    if (artikel.image != null) {
+      print('artikel.image: ${artikel.image}');
+      artikel.image = await convertImageToBase64(artikel.image!);
+    }
+
     Response response = await post(Uri.parse(endpoint),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -67,4 +76,16 @@ class ArtikelRepository {
       return searchedArtikel;
     });
   }
+
+  // Konvertieren von Image in Base64
+  Future<String> convertImageToBase64(String imagePath) async {
+    try {
+      final bytes = await File(imagePath).readAsBytes();
+      return base64Encode(bytes);
+    } catch (e) {
+      print('Error convertImageToBase64: $e');
+      throw Exception(e);
+    }
+  }
+
 }

@@ -23,6 +23,7 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
     });
 
     on<ArtikelAddEvent>((event, emit) async {
+      emit(const ArtikelLoadingState());
       try {
         await _artikelRepository.addArtikel(event.artikel);
         final List<Artikel> artikel = await _artikelRepository.getArtikels();

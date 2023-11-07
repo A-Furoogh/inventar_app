@@ -10,11 +10,11 @@ class ArtikelTile extends StatelessWidget {
   final int bestand;
   final int? mindestbestand;
   final int? bestellgrenze;
-  final int? lagerplatzId;
+  final String? lagerplatzId;
   final String? beschreibung;
 
 
-  const ArtikelTile({super.key, this.image, required this.bezeichnung, required this.artikelId, required this.bestand, this.mindestbestand = 0, this.bestellgrenze = 0, this.lagerplatzId = 0, this.beschreibung= ' '});
+  const ArtikelTile({super.key, this.image, required this.bezeichnung, required this.artikelId, required this.bestand, this.mindestbestand = 0, this.bestellgrenze = 0, this.lagerplatzId = '', this.beschreibung= ' '});
 
   @override
   Widget build(BuildContext context) {

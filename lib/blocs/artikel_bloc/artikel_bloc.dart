@@ -61,6 +61,21 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
         emit(ArtikelErrorState(e.toString()));
       }
     });
+
+    on<ArtikelSelectEvent>((event, emit) async {
+      try {
+        emit(ArtikelSelectState(event.artikel));
+      } catch (e) {
+        emit(ArtikelErrorState(e.toString()));
+      }
+    });
     
   }
+
+  Stream<ArtikelState> mapEventToState(ArtikelEvent event) async* {
+    if (event is ArtikelSelectEvent) {
+      yield ArtikelSelectState(event.artikel);
+    }
+  }
+
 }

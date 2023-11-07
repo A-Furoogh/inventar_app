@@ -50,6 +50,16 @@ final class ArtikelSearchEvent extends ArtikelEvent {
   List<Object> get props => [search];
 }
 
+// Artikel auswählen und zurückgeben (für Inventur)
+final class ArtikelSelectEvent extends ArtikelEvent {
+  final Artikel artikel;
+
+  const ArtikelSelectEvent(this.artikel);
+
+  @override
+  List<Object> get props => [artikel];
+}
+
 /*
 final class ArtikelClearEvent extends ArtikelEvent {
   const ArtikelClearEvent();

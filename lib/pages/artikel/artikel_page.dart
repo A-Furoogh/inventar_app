@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
+import 'package:inventar_app/pages/artikel/artikel_crud/artikel_update_delete_page.dart';
 import 'package:inventar_app/pages/artikel/artikel_tile.dart';
-import 'package:inventar_app/pages/artikel_crud/artikel_crud_page.dart';
+import 'package:inventar_app/pages/artikel/artikel_crud/artikel_add_page.dart';
 import 'package:inventar_app/repositories/artikel_repository.dart';
 
 class ArtikelPage extends StatefulWidget {
@@ -68,7 +69,7 @@ Widget build(BuildContext context) {
                       padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ArtikelCrudPage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ArtikelAddPage()));
                         },
                         child: const Text('Artikel hinzufügen +'),
                       ),
@@ -78,18 +79,23 @@ Widget build(BuildContext context) {
                     child: ListView.builder(
                             itemCount: state.artikel.length,
                             itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ArtikelTile(
-                                  image: state.artikel[index].image,
-                                  bezeichnung: state.artikel[index].bezeichnung,
-                                  artikelId: state.artikel[index].artikelId.toString(),
-                                  bestand: state.artikel[index].bestand,
-                                  mindestbestand: state.artikel[index].mindestbestand,
-                                  lagerplatzId: state.artikel[index].lagerplatzId,
-                                  bestellgrenze: state.artikel[index].bestellgrenze,
-                                  beschreibung: state.artikel[index].beschreibung,
+                              return GestureDetector(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ArtikelTile(
+                                    image: state.artikel[index].image,
+                                    bezeichnung: state.artikel[index].bezeichnung,
+                                    artikelId: state.artikel[index].artikelId.toString(),
+                                    bestand: state.artikel[index].bestand,
+                                    mindestbestand: state.artikel[index].mindestbestand,
+                                    lagerplatzId: state.artikel[index].lagerplatzId,
+                                    bestellgrenze: state.artikel[index].bestellgrenze,
+                                    beschreibung: state.artikel[index].beschreibung,
+                                  ),
                                 ),
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ArtikelUDPage(artikel: state.artikel[index])));
+                                },
                               );
                             },
                           )

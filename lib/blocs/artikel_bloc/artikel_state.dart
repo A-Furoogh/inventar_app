@@ -52,3 +52,14 @@ final class ArtikelSearchState extends ArtikelState {
   @override
   List<Object> get props => [ searchedArtikel];
 }
+
+// Artikel auswählen und zurückgeben (für Inventur)
+final class ArtikelSelectState extends ArtikelState {
+
+  final Artikel selectedArtikel;
+
+  const ArtikelSelectState( this.selectedArtikel) : super(const []);
+
+  @override
+  List<Object> get props => [ selectedArtikel];
+}

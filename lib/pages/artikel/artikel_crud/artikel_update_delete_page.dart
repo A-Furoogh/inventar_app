@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -8,14 +9,17 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
 import 'package:inventar_app/models/artikel.dart';
 
-class ArtikelCrudPage extends StatefulWidget {
-  const ArtikelCrudPage({super.key});
+class ArtikelUDPage extends StatefulWidget {
+
+  final Artikel artikel;
+
+  const ArtikelUDPage({super.key, required this.artikel});
 
   @override
-  State<ArtikelCrudPage> createState() => _ArtikelCrudPageState();
+  State<ArtikelUDPage> createState() => _ArtikelUDPageState();
 }
 
-class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
+class _ArtikelUDPageState extends State<ArtikelUDPage> {
   final TextEditingController _bezeichnungController = TextEditingController();
   final TextEditingController _bestandController = TextEditingController();
   final TextEditingController _minBestandController = TextEditingController();
@@ -28,6 +32,25 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
   final _lagerplatzCodeController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  bool _artikelChanged = false;
+
+  @override
+  void initState(){
+    super.initState();
+    _bezeichnungController.text = widget.artikel.bezeichnung;
+    _bestandController.text = widget.artikel.bestand.toString();
+    _minBestandController.text = widget.artikel.mindestbestand.toString();
+    _bestellgrenzeController.text = widget.artikel.bestellgrenze.toString();
+    _beschreibungController.text = widget.artikel.beschreibung ?? '';
+    _lagerplatzIdController = widget.artikel.lagerplatzId ?? '';
+    _lagerplatzCodeController.text = widget.artikel.lagerplatzId ?? '';
+    // if image is a path, then set the image to the path
+    // if image is Base64, then convert it to image and set the image
+    if (widget.artikel.image != null) {
+      _pickedImage = File(widget.artikel.image!);
+    } 
+  }
 
 
   @override
@@ -52,9 +75,10 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
                         GestureDetector(
                             onTap: _changeImage,
                             child: _pickedImage != null
-                                ? Image.file(_pickedImage!,
-                                    width: 150,
-                                    height: 150,
+                                ? Image.memory(
+                                    base64Decode(widget.artikel.image!),
+                                    width: 100,
+                                    height: 100,
                                     fit: BoxFit.cover)
                                 : const Image(
                                     image: AssetImage(
@@ -339,7 +363,60 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
                             Navigator.pop(context);
                           }
                         },
-                        child: const Text('Hinzufügen',
+                        // Button-Style
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: _artikelChanged ? Colors.green : Colors.grey,
+                            foregroundColor: _artikelChanged ? Colors.white : Colors.grey[800],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            )),
+                        child: const Text('Speichern',
+                            style: TextStyle(fontSize: 26)),
+                      ),
+                    ),
+                  ),
+                  // Button zum Löschen
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Mit dem ArtikelDeleteEvent wird der Artikel in der Datenbank gelöscht
+                          //BlocProvider.of<ArtikelBloc>(context).add(ArtikelDeleteEvent(widget.artikel.artikelId));
+                          Navigator.pop(context);
+                        },
+                        // Button-Style
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            )),
+                        child: const Text('Löschen',
+                            style: TextStyle(fontSize: 26)),
+                      ),
+                    ),
+                  ),
+                  // Button zum Abbrechen
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        // Button-Style
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red[900],
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            )),
+                        child: const Text('Abbrechen',
                             style: TextStyle(fontSize: 26)),
                       ),
                     ),
@@ -401,8 +478,7 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
                   onPressed: () async {
                     Navigator.of(context).pop();
                     final picker = ImagePicker();
-                    final pickedFile =
-                        await picker.pickImage(source: ImageSource.camera);
+                    final pickedFile = await picker.pickImage(source: ImageSource.camera);
                     _processImage(pickedFile);
                   },
                   label: const Text('Kamera'),
@@ -412,8 +488,7 @@ class _ArtikelCrudPageState extends State<ArtikelCrudPage> {
                     onPressed: () async {
                       Navigator.of(context).pop();
                       final picker = ImagePicker();
-                      final pickedFile =
-                          await picker.pickImage(source: ImageSource.gallery);
+                      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
                       _processImage(pickedFile);
                     },
                     label: const Text('Galerie'),

@@ -28,7 +28,7 @@ class Artikel {
       mindestbestand: json['mindestbestand'] != null ? int.parse(json['mindestbestand']) : null,
       bestellgrenze: json['bestellgrenze'] != null ? int.parse(json['bestellgrenze']) : null,
       image: json['image'],
-      lagerplatzId: json['lagerplatzId'] ?? json['lagerplatzId'],
+      lagerplatzId: json['lagerplatzId'],
     );
   }
 

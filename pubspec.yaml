@@ -46,6 +46,7 @@ dependencies:
   equatable: ^2.0.5
   http:
   bloc: ^8.1.2
+  qr_flutter:
 
 dev_dependencies:
   flutter_test:

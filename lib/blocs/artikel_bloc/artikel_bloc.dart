@@ -35,6 +35,7 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
 
     on<ArtikelUpdateEvent>((event, emit) async {
       try {
+        emit(const ArtikelLoadingState());
         await _artikelRepository.updateArtikel(event.artikel);
         final List<Artikel> artikel = await _artikelRepository.getArtikels();
         emit(ArtikelLoadedState(artikel));
@@ -45,6 +46,7 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
 
     on<ArtikelDeleteEvent>((event, emit) async {
       try {
+        emit(const ArtikelLoadingState());
         await _artikelRepository.deleteArtikel(event.artikel.artikelId!);
         final List<Artikel> artikel = await _artikelRepository.getArtikels();
         emit(ArtikelLoadedState(artikel));

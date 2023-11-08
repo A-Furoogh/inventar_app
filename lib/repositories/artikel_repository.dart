@@ -21,7 +21,7 @@ class ArtikelRepository {
   }
 
   Future<Artikel> getArtikel(int id) async {
-    Response response = await get(Uri.parse(endpoint + id.toString()));
+    Response response = await get(Uri.parse('$endpoint/$id'));
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body);
       return Artikel.fromJson(result);
@@ -48,18 +48,23 @@ class ArtikelRepository {
   }
 
   Future<void> updateArtikel(Artikel artikel) async {
-    Response response = await put(Uri.parse(endpoint + artikel.artikelId.toString()),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(artikel.toJson()));
-    if (response.statusCode != 200) {
-      throw Exception(response.reasonPhrase);
-    }
+      
+      if (artikel.image != null && !isBase64(artikel.image!)) {
+        artikel.image = await convertImageToBase64(artikel.image!);
+      }
+  
+      Response response = await put(Uri.parse(endpoint),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(artikel.toJson()));
+      if (response.statusCode != 200) {
+        throw Exception(response.reasonPhrase);
+      }
   }
 
-  Future<void> deleteArtikel(int id) async {
-    Response response = await delete(Uri.parse(endpoint + id.toString()));
+  Future<void> deleteArtikel(int artikelId) async {
+    Response response = await delete(Uri.parse(endpoint + artikelId.toString()));
     if (response.statusCode != 200) {
       throw Exception(response.reasonPhrase);
     }
@@ -86,6 +91,22 @@ class ArtikelRepository {
       print('Error convertImageToBase64: $e');
       throw Exception(e);
     }
+  }
+
+  // Konvertieren von Base64 in Image
+  Future<File> convertBase64ToImage(String base64Image) async {
+    try {
+      final decodedBytes = base64Decode(base64Image);
+      return File('path_to_image').writeAsBytes(decodedBytes);
+    } catch (e) {
+      print('Error convertBase64ToImage: $e');
+      throw Exception(e);
+    }
+  }
+
+  bool isBase64(String base64String) {
+    RegExp base64 = RegExp(r'^data:image\/[a-z]+;base64,');
+    return base64.hasMatch(base64String);
   }
 
 }

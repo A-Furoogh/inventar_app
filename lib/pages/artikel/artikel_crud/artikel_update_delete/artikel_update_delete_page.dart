@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -8,14 +9,17 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
 import 'package:inventar_app/models/artikel.dart';
 
-class ArtikelAddPage extends StatefulWidget {
-  const ArtikelAddPage({super.key});
+class ArtikelUDPage extends StatefulWidget {
+
+  final Artikel artikel;
+
+  const ArtikelUDPage({super.key, required this.artikel});
 
   @override
-  State<ArtikelAddPage> createState() => _ArtikelAddPageState();
+  State<ArtikelUDPage> createState() => _ArtikelUDPageState();
 }
 
-class _ArtikelAddPageState extends State<ArtikelAddPage> {
+class _ArtikelUDPageState extends State<ArtikelUDPage> {
   final TextEditingController _bezeichnungController = TextEditingController();
   final TextEditingController _bestandController = TextEditingController();
   final TextEditingController _minBestandController = TextEditingController();
@@ -29,11 +33,56 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  bool _artikelChanged = false;
+
+  @override
+  void initState(){
+    super.initState();
+    _bezeichnungController.text = widget.artikel.bezeichnung;
+    _bestandController.text = widget.artikel.bestand.toString();
+    _minBestandController.text = widget.artikel.mindestbestand.toString();
+    _bestellgrenzeController.text = widget.artikel.bestellgrenze.toString();
+    _beschreibungController.text = widget.artikel.beschreibung ?? '';
+    _lagerplatzIdController = widget.artikel.lagerplatzId ?? '';
+    _lagerplatzCodeController.text = widget.artikel.lagerplatzId ?? '';
+    // if image is a path, then set the image to the path
+    // if image is Base64, then convert it to image and set the image
+    if (widget.artikel.image != null) {
+      _pickedImage = File(widget.artikel.image!);
+    }
+
+    // Füge Listener hinzu, um zu prüfen, ob sich die Eingaben geändert haben
+    _bezeichnungController.addListener(_onControllerChanged);
+    _bestandController.addListener(_onControllerChanged);
+    _minBestandController.addListener(_onControllerChanged);
+    _bestellgrenzeController.addListener(_onControllerChanged);
+    _beschreibungController.addListener(_onControllerChanged); 
+  }
+
+  // Prüfe, ob sich die Eingaben geändert haben
+  void _onControllerChanged() {
+    if (_bezeichnungController.text != widget.artikel.bezeichnung ||
+        _bestandController.text != widget.artikel.bestand.toString() ||
+        _minBestandController.text != widget.artikel.mindestbestand.toString() ||
+        _bestellgrenzeController.text != widget.artikel.bestellgrenze.toString() ||
+        _beschreibungController.text != widget.artikel.beschreibung ||
+        _lagerplatzIdController != widget.artikel.lagerplatzId ||
+        _pickedImage?.path != widget.artikel.image) {
+      setState(() {
+        _artikelChanged = true;
+      });
+    } else {
+      setState(() {
+        _artikelChanged = false;
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Neues Artikel'), centerTitle: true),
+      appBar: AppBar(title: const Text('Neuer Artikel'), centerTitle: true),
       body: Form(
         key: _formKey,
         child: Container(
@@ -52,9 +101,10 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                         GestureDetector(
                             onTap: _changeImage,
                             child: _pickedImage != null
-                                ? Image.file(_pickedImage!,
-                                    width: 150,
-                                    height: 150,
+                                ? Image.memory(
+                                    base64Decode(widget.artikel.image!),
+                                    width: 100,
+                                    height: 100,
                                     fit: BoxFit.cover)
                                 : const Image(
                                     image: AssetImage(
@@ -310,7 +360,7 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 8.0),
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: _artikelChanged ? () {
                           if (_formKey.currentState!.validate()) {
                             Artikel artikel = Artikel(
                                 bezeichnung: _bezeichnungController.text,
@@ -335,11 +385,89 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                                     ? _pickedImage!.path
                                     : null);
                             // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
-                            BlocProvider.of<ArtikelBloc>(context).add(ArtikelAddEvent(artikel));
+                            BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel));
                             Navigator.pop(context);
                           }
+                        } : null,
+                        // Button-Style
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:  Colors.green,
+                            foregroundColor:  Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            )),
+                        child: const Text('Speichern',
+                            style: TextStyle(fontSize: 26)),
+                      ),
+                    ),
+                  ),
+                  // Button zum Löschen
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Mit dem ArtikelDeleteEvent wird der Artikel in der Datenbank gelöscht
+                          // Ein ShowDialog bestätigt das Löschen
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Artikel löschen'),
+                                content: const Text(
+                                    'Sind Sie sicher, dass Sie den Artikel löschen möchten?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Abbrechen'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      BlocProvider.of<ArtikelBloc>(context).add(ArtikelDeleteEvent(widget.artikel));
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Löschen'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
-                        child: const Text('Hinzufügen',
+                        // Button-Style
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            )),
+                        child: const Text('Löschen',
+                            style: TextStyle(fontSize: 26)),
+                      ),
+                    ),
+                  ),
+                  // Button zum Abbrechen
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        // Button-Style
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red[900],
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            )),
+                        child: const Text('Abbrechen',
                             style: TextStyle(fontSize: 26)),
                       ),
                     ),
@@ -401,8 +529,7 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                   onPressed: () async {
                     Navigator.of(context).pop();
                     final picker = ImagePicker();
-                    final pickedFile =
-                        await picker.pickImage(source: ImageSource.camera);
+                    final pickedFile = await picker.pickImage(source: ImageSource.camera);
                     _processImage(pickedFile);
                   },
                   label: const Text('Kamera'),
@@ -412,8 +539,7 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                     onPressed: () async {
                       Navigator.of(context).pop();
                       final picker = ImagePicker();
-                      final pickedFile =
-                          await picker.pickImage(source: ImageSource.gallery);
+                      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
                       _processImage(pickedFile);
                     },
                     label: const Text('Galerie'),

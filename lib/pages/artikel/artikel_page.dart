@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
-import 'package:inventar_app/pages/artikel/artikel_crud/artikel_update_delete_page.dart';
+import 'package:inventar_app/pages/artikel/artikel_crud/artikel_update_delete/artikel_update_delete_page.dart';
 import 'package:inventar_app/pages/artikel/artikel_tile.dart';
 import 'package:inventar_app/pages/artikel/artikel_crud/artikel_add/artikel_add_page.dart';
 import 'package:inventar_app/repositories/artikel_repository.dart';

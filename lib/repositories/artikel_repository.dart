@@ -33,7 +33,6 @@ class ArtikelRepository {
   Future<void> addArtikel(Artikel artikel) async {
 
     if (artikel.image != null) {
-      print('artikel.image: ${artikel.image}');
       artikel.image = await convertImageToBase64(artikel.image!);
     }
 
@@ -49,7 +48,7 @@ class ArtikelRepository {
 
   Future<void> updateArtikel(Artikel artikel) async {
       
-      if (artikel.image != null && !isBase64(artikel.image!)) {
+      if (artikel.image != null) {
         artikel.image = await convertImageToBase64(artikel.image!);
       }
   
@@ -63,8 +62,12 @@ class ArtikelRepository {
       }
   }
 
-  Future<void> deleteArtikel(int artikelId) async {
-    Response response = await delete(Uri.parse(endpoint + artikelId.toString()));
+  Future<void> deleteArtikel(Artikel artikel) async {
+    Response response = await delete(Uri.parse(endpoint),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(artikel.toJson()));
     if (response.statusCode != 200) {
       throw Exception(response.reasonPhrase);
     }
@@ -92,21 +95,4 @@ class ArtikelRepository {
       throw Exception(e);
     }
   }
-
-  // Konvertieren von Base64 in Image
-  Future<File> convertBase64ToImage(String base64Image) async {
-    try {
-      final decodedBytes = base64Decode(base64Image);
-      return File('path_to_image').writeAsBytes(decodedBytes);
-    } catch (e) {
-      print('Error convertBase64ToImage: $e');
-      throw Exception(e);
-    }
-  }
-
-  bool isBase64(String base64String) {
-    RegExp base64 = RegExp(r'^data:image\/[a-z]+;base64,');
-    return base64.hasMatch(base64String);
-  }
-
 }

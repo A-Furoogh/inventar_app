@@ -27,7 +27,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
   final TextEditingController _beschreibungController = TextEditingController();
   String _lagerplatzIdController = '';
   // Image controller
-  File? _pickedImage;
+  Uint8List? _imageController;
 
   final _lagerplatzCodeController = TextEditingController();
 
@@ -45,10 +45,8 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
     _beschreibungController.text = widget.artikel.beschreibung ?? '';
     _lagerplatzIdController = widget.artikel.lagerplatzId ?? '';
     _lagerplatzCodeController.text = widget.artikel.lagerplatzId ?? '';
-    // if image is a path, then set the image to the path
-    // if image is Base64, then convert it to image and set the image
     if (widget.artikel.image != null) {
-      _pickedImage = File(widget.artikel.image!);
+      _imageController = base64Decode(widget.artikel.image!);
     }
 
     // Füge Listener hinzu, um zu prüfen, ob sich die Eingaben geändert haben
@@ -66,8 +64,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
         _minBestandController.text != widget.artikel.mindestbestand.toString() ||
         _bestellgrenzeController.text != widget.artikel.bestellgrenze.toString() ||
         _beschreibungController.text != widget.artikel.beschreibung ||
-        _lagerplatzIdController != widget.artikel.lagerplatzId ||
-        _pickedImage?.path != widget.artikel.image) {
+        _lagerplatzIdController != widget.artikel.lagerplatzId) {
       setState(() {
         _artikelChanged = true;
       });
@@ -100,11 +97,11 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                       children: [
                         GestureDetector(
                             onTap: _changeImage,
-                            child: _pickedImage != null
+                            child: _imageController != null
                                 ? Image.memory(
-                                    base64Decode(widget.artikel.image!),
-                                    width: 100,
-                                    height: 100,
+                                    _imageController!,
+                                    width: 150,
+                                    height: 150,
                                     fit: BoxFit.cover)
                                 : const Image(
                                     image: AssetImage(
@@ -363,6 +360,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                         onPressed: _artikelChanged ? () {
                           if (_formKey.currentState!.validate()) {
                             Artikel artikel = Artikel(
+                                artikelId: widget.artikel.artikelId,
                                 bezeichnung: _bezeichnungController.text,
                                 bestand: int.parse(_bestandController.text),
                                 mindestbestand: _minBestandController
@@ -381,8 +379,8 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                     _lagerplatzIdController.isNotEmpty
                                         ? _lagerplatzIdController
                                         : null,
-                                image: _pickedImage != null
-                                    ? _pickedImage!.path
+                                image: _imageController != null
+                                    ? widget.artikel.image
                                     : null);
                             // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
                             BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel));
@@ -579,10 +577,12 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
                   setState(() {
-                    _pickedImage = File(pickedFile.path);
+                    _imageController = File(pickedFile.path).readAsBytesSync();
+                    widget.artikel.image = File(pickedFile.path).path;
+                    _artikelChanged = true;
                   });
+                  Navigator.of(context).pop();
                 },
                 child: const Text('Bestätigen'),
               ),

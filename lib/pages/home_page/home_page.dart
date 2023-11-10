@@ -4,6 +4,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:inventar_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:inventar_app/pages/artikel/artikel_page.dart';
 import 'package:inventar_app/pages/home_page/fields_tile.dart';
+import 'package:inventar_app/pages/lager_page/lager_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -61,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     FieldWidget(image: "assets/images/lager.png", name: "Lager", onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ArtikelPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LagerPage()));
                     },),
                     FieldWidget(image: "assets/images/artikel.png", name: "Artikel", onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const ArtikelPage()));

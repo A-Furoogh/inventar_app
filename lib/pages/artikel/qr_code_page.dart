@@ -40,6 +40,7 @@ class _GeneratedQRPageState extends State<GeneratedQRPage> {
               data: widget.qrData,
               version: QrVersions.auto,
               size: 200.0,
+              gapless: false,
             ),
             const SizedBox(height: 20),
             Text(widget.qrData, style: const TextStyle(fontSize: 24)),
@@ -61,26 +62,27 @@ class _GeneratedQRPageState extends State<GeneratedQRPage> {
   void _printQRCode() {
     Printing.layoutPdf(onLayout: (format) {
       return Printing.convertHtml(
-        html: '<html><body><img src="data:image/png;base64,${_generateQRBase64()}"></body></html>',
+        html: '<html><img src="data:image/png;base64,${_generateQRBase64()}"><body><p>${widget.qrData}</p></body></html>',
+        format: format,
       );
     });
   }
 
   Future<String> _generateQRBase64() async {
-    final painter = QrPainter(
+    final image = await QrPainter(
       data: widget.qrData,
       version: QrVersions.auto,
-      
-    );
-
-    final recorder = PictureRecorder();
-    final canvas = Canvas(recorder);
-    painter.paint(canvas, const Size(200.0, 200.0));
-
-    final picture = recorder.endRecording();
-    final img = await picture.toImage(200, 200);
-    final byteData = await img.toByteData(format: ImageByteFormat.png);
-
+      gapless: false,
+      eyeStyle: const QrEyeStyle(
+        eyeShape: QrEyeShape.square,
+        color: Color(0xFF000000),
+      ),
+      dataModuleStyle: const QrDataModuleStyle(
+        dataModuleShape: QrDataModuleShape.circle,
+        color: Color(0xFF000000),)
+    ).toImage(200);
+    final byteData = await image.toByteData(format: ImageByteFormat.png);
     return base64Encode(byteData!.buffer.asUint8List());
   }
+  
 }

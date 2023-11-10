@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
 import 'package:inventar_app/models/artikel.dart';
-import 'package:inventar_app/pages/artikel/artikel_crud/artikel_add/qr_code.dart';
 
 class ArtikelAddPage extends StatefulWidget {
   const ArtikelAddPage({super.key});
@@ -23,10 +22,12 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
   final TextEditingController _bestellgrenzeController = TextEditingController();
   final TextEditingController _beschreibungController = TextEditingController();
   String _lagerplatzIdController = '';
+  String _artikelNrController = '';
   // Image controller
   File? _pickedImage;
 
   final _lagerplatzCodeController = TextEditingController();
+  final _artikelNrCodeController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -34,333 +35,398 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Neues Artikel'), centerTitle: true),
-      body: Form(
-        key: _formKey,
-        child: Container(
-          color: Colors.grey[300],
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                            onTap: _changeImage,
-                            child: _pickedImage != null
-                                ? Image.file(_pickedImage!,
-                                    width: 150,
-                                    height: 150,
-                                    fit: BoxFit.cover)
-                                : const Image(
-                                    image: AssetImage(
-                                        'assets/images/default_artikel.png'),
-                                    width: 150,
-                                    height: 150,
-                                    fit: BoxFit.cover)),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(4),
-                                  child: Column(
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.all(4.0),
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.label_important,
-                                                color: Colors.grey),
-                                            Text('Bezeichnung: ',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold,
-                                                    fontSize: 22)),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: TextFormField(
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            hintText: 'Bezeichnung',
-                                          ),
-                                          controller: _bezeichnungController,
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Bitte geben Sie eine Bezeichnung ein.';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Row(
-                                    children: [
-                                      const Expanded(
-                                        child: Padding(
+      appBar: AppBar(title: const Text('Neues Produkt'), centerTitle: true),
+      body: Container(
+        color: Colors.grey[300],
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                              onTap: _changeImage,
+                              child: _pickedImage != null
+                                  ? Image.file(_pickedImage!,
+                                      width: 150,
+                                      height: 150,
+                                      fit: BoxFit.cover)
+                                  : const Image(
+                                      image: AssetImage(
+                                          'assets/images/default_artikel.png'),
+                                      width: 150,
+                                      height: 150,
+                                      fit: BoxFit.cover)),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: Column(
+                                      children: [
+                                        const Padding(
                                           padding: EdgeInsets.all(4.0),
                                           child: Row(
                                             children: [
                                               Icon(Icons.label_important,
                                                   color: Colors.grey),
-                                              Text('Bestand: ',
+                                              Text('Bezeichnung: ',
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontSize: 18)),
+                                                      fontSize: 22)),
                                             ],
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 80,
-                                        height: 40,
-                                        child: TextFormField(
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(),
+                                        Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: TextFormField(
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              hintText: 'Bezeichnung',
+                                              fillColor: Colors.white60,
+                                              filled: true,
+                                            ),
+                                            controller: _bezeichnungController,
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return 'Bitte geben Sie eine Bezeichnung ein.';
+                                              }
+                                              return null;
+                                            },
                                           ),
-                                          keyboardType: TextInputType.number,
-                                          controller: _bestandController,
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Bitte geben Sie einen Bestand ein.';
-                                            }
-                                            return null;
-                                          },
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Row(
-                                    children: [
-                                      const Expanded(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(4.0),
-                                          child: Row(
-                                            children: [
-                                              Icon(Icons.label_important,
-                                                  color: Colors.grey),
-                                              Text(
-                                                'Min.Bestand: ',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold,
-                                                    fontSize: 16),
-                                              ),
-                                            ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      children: [
+                                        const Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(4.0),
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.label_important,
+                                                    color: Colors.grey),
+                                                Text('Bestand: ',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18)),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 80,
-                                        height: 40,
-                                        child: TextField(
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(),
+                                        SizedBox(
+                                          width: 80,
+                                          height: 40,
+                                          child: TextFormField(
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              fillColor: Colors.white60,
+                                              filled: true,
+                                            ),
+                                            keyboardType: TextInputType.number,
+                                            controller: _bestandController,
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return 'Bitte geben Sie einen Bestand ein.';
+                                              }
+                                              return null;
+                                            },
                                           ),
-                                          keyboardType: TextInputType.number,
-                                          controller: _minBestandController,
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      children: [
+                                        const Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(4.0),
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.label_important,
+                                                    color: Colors.grey),
+                                                Text(
+                                                  'Min.Bestand: ',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 80,
+                                          height: 40,
+                                          child: TextField(
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              fillColor: Colors.white60,
+                                              filled: true,
+                                            ),
+                                            keyboardType: TextInputType.number,
+                                            controller: _minBestandController,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Row(
-                      children: [
-                        const Expanded(
-                          child: Padding(
+                    Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Row(
+                        children: [
+                          const Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.label_important,
+                                      color: Colors.grey),
+                                  Text('Bestellgrenze: ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18)),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: SizedBox(
+                                height: 40,
+                                child: TextField(
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    fillColor: Colors.white60,
+                                    filled: true,
+                                    hintText: 'Bestellgrenze',
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  controller: _bestellgrenzeController,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Column(
+                        children: [
+                          const Padding(
                             padding: EdgeInsets.all(4.0),
                             child: Row(
                               children: [
-                                Icon(Icons.label_important,
-                                    color: Colors.grey),
-                                Text('Bestellgrenze: ',
+                                Icon(Icons.label_important, color: Colors.grey),
+                                Text('Beschreibung: ',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18)),
                               ],
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Padding(
+                          Padding(
                             padding: const EdgeInsets.all(4.0),
-                            child: SizedBox(
-                              height: 40,
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Bestellgrenze',
-                                ),
-                                keyboardType: TextInputType.number,
-                                controller: _bestellgrenzeController,
+                            child: TextField(
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                fillColor: Colors.white60,
+                                filled: true,
+                                hintText: 'Beschreibung (optional)',
                               ),
+                              controller: _beschreibungController,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Column(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Row(
-                            children: [
-                              Icon(Icons.label_important, color: Colors.grey),
-                              Text('Beschreibung: ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18)),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: TextField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Beschreibung (optional)',
-                            ),
-                            controller: _beschreibungController,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.label_important,
-                                  color: Colors.grey),
-                              Text(
-                                  'Lagerplatz: ${_lagerplatzCodeController.text}',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18)),
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: SizedBox(
-                              width: 135,
-                              child: ElevatedButton(
-                                onPressed: scanBarcode,
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.amber,
-                                    foregroundColor: Colors.black,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(15.0),
-                                    )),
-                                child: const Row(
-                                  children: [
-                                    Icon(Icons.qr_code_scanner),
-                                    Text(' Scanen',
-                                        style: TextStyle(fontSize: 22)),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Button zum Speichern
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            Artikel artikel = Artikel(
-                                bezeichnung: _bezeichnungController.text,
-                                bestand: int.parse(_bestandController.text),
-                                mindestbestand: _minBestandController
-                                        .text.isNotEmpty
-                                    ? int.parse(_minBestandController.text)
-                                    : 0,
-                                bestellgrenze: _bestellgrenzeController
-                                        .text.isNotEmpty
-                                    ? int.parse(_bestellgrenzeController.text)
-                                    : 0,
-                                beschreibung:
-                                    _beschreibungController.text.isNotEmpty
-                                        ? _beschreibungController.text
-                                        : null,
-                                lagerplatzId:
-                                    _lagerplatzIdController.isNotEmpty
-                                        ? _lagerplatzIdController
-                                        : null,
-                                image: _pickedImage != null
-                                    ? _pickedImage!.path
-                                    : null);
-                                    // Add artikel, when added, then go to GeneratedQRCodePage and show QR Code and pop this page
-                            BlocProvider.of<ArtikelBloc>(context)
-                                .add(ArtikelAddEvent(artikel));
-                                // Wait for artikel to be added and show CircularProgressIndicator
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                });
-                            Future.delayed(const Duration(seconds: 2), () {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>GeneratedQRPage(qrData: artikel.artikelId.toString(),)));
-                            });
-                          }
-                        },
-                        child: const Text('Hinzufügen',
-                            style: TextStyle(fontSize: 26)),
+                        ],
                       ),
                     ),
-                  ),
-                ],
+                    Container(
+                      color: Colors.blue[100],
+                      child: Padding(                            // ProduktNr
+                        padding: const EdgeInsets.all(4),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.label_important,
+                                      color: Colors.grey),
+                                  Text(
+                                      'ProduktNr: ${_artikelNrCodeController.text}',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18)),
+                                ],
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: SizedBox(
+                                  width: 220,
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      String result = await scanBarcode(_artikelNrCodeController);
+                                      setState(() {
+                                        _artikelNrCodeController.text = result;
+                                        _artikelNrController = result;
+                                      });
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.amber,
+                                        foregroundColor: Colors.black,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        )),
+                                    child: const Row(
+                                      children: [
+                                        Icon(Icons.qr_code_scanner),
+                                        Text(' Produkt Scanen',
+                                            style: TextStyle(fontSize: 22)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      color: Colors.green[200],
+                      child: Padding(                          // Lagerplatz
+                        padding: const EdgeInsets.all(4),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.label_important,
+                                      color: Colors.grey),
+                                  Text(
+                                      'Lagerplatz: ${_lagerplatzCodeController.text}',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18)),
+                                ],
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: SizedBox(
+                                  width: 195,
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      String result = await scanBarcode(_lagerplatzCodeController);
+                                      setState(() {
+                                        _lagerplatzIdController = result;
+                                        _lagerplatzCodeController.text = result;
+                                      });
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.amber,
+                                        foregroundColor: Colors.black,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        )),
+                                    child: const Row(
+                                      children: [
+                                        Icon(Icons.qr_code_scanner),
+                                        Text(' Platz Scanen',
+                                            style: TextStyle(fontSize: 22)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    // Button zum Speichern
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 8.0),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              Artikel artikel = Artikel(
+                                  bezeichnung: _bezeichnungController.text,
+                                  bestand: int.parse(_bestandController.text),
+                                  mindestbestand: _minBestandController
+                                          .text.isNotEmpty
+                                      ? int.parse(_minBestandController.text)
+                                      : 0,
+                                  bestellgrenze: _bestellgrenzeController
+                                          .text.isNotEmpty
+                                      ? int.parse(_bestellgrenzeController.text)
+                                      : 0,
+                                  beschreibung:
+                                      _beschreibungController.text.isNotEmpty
+                                          ? _beschreibungController.text
+                                          : null,
+                                  lagerplatzId:
+                                      _lagerplatzIdController.isNotEmpty && _lagerplatzIdController != 'Ungültiger QR-Code' && _lagerplatzIdController != 'Fehlgeschlagen beim erhalten der Platform-version.'
+                                          ? _lagerplatzIdController
+                                          : null,
+                                  image: _pickedImage != null
+                                      ? _pickedImage!.path
+                                      : null,
+                                      artikelNr: _artikelNrController.isNotEmpty && _artikelNrController != 'Ungültiger QR-Code' && _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.'
+                                          ? _artikelNrController
+                                          : null,);
+                              BlocProvider.of<ArtikelBloc>(context)
+                                  .add(ArtikelAddEvent(artikel));
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: const Text('Hinzufügen',
+                              style: TextStyle(fontSize: 26)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -369,7 +435,7 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
     );
   }
 
-  Future scanBarcode() async {
+   Future<String> scanBarcode(TextEditingController barcode) async {
     String scanResult;
     try {
       scanResult = await FlutterBarcodeScanner.scanBarcode(
@@ -380,27 +446,23 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
         if (scannedUri.pathSegments.isNotEmpty) {
           if (scannedUri.pathSegments.last == "-1") {
             scanResult = 'Ungültiger QR-Code';
-            _lagerplatzIdController = '';
           } else {
             scanResult = scannedUri.pathSegments.last;
-            _lagerplatzIdController = scanResult;
           }
         } else {
           scanResult = 'Ungültiger QR-Code';
-          _lagerplatzIdController = '';
         }
       } else {
         scanResult = 'Ungültiger QR-Code';
-        _lagerplatzIdController = '';
       }
       // ignore: avoid_print
       print(scanResult);
     } on PlatformException {
       scanResult = 'Fehlgeschlagen beim erhalten der Platform-version.';
     }
-    if (!mounted) return;
+    if (!mounted) return '';
 
-    setState(() => _lagerplatzCodeController.text = scanResult);
+    return scanResult;
   }
 
   Future<void> _changeImage() async {

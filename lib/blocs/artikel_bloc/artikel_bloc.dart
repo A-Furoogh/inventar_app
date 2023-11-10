@@ -66,7 +66,8 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
 
     on<ArtikelSelectEvent>((event, emit) async {
       try {
-        emit(ArtikelSelectState(event.artikel));
+        final Artikel artikel = await _artikelRepository.getArtikel(event.artikel.artikelId!);
+        emit(ArtikelSelectState(artikel));
       } catch (e) {
         emit(ArtikelErrorState(e.toString()));
       }

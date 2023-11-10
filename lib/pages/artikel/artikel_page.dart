@@ -91,6 +91,7 @@ Widget build(BuildContext context) {
                                     lagerplatzId: state.artikel[index].lagerplatzId,
                                     bestellgrenze: state.artikel[index].bestellgrenze,
                                     beschreibung: state.artikel[index].beschreibung,
+                                    artikelNr: state.artikel[index].artikelNr,
                                   ),
                                 ),
                                 onTap: () {

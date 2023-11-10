@@ -21,13 +21,15 @@ class ArtikelRepository {
   }
 
   Future<Artikel> getArtikel(int id) async {
-    Response response = await get(Uri.parse('$endpoint/$id'));
-    if (response.statusCode == 200) {
-      final result = jsonDecode(response.body);
-      return Artikel.fromJson(result);
-    } else {
-      throw Exception(response.reasonPhrase);
-    }
+
+    await getArtikels().then((artikel) {
+      for (Artikel a in artikel) {
+        if (a.artikelId == id) {
+          return a;
+        }
+      }
+    });
+    throw Exception("Artikel mit der ID $id nicht gefunden");
   }
 
   Future<void> addArtikel(Artikel artikel) async {

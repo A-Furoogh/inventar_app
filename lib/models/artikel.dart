@@ -7,6 +7,8 @@ class Artikel {
   final int? bestellgrenze;
   String? image;
   final String? lagerplatzId;
+  // ProduktNr
+  final String? artikelNr;
 
   Artikel({
     this.artikelId,
@@ -17,6 +19,7 @@ class Artikel {
     this.bestellgrenze,
     this.image,
     this.lagerplatzId,
+    this.artikelNr,
   });
 
   factory Artikel.fromJson(Map<String, dynamic> json) {
@@ -29,6 +32,7 @@ class Artikel {
       bestellgrenze: json['bestellgrenze'] != null ? int.parse(json['bestellgrenze']) : null,
       image: json['image'],
       lagerplatzId: json['lagerplatzId'],
+      artikelNr: json['artikelNr']
     );
   }
 
@@ -42,6 +46,7 @@ class Artikel {
       'bestellgrenze': bestellgrenze,
       'image': image,
       'lagerplatzId': lagerplatzId,
+      'artikelNr': artikelNr
     };
   }
 }

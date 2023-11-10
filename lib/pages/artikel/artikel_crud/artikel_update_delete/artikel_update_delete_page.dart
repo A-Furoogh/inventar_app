@@ -26,10 +26,12 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
   final TextEditingController _bestellgrenzeController = TextEditingController();
   final TextEditingController _beschreibungController = TextEditingController();
   String _lagerplatzIdController = '';
+  String _artikelNrController = '';
   // Image controller
   Uint8List? _imageController;
 
   final _lagerplatzCodeController = TextEditingController();
+  final _artikelNrCodeController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -45,6 +47,8 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
     _beschreibungController.text = widget.artikel.beschreibung ?? '';
     _lagerplatzIdController = widget.artikel.lagerplatzId ?? '';
     _lagerplatzCodeController.text = widget.artikel.lagerplatzId ?? '';
+    _artikelNrController = widget.artikel.artikelNr ?? '';
+    _artikelNrCodeController.text = widget.artikel.artikelNr ?? '';
     if (widget.artikel.image != null) {
       _imageController = base64Decode(widget.artikel.image!);
     }
@@ -54,7 +58,9 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
     _bestandController.addListener(_onControllerChanged);
     _minBestandController.addListener(_onControllerChanged);
     _bestellgrenzeController.addListener(_onControllerChanged);
-    _beschreibungController.addListener(_onControllerChanged); 
+    _beschreibungController.addListener(_onControllerChanged);
+    _lagerplatzCodeController.addListener(_onControllerChanged);
+    _artikelNrCodeController.addListener(_onControllerChanged);
   }
 
   // Prüfe, ob sich die Eingaben geändert haben
@@ -64,7 +70,8 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
         _minBestandController.text != widget.artikel.mindestbestand.toString() ||
         _bestellgrenzeController.text != widget.artikel.bestellgrenze.toString() ||
         _beschreibungController.text != widget.artikel.beschreibung ||
-        _lagerplatzIdController != widget.artikel.lagerplatzId) {
+        _lagerplatzIdController != widget.artikel.lagerplatzId ||
+        _artikelNrCodeController.text != widget.artikel.artikelNr) {
       setState(() {
         _artikelChanged = true;
       });
@@ -79,398 +86,477 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Neuer Artikel'), centerTitle: true),
-      body: Form(
-        key: _formKey,
-        child: Container(
-          color: Colors.grey[300],
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                            onTap: _changeImage,
-                            child: _imageController != null
-                                ? Image.memory(
-                                    _imageController!,
-                                    width: 150,
-                                    height: 150,
-                                    fit: BoxFit.cover)
-                                : const Image(
-                                    image: AssetImage(
-                                        'assets/images/default_artikel.png'),
-                                    width: 150,
-                                    height: 150,
-                                    fit: BoxFit.cover)),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(4),
-                                  child: Column(
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.all(4.0),
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.label_important,
-                                                color: Colors.grey),
-                                            Text('Bezeichnung: ',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold,
-                                                    fontSize: 22)),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: TextFormField(
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            hintText: 'Bezeichnung',
-                                          ),
-                                          controller: _bezeichnungController,
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Bitte geben Sie eine Bezeichnung ein.';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Row(
-                                    children: [
-                                      const Expanded(
-                                        child: Padding(
+      appBar: AppBar(title: const Text('Produkt Updaten'), centerTitle: true),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Container(
+            color: Colors.grey[300],
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                              onTap: _changeImage,
+                              child: _imageController != null
+                                  ? Image.memory(
+                                      _imageController!,
+                                      width: 150,
+                                      height: 150,
+                                      fit: BoxFit.cover)
+                                  : const Image(
+                                      image: AssetImage(
+                                          'assets/images/default_artikel.png'),
+                                      width: 150,
+                                      height: 150,
+                                      fit: BoxFit.cover)),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: Column(
+                                      children: [
+                                        const Padding(
                                           padding: EdgeInsets.all(4.0),
                                           child: Row(
                                             children: [
                                               Icon(Icons.label_important,
                                                   color: Colors.grey),
-                                              Text('Bestand: ',
+                                              Text('Bezeichnung: ',
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontSize: 18)),
+                                                      fontSize: 22)),
                                             ],
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 80,
-                                        height: 40,
-                                        child: TextFormField(
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(),
+                                        Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: TextFormField(
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              hintText: 'Bezeichnung',
+                                              fillColor: Colors.white60,
+                                              filled: true,
+                                            ),
+                                            controller: _bezeichnungController,
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return 'Bitte geben Sie eine Bezeichnung ein.';
+                                              }
+                                              return null;
+                                            },
                                           ),
-                                          keyboardType: TextInputType.number,
-                                          controller: _bestandController,
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Bitte geben Sie einen Bestand ein.';
-                                            }
-                                            return null;
-                                          },
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Row(
-                                    children: [
-                                      const Expanded(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(4.0),
-                                          child: Row(
-                                            children: [
-                                              Icon(Icons.label_important,
-                                                  color: Colors.grey),
-                                              Text(
-                                                'Min.Bestand: ',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold,
-                                                    fontSize: 16),
-                                              ),
-                                            ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      children: [
+                                        const Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(4.0),
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.label_important,
+                                                    color: Colors.grey),
+                                                Text('Bestand: ',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18)),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 80,
-                                        height: 40,
-                                        child: TextField(
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(),
+                                        SizedBox(
+                                          width: 80,
+                                          height: 40,
+                                          child: TextFormField(
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              fillColor: Colors.white60,
+                                              filled: true,
+                                            ),
+                                            keyboardType: TextInputType.number,
+                                            controller: _bestandController,
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return 'Bitte geben Sie einen Bestand ein.';
+                                              }
+                                              return null;
+                                            },
                                           ),
-                                          keyboardType: TextInputType.number,
-                                          controller: _minBestandController,
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      children: [
+                                        const Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(4.0),
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.label_important,
+                                                    color: Colors.grey),
+                                                Text(
+                                                  'Min.Bestand: ',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 80,
+                                          height: 40,
+                                          child: TextField(
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              fillColor: Colors.white60,
+                                              filled: true,
+                                            ),
+                                            keyboardType: TextInputType.number,
+                                            controller: _minBestandController,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Row(
-                      children: [
-                        const Expanded(
-                          child: Padding(
+                    Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Row(
+                        children: [
+                          const Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.label_important,
+                                      color: Colors.grey),
+                                  Text('Bestellgrenze: ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18)),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: SizedBox(
+                                height: 40,
+                                child: TextField(
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: 'Bestellgrenze',
+                                    fillColor: Colors.white60,
+                                    filled: true,
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  controller: _bestellgrenzeController,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Column(
+                        children: [
+                          const Padding(
                             padding: EdgeInsets.all(4.0),
                             child: Row(
                               children: [
-                                Icon(Icons.label_important,
-                                    color: Colors.grey),
-                                Text('Bestellgrenze: ',
+                                Icon(Icons.label_important, color: Colors.grey),
+                                Text('Beschreibung: ',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18)),
                               ],
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Padding(
+                          Padding(
                             padding: const EdgeInsets.all(4.0),
-                            child: SizedBox(
-                              height: 40,
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Bestellgrenze',
-                                ),
-                                keyboardType: TextInputType.number,
-                                controller: _bestellgrenzeController,
+                            child: TextField(
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Beschreibung (optional)',
+                                fillColor: Colors.white60,
+                                filled: true,
                               ),
+                              controller: _beschreibungController,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Column(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Row(
-                            children: [
-                              Icon(Icons.label_important, color: Colors.grey),
-                              Text('Beschreibung: ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18)),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: TextField(
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Beschreibung (optional)',
-                            ),
-                            controller: _beschreibungController,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.label_important,
-                                  color: Colors.grey),
-                              Text(
-                                  'Lagerplatz: ${_lagerplatzCodeController.text}',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18)),
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: SizedBox(
-                              width: 135,
-                              child: ElevatedButton(
-                                onPressed: scanBarcode,
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.amber,
-                                    foregroundColor: Colors.black,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(15.0),
-                                    )),
-                                child: const Row(
-                                  children: [
-                                    Icon(Icons.qr_code_scanner),
-                                    Text(' Scanen',
-                                        style: TextStyle(fontSize: 22)),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Button zum Speichern
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 8.0),
-                      child: ElevatedButton(
-                        onPressed: _artikelChanged ? () {
-                          if (_formKey.currentState!.validate()) {
-                            Artikel artikel = Artikel(
-                                artikelId: widget.artikel.artikelId,
-                                bezeichnung: _bezeichnungController.text,
-                                bestand: int.parse(_bestandController.text),
-                                mindestbestand: _minBestandController
-                                        .text.isNotEmpty
-                                    ? int.parse(_minBestandController.text)
-                                    : 0,
-                                bestellgrenze: _bestellgrenzeController
-                                        .text.isNotEmpty
-                                    ? int.parse(_bestellgrenzeController.text)
-                                    : 0,
-                                beschreibung:
-                                    _beschreibungController.text.isNotEmpty
-                                        ? _beschreibungController.text
-                                        : null,
-                                lagerplatzId:
-                                    _lagerplatzIdController.isNotEmpty
-                                        ? _lagerplatzIdController
-                                        : null,
-                                image: _imageController != null
-                                    ? widget.artikel.image
-                                    : null);
-                            // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
-                            BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel));
-                            Navigator.pop(context);
-                          }
-                        } : null,
-                        // Button-Style
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor:  Colors.green,
-                            foregroundColor:  Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            )),
-                        child: const Text('Speichern',
-                            style: TextStyle(fontSize: 26)),
+                        ],
                       ),
-                    ),
-                  ),
-                  // Button zum Löschen
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 4.0, horizontal: 8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Mit dem ArtikelDeleteEvent wird der Artikel in der Datenbank gelöscht
-                          // Ein ShowDialog bestätigt das Löschen
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('Artikel löschen'),
-                                content: const Text(
-                                    'Sind Sie sicher, dass Sie den Artikel löschen möchten?'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Abbrechen'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      BlocProvider.of<ArtikelBloc>(context).add(ArtikelDeleteEvent(widget.artikel));
-                                      Navigator.of(context).pop();
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Löschen'),
-                                  ),
+                    ),Container(
+                      color: Colors.blue[100],
+                      child: Padding(                            // ProduktNr
+                        padding: const EdgeInsets.all(4),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.label_important,
+                                      color: Colors.grey),
+                                  Text(
+                                      'ProduktNr: ${_artikelNrCodeController.text}',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18)),
                                 ],
-                              );
-                            },
-                          );
-                        },
-                        // Button-Style
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            )),
-                        child: const Text('Löschen',
-                            style: TextStyle(fontSize: 26)),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: SizedBox(
+                                  width: 220,
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      String result = await scanBarcode(_artikelNrCodeController);
+                                      setState(() {
+                                        _artikelNrController = result;
+                                        _artikelNrCodeController.text = result;
+                                      });
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.amber,
+                                        foregroundColor: Colors.black,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        )),
+                                    child: const Row(
+                                      children: [
+                                        Icon(Icons.qr_code_scanner),
+                                        Text(' Produkt Scanen',
+                                            style: TextStyle(fontSize: 22)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  // Button zum Abbrechen
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        // Button-Style
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red[900],
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            )),
-                        child: const Text('Abbrechen',
-                            style: TextStyle(fontSize: 26)),
+                    Container(
+                      color: Colors.green[200],
+                      child: Padding(                          // Lagerplatz
+                        padding: const EdgeInsets.all(4),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.label_important,
+                                      color: Colors.grey),
+                                  Text(
+                                      'Lagerplatz: ${_lagerplatzCodeController.text}',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18)),
+                                ],
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: SizedBox(
+                                  width: 195,
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      String result = await scanBarcode(_lagerplatzCodeController);
+                                      setState(() {
+                                        _lagerplatzIdController = result;
+                                        _lagerplatzCodeController.text = result;
+                                      });
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.amber,
+                                        foregroundColor: Colors.black,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        )),
+                                    child: const Row(
+                                      children: [
+                                        Icon(Icons.qr_code_scanner),
+                                        Text(' Platz Scanen',
+                                            style: TextStyle(fontSize: 22)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    // Button zum Speichern
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 8.0),
+                        child: ElevatedButton(
+                          onPressed: _artikelChanged ? () {
+                            if (_formKey.currentState!.validate()) {
+                              Artikel artikel = Artikel(
+                                  artikelId: widget.artikel.artikelId,
+                                  bezeichnung: _bezeichnungController.text,
+                                  bestand: int.parse(_bestandController.text),
+                                  mindestbestand: _minBestandController
+                                          .text.isNotEmpty
+                                      ? int.parse(_minBestandController.text)
+                                      : 0,
+                                  bestellgrenze: _bestellgrenzeController
+                                          .text.isNotEmpty
+                                      ? int.parse(_bestellgrenzeController.text)
+                                      : 0,
+                                  beschreibung:
+                                      _beschreibungController.text.isNotEmpty
+                                          ? _beschreibungController.text
+                                          : null,
+                                  lagerplatzId:
+                                      _lagerplatzIdController.isNotEmpty && _lagerplatzIdController != 'Ungültiger QR-Code' && _lagerplatzIdController != 'Fehlgeschlagen beim erhalten der Platform-version.'
+                                          ? _lagerplatzIdController
+                                          : null,
+                                  image: _imageController != null
+                                      ? widget.artikel.image
+                                      : null,
+                                      artikelNr: _artikelNrController.isNotEmpty && _artikelNrController != 'Ungültiger QR-Code' && _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.'
+                                          ? _artikelNrController
+                                          : null);
+                              // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
+                              BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel));
+                              Navigator.pop(context);
+                            }
+                          } : null,
+                          // Button-Style
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor:  Colors.green,
+                              foregroundColor:  Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              )),
+                          child: const Text('Speichern',
+                              style: TextStyle(fontSize: 26)),
+                        ),
+                      ),
+                    ),
+                    // Button zum Löschen
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4.0, horizontal: 8.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Mit dem ArtikelDeleteEvent wird der Artikel in der Datenbank gelöscht
+                            // Ein ShowDialog bestätigt das Löschen
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Artikel löschen'),
+                                  content: const Text(
+                                      'Sind Sie sicher, dass Sie den Artikel löschen möchten?'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Abbrechen'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        BlocProvider.of<ArtikelBloc>(context).add(ArtikelDeleteEvent(widget.artikel));
+                                        Navigator.of(context).pop();
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Löschen'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          // Button-Style
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              )),
+                          child: const Text('Löschen',
+                              style: TextStyle(fontSize: 26)),
+                        ),
+                      ),
+                    ),
+                    // Button zum Abbrechen
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 8.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          // Button-Style
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red[900],
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              )),
+                          child: const Text('Abbrechen',
+                              style: TextStyle(fontSize: 26)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -479,7 +565,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
     );
   }
 
-  Future scanBarcode() async {
+  Future<String> scanBarcode(TextEditingController barcode) async {
     String scanResult;
     try {
       scanResult = await FlutterBarcodeScanner.scanBarcode(
@@ -490,27 +576,23 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
         if (scannedUri.pathSegments.isNotEmpty) {
           if (scannedUri.pathSegments.last == "-1") {
             scanResult = 'Ungültiger QR-Code';
-            _lagerplatzIdController = '';
           } else {
             scanResult = scannedUri.pathSegments.last;
-            _lagerplatzIdController = scanResult;
           }
         } else {
           scanResult = 'Ungültiger QR-Code';
-          _lagerplatzIdController = '';
         }
       } else {
         scanResult = 'Ungültiger QR-Code';
-        _lagerplatzIdController = '';
       }
       // ignore: avoid_print
       print(scanResult);
     } on PlatformException {
       scanResult = 'Fehlgeschlagen beim erhalten der Platform-version.';
     }
-    if (!mounted) return;
+    if (!mounted) return '';
 
-    setState(() => _lagerplatzCodeController.text = scanResult);
+    return scanResult;
   }
 
   Future<void> _changeImage() async {

@@ -12,9 +12,10 @@ class ArtikelTile extends StatelessWidget {
   final int? bestellgrenze;
   final String? lagerplatzId;
   final String? beschreibung;
+  final String? artikelNr;
 
 
-  const ArtikelTile({super.key, this.image, required this.bezeichnung, required this.artikelId, required this.bestand, this.mindestbestand = 0, this.bestellgrenze = 0, this.lagerplatzId = '', this.beschreibung= ' '});
+  const ArtikelTile({super.key, this.image, required this.bezeichnung, required this.artikelId, required this.bestand, this.mindestbestand = 0, this.bestellgrenze = 0, this.lagerplatzId = '', this.beschreibung= ' ', this.artikelNr = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -42,20 +43,23 @@ class ArtikelTile extends StatelessWidget {
                         width: 100,
                         height: 100,
                       ),
-                      Text(
-                        'Art.ID: $artikelId',
-                        style: const TextStyle(fontSize: 16),
-                      ),
+                      
                   ],
                 )),
               const SizedBox(width: 2),
               Expanded(flex: 2,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       bezeichnung,
                       style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
+                    const SizedBox(height: 8),
+                    Text(
+                        'Prod.Nr: $artikelNr',
+                        style: const TextStyle(fontSize: 16),
+                      ),
                     const SizedBox(height: 8),
                     Text(
                       'Bestand: $bestand',
@@ -71,6 +75,7 @@ class ArtikelTile extends StatelessWidget {
                 const SizedBox(width: 2),
                 Expanded(flex: 2,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'LagerPlatz ID: $lagerplatzId',

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
 import 'package:inventar_app/models/artikel.dart';
+import 'package:inventar_app/pages/artikel/qr_code_page.dart';
 
 class ArtikelAddPage extends StatefulWidget {
   const ArtikelAddPage({super.key});
@@ -418,6 +419,9 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                               BlocProvider.of<ArtikelBloc>(context)
                                   .add(ArtikelAddEvent(artikel));
                               Navigator.pop(context);
+                              if (_artikelNrController.isNotEmpty && _artikelNrController != 'Ungültiger QR-Code' && _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.') {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => GeneratedQRPage(qrData: _artikelNrController,)));
+                              }
                             }
                           },
                           child: const Text('Hinzufügen',

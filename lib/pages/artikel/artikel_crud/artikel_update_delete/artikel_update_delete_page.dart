@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
 import 'package:inventar_app/models/artikel.dart';
+import 'package:inventar_app/pages/artikel/qr_code_page.dart';
 
 class ArtikelUDPage extends StatefulWidget {
 
@@ -340,37 +341,66 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                 ],
                               ),
                             ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: SizedBox(
-                                  width: 220,
-                                  child: ElevatedButton(
-                                    onPressed: () async {
-                                      String result = await scanBarcode(_artikelNrCodeController);
-                                      setState(() {
-                                        _artikelNrController = result;
-                                        _artikelNrCodeController.text = result;
-                                      });
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.amber,
-                                        foregroundColor: Colors.black,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                        )),
-                                    child: const Row(
-                                      children: [
-                                        Icon(Icons.qr_code_scanner),
-                                        Text(' Produkt Scanen',
-                                            style: TextStyle(fontSize: 22)),
-                                      ],
+                            Row(
+                              children: [
+                                Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(padding: const EdgeInsets.all(4),
+                              child: SizedBox(
+                                width: 150,
+                                child: ElevatedButton(
+                                  onPressed: _artikelNrController.isNotEmpty && _artikelNrController != 'Ungültiger QR-Code' && _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.' ? () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => GeneratedQRPage(qrData: _artikelNrController)));
+                                  } : null,
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      foregroundColor: Colors.black,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      )), 
+                                  child: const Row(
+                                    children: [
+                                      Icon(Icons.qr_code_scanner),
+                                      Text(' QR-Code',
+                                          style: TextStyle(fontSize: 22)),
+                                    ],
+                                  )),
+                              ),),
+                            ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: SizedBox(
+                                      width: 220,
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          String result = await scanBarcode(_artikelNrCodeController);
+                                          setState(() {
+                                            _artikelNrController = result;
+                                            _artikelNrCodeController.text = result;
+                                          });
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.amber,
+                                            foregroundColor: Colors.black,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
+                                            )),
+                                        child: const Row(
+                                          children: [
+                                            Icon(Icons.qr_code_scanner),
+                                            Text(' Produkt Scanen',
+                                                style: TextStyle(fontSize: 22)),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           ],
                         ),

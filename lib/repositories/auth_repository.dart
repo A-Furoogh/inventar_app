@@ -5,10 +5,8 @@ import 'package:http/http.dart';
 import 'package:inventar_app/models/benutzer.dart';
 
 class AuthRepository {
-
   // Endpoint für die Authentifizierung
-  final String endpoint = 'http://192.168.178.22/myproject/mybenutzerapi.php';
-
+  final String endpoint = 'http://192.168.179.2/myproject/mybenutzerapi.php';
 
   Future<bool> signUp(String benutzername, String passwort) async {
     Map<String, dynamic> body = {

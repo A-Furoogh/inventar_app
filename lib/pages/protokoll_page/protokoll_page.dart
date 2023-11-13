@@ -12,12 +12,18 @@ class _ProtokollPageState extends State<ProtokollPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Protokoll'),
+        title: const Text('Protokoll'),
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
       ),
-      body: Center(
-        child: Text(' Alle Protokolle werden hier angezeigt'),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(Icons.document_scanner, size: 150, color: Colors.grey),
+            Text('Protokolle'),
+          ],
+        ),
       ),
     );
   }

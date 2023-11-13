@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 import 'package:inventar_app/models/artikel.dart';
 
 class ArtikelRepository {
-  String endpoint = "http://192.168.179.2/myproject/myartikelapi.php";
+  String endpoint = "https://ahmad-furoogh.de.cool/myArtikelApi.php";
 
   Future<List<Artikel>> getArtikels() async {
     Response response = await get(Uri.parse(endpoint));

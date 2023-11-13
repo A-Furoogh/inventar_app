@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:inventar_app/blocs/auth_bloc/auth_bloc.dart';
+import 'package:inventar_app/pages/Konto_page/konto_page.dart';
 import 'package:inventar_app/pages/artikel/artikel_page.dart';
 import 'package:inventar_app/pages/home_page/fields_tile.dart';
 import 'package:inventar_app/pages/lager_page/lager_page.dart';
+import 'package:inventar_app/pages/protokoll_page/protokoll_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -75,10 +77,10 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       FieldWidget(image: "assets/images/protokoll.png", name: "Protokoll", onTap: () {
-                        Navigator.pushNamed(context, '/protokoll');
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ProtokollPage()));
                       },),
                       FieldWidget(image: "assets/images/konto.png", name: "Konto", onTap: () {
-                        Navigator.pushNamed(context, '/konto');
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const KontoPage()));
                       },),
                     ],
                   ))

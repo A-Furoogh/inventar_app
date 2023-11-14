@@ -443,7 +443,7 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
     String scanResult;
     try {
       scanResult = await FlutterBarcodeScanner.scanBarcode(
-          "#ff6666", "abbrechen", true, ScanMode.QR);
+          "#ff6666", "abbrechen", true, ScanMode.BARCODE);
       // Extrahiere den Code aus scanned URL
       if (scanResult.isNotEmpty) {
         Uri scannedUri = Uri.parse(scanResult);

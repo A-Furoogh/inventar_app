@@ -50,6 +50,7 @@ dependencies:
   printing:
   pdf:
   flutter_launcher_icons:
+  barcode_widget:
 
 dev_dependencies:
   flutter_test:

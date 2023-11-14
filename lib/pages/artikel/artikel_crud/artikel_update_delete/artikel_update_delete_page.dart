@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
 import 'package:inventar_app/models/artikel.dart';
-import 'package:inventar_app/pages/artikel/qr_code_page.dart';
+import 'package:inventar_app/pages/artikel/barcode_page.dart';
 
 class ArtikelUDPage extends StatefulWidget {
 
@@ -350,7 +351,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                 width: 150,
                                 child: ElevatedButton(
                                   onPressed: _artikelNrController.isNotEmpty && _artikelNrController != 'Ungültiger QR-Code' && _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.' ? () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => GeneratedQRPage(qrData: _artikelNrController)));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => BarcodeGeneratedPage(barcodeData: _artikelNrController)));
                                   } : null,
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.white,
@@ -361,8 +362,8 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                       )), 
                                   child: const Row(
                                     children: [
-                                      Icon(Icons.qr_code_scanner),
-                                      Text(' QR-Code',
+                                      Icon(CupertinoIcons.barcode),
+                                      Text(' Barcode',
                                           style: TextStyle(fontSize: 22)),
                                     ],
                                   )),
@@ -378,8 +379,17 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                         onPressed: () async {
                                           String result = await scanBarcode(_artikelNrCodeController);
                                           setState(() {
-                                            _artikelNrController = result;
-                                            _artikelNrCodeController.text = result;
+                                            if (result == 'Ungültiger QR-Code' || result == 'Fehlgeschlagen beim erhalten der Platform-version.') {
+                                              // show a snackbar
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(
+                                                  content: Text('Ungültiger QR-Code'),
+                                                ),
+                                              );
+                                            } else {
+                                              _artikelNrController = result;
+                                              _artikelNrCodeController.text = result;
+                                            }
                                           });
                                         },
                                         style: ElevatedButton.styleFrom(
@@ -391,7 +401,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                             )),
                                         child: const Row(
                                           children: [
-                                            Icon(Icons.qr_code_scanner),
+                                            Icon(CupertinoIcons.barcode_viewfinder),
                                             Text(' Produkt Scanen',
                                                 style: TextStyle(fontSize: 22)),
                                           ],
@@ -436,8 +446,17 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                     onPressed: () async {
                                       String result = await scanBarcode(_lagerplatzCodeController);
                                       setState(() {
-                                        _lagerplatzIdController = result;
-                                        _lagerplatzCodeController.text = result;
+                                        if (result == 'Ungültiger QR-Code' || result == 'Fehlgeschlagen beim erhalten der Platform-version.') {
+                                          // show a snackbar
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(
+                                              content: Text('Ungültiger QR-Code'),
+                                            ),
+                                          );
+                                        } else {
+                                          _lagerplatzIdController = result;
+                                          _lagerplatzCodeController.text = result;
+                                        }
                                       });
                                     },
                                     style: ElevatedButton.styleFrom(
@@ -449,7 +468,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                         )),
                                     child: const Row(
                                       children: [
-                                        Icon(Icons.qr_code_scanner),
+                                        Icon(CupertinoIcons.barcode_viewfinder),
                                         Text(' Platz Scanen',
                                             style: TextStyle(fontSize: 22)),
                                       ],
@@ -599,7 +618,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
     String scanResult;
     try {
       scanResult = await FlutterBarcodeScanner.scanBarcode(
-          "#ff6666", "abbrechen", true, ScanMode.QR);
+          "#ff6666", "abbrechen", true, ScanMode.BARCODE);
       // Extrahiere den Code aus scanned URL
       if (scanResult.isNotEmpty) {
         Uri scannedUri = Uri.parse(scanResult);

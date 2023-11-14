@@ -47,7 +47,11 @@ class ArtikelRepository {
 
   Future<void> updateArtikel(Artikel artikel) async {
     if (artikel.image != null) {
-      artikel.image = await convertImageToBase64(artikel.image!);
+      if (artikel.image!.contains("data:image")) {
+      artikel.image = artikel.image;
+    } else {
+        artikel.image = await convertImageToBase64(artikel.image!);
+      }
     }
 
     Response response = await put(Uri.parse(endpoint),

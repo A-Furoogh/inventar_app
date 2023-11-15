@@ -80,5 +80,4 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
       yield ArtikelSelectState(event.artikel);
     }
   }
-
 }

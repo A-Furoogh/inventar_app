@@ -45,7 +45,8 @@ Widget build(BuildContext context) {
                               ),
                               onChanged: (value) {
                                 if (value.isNotEmpty) {
-                                  BlocProvider.of<ArtikelBloc>(context).add(ArtikelSearchEvent(value));
+                                  //BlocProvider.of<ArtikelBloc>(context).add(ArtikelSearchEvent(value));
+                                  context.read<ArtikelBloc>().add(ArtikelSearchEvent(value));
                                 } else {
                                   BlocProvider.of<ArtikelBloc>(context).add(const ArtikelLoadEvent());
                                 }

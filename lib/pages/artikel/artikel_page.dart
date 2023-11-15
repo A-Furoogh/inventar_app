@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
 import 'package:inventar_app/pages/artikel/artikel_crud/artikel_update_delete/artikel_update_delete_page.dart';
@@ -16,6 +18,8 @@ class ArtikelPage extends StatefulWidget {
 class _ArtikelPageState extends State<ArtikelPage> {
 
   final ArtikelRepository _artikelRepository = ArtikelRepository();
+
+  final TextEditingController _artikelSearchController = TextEditingController();
 
 @override
 Widget build(BuildContext context) {
@@ -39,26 +43,30 @@ Widget build(BuildContext context) {
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(8, 8, 2, 4),
                             child: TextField(
-                              decoration: const InputDecoration(
-                                hintText: 'Suche nach Bezeichnung oder ID',
-                                border: OutlineInputBorder(),
+                              decoration: InputDecoration(
+                                hintText: 'Suche nach Bezeichnung oder Nr.',
+                                border: const OutlineInputBorder(),
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    scanBarcode().then((value) async {
+                                       value.contains("QR-Code") ? null : _artikelSearchController.text = value;
+                                      _handleArtikelSearch(value);
+                                    });
+                                  },
+                                  child: const Icon(Icons.barcode_reader, color: Colors.teal, size: 35),
+                                ),
                               ),
-                              onChanged: (value) {
-                                if (value.isNotEmpty) {
-                                  //BlocProvider.of<ArtikelBloc>(context).add(ArtikelSearchEvent(value));
-                                  context.read<ArtikelBloc>().add(ArtikelSearchEvent(value));
-                                } else {
-                                  BlocProvider.of<ArtikelBloc>(context).add(const ArtikelLoadEvent());
-                                }
-                              },
+                              controller: _artikelSearchController,
+                              onChanged: _handleArtikelSearch,
                             ),
                           ),
                         ),
                         IconButton(
                           onPressed: () {
+                            _artikelSearchController.clear();
                             BlocProvider.of<ArtikelBloc>(context).add(const ArtikelLoadEvent());
                           },
-                          icon: const Icon(Icons.clear),
+                          icon: Icon(Icons.clear, color: Colors.grey[700]),
                         ),
                       ],
                     ),
@@ -115,4 +123,43 @@ Widget build(BuildContext context) {
     ),
   );
 }
+
+void _handleArtikelSearch(String value) {
+  if (value.isNotEmpty) {
+    BlocProvider.of<ArtikelBloc>(context).add(ArtikelSearchEvent(value));
+  } else {
+    BlocProvider.of<ArtikelBloc>(context).add(const ArtikelLoadEvent());
+  }
+}
+
+Future<String> scanBarcode() async {
+    String scanResult;
+    try {
+      scanResult = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "abbrechen", true, ScanMode.BARCODE);
+      // Extrahiere den Code aus scanned URL
+      if (scanResult.isNotEmpty) {
+        Uri scannedUri = Uri.parse(scanResult);
+        if (scannedUri.pathSegments.isNotEmpty) {
+          if (scannedUri.pathSegments.last == "-1") {
+            scanResult = 'Ungültiger QR-Code';
+          } else {
+            scanResult = scannedUri.pathSegments.last;
+          }
+        } else {
+          scanResult = 'Ungültiger QR-Code';
+        }
+      } else {
+        scanResult = 'Ungültiger QR-Code';
+      }
+      // ignore: avoid_print
+      print(scanResult);
+    } on PlatformException {
+      scanResult = 'Fehlgeschlagen beim erhalten der Platform-version.';
+    }
+    if (!mounted) return '';
+
+    return scanResult;
+  }
+
 }

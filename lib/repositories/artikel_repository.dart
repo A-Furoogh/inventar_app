@@ -79,7 +79,7 @@ class ArtikelRepository {
     return getArtikels().then((artikel) {
       for (Artikel a in artikel) {
         if (a.bezeichnung.toLowerCase().contains(search.toLowerCase()) ||
-            a.artikelId.toString().contains(search)) {
+            (a.artikelNr?.toLowerCase() ?? '').contains(search.toLowerCase())) {
           searchedArtikel.add(a);
         }
       }

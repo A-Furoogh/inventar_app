@@ -7,7 +7,23 @@ import 'package:inventar_app/pages/wrapper.dart';
 import 'package:inventar_app/repositories/artikel_repository.dart';
 import 'package:inventar_app/repositories/auth_repository.dart';
 
+// bad certificate error fix! (only for testing)
+import 'dart:io';
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+      (X509Certificate cert, String host, int port) => true;
+  }
+}
+
+
 void main() {
+  // bad certificate error fix! (only for testing)
+  HttpOverrides.global = MyHttpOverrides();
+
   runApp(Phoenix(child: MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthBloc(AuthRepository())),

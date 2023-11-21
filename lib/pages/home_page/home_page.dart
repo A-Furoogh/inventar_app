@@ -39,67 +39,72 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         color: const Color.fromARGB(255, 209, 235, 212),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text('Willkommen ${context.read<AuthBloc>().state.benutzer.benutzername}', style: const TextStyle(fontSize: 30)),
-              ),
-              // Oder watch statt read verwenden für automatisches rebuild
-              // Text('Willkommen ${context.watch<AuthBloc>().state.benutzer.benutzername}', style: const TextStyle(fontSize: 20)),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ElevatedButton( // Renderoverflow Error hier
-                  onPressed: () {
-                    Phoenix.rebirth(context);
-                  },
-                  child: const Text('Restart App'),
-                        ),
-              ),
-          Column(
-            children: [
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FieldWidget(image: "assets/images/lager.png", name: "Lager", onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LagerPage()));
-                    },),
-                    FieldWidget(image: "assets/images/artikel.png", name: "Artikel", onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ArtikelPage()));
-                    },),
-                  ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text('Willkommen ${context.read<AuthBloc>().state.benutzer.benutzername}', style: const TextStyle(fontSize: 30)),
                 ),
+                // Oder watch statt read verwenden für automatisches rebuild
+                // Text('Willkommen ${context.watch<AuthBloc>().state.benutzer.benutzername}', style: const TextStyle(fontSize: 20)),
+                Visibility(
+                  visible: context.read<AuthBloc>().state.benutzer.benutzername == 'admin',
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: ElevatedButton( // Renderoverflow Error hier
+                      onPressed: () {
+                        Phoenix.rebirth(context);
+                      },
+                      child: const Text('Restart App'),
+                            ),
+                  ),
                 ),
+            Column(
+              children: [
                 Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      FieldWidget(image: "assets/images/protokoll.png", name: "Protokoll", onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ProtokollPage()));
+                      FieldWidget(image: "assets/images/lager.png", name: "Lager", onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const LagerPage()));
                       },),
-                      FieldWidget(image: "assets/images/konto.png", name: "Konto", onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const KontoPage()));
+                      FieldWidget(image: "assets/images/artikel.png", name: "Artikel", onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ArtikelPage()));
                       },),
                     ],
-                  ))
-            ],
-          ),
-          const Padding(
-            padding: EdgeInsets.all(4.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 40),
-                Text('Reimedia GmbH',
-                    style: TextStyle(fontSize: 18)),
-                Text('Amtsstr. 25a, 59073 Hamm'),
+                  ),
+                  ),
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FieldWidget(image: "assets/images/protokoll.png", name: "Protokoll", onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ProtokollPage()));
+                        },),
+                        FieldWidget(image: "assets/images/konto.png", name: "Konto", onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const KontoPage()));
+                        },),
+                      ],
+                    ))
               ],
             ),
+            const Padding(
+              padding: EdgeInsets.all(4.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 40),
+                  Text('Reimedia GmbH',
+                      style: TextStyle(fontSize: 18)),
+                  Text('Amtsstr. 25a, 59073 Hamm'),
+                ],
+              ),
+            ),
+            ]
+                  ),
           ),
-          ]
-        ),
           ),
       ));
   }

@@ -37,79 +37,81 @@ class _LoginPageState extends State<LoginPage> {
           child: Container(
             color: Colors.grey[200],
             child: Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text('Anmelden', style: TextStyle(fontSize: 30)),
-                Padding(
-                  padding: const EdgeInsets.all(40.0),
+                child: SingleChildScrollView(
                   child: Column(
-                    children: [
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Icon(Icons.person_3_rounded, color: Colors.grey[600]),
-                          Expanded(
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                  hintText: 'Benutzername',
-                                  border: OutlineInputBorder(),
-                                  fillColor: Colors.white70,
-                                  filled: true),
-                              controller: _usernameController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Bitte geben Sie einen Benutzernamen ein.';
-                                }
-                                return null;
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Icon(Icons.key_rounded, color: Colors.grey[600]),
-                          Expanded(
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                  hintText: 'Passwort',
-                                  border: OutlineInputBorder(),
-                                  fillColor: Colors.white70,
-                                  filled: true),
-                              controller: _passwordController,
-                              obscureText: true,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Bitte geben Sie ein Passwort ein.';
-                                }
-                                return null;
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            BlocProvider.of<AuthBloc>(context).add(LoginEvent(
-                                _usernameController.text,
-                                _passwordController.text));
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(200, 50),
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                  const Text('Anmelden', style: TextStyle(fontSize: 30)),
+                  Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Icon(Icons.person_3_rounded, color: Colors.grey[600]),
+                            Expanded(
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                    hintText: 'Benutzername',
+                                    border: OutlineInputBorder(),
+                                    fillColor: Colors.white70,
+                                    filled: true),
+                                controller: _usernameController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Bitte geben Sie einen Benutzernamen ein.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            )
+                          ],
                         ),
-                        child: const Text('anmelden',
-                            style: TextStyle(fontSize: 20)),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            )),
+                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Icon(Icons.key_rounded, color: Colors.grey[600]),
+                            Expanded(
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                    hintText: 'Passwort',
+                                    border: OutlineInputBorder(),
+                                    fillColor: Colors.white70,
+                                    filled: true),
+                                controller: _passwordController,
+                                obscureText: true,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Bitte geben Sie ein Passwort ein.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              BlocProvider.of<AuthBloc>(context).add(LoginEvent(
+                                  _usernameController.text,
+                                  _passwordController.text));
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(200, 50),
+                          ),
+                          child: const Text('anmelden',
+                              style: TextStyle(fontSize: 20)),
+                        ),
+                      ],
+                    ),
+                  )
+                              ],
+                            ),
+                )),
           ),
         ),
       ),

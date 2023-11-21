@@ -3,14 +3,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:inventar_app/models/benutzer.dart';
-import 'package:inventar_app/repositories/auth_repository.dart';
+import 'package:inventar_app/repositories/benutzer_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
-  final AuthRepository _authRepository;
+  final BenutzerRepository _authRepository;
 
   AuthBloc(this._authRepository) : super(const UnauthenticatedState()) {
     

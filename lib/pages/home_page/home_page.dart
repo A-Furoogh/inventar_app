@@ -45,7 +45,12 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Text('Willkommen ${context.read<AuthBloc>().state.benutzer.benutzername}', style: const TextStyle(fontSize: 30)),
+                  child: Column(
+                    children: [
+                      Text('Willkommen ${context.read<AuthBloc>().state.benutzer.benutzername}', style: const TextStyle(fontSize: 30)),
+                      Align(alignment: Alignment.centerLeft , child: Padding(padding: const EdgeInsets.fromLTRB(65, 0, 0, 0) ,child: Text('${context.read<AuthBloc>().state.benutzer.rolle}', style: TextStyle(fontSize: 16, color: Colors.grey[800])))),
+                    ],
+                  ),
                 ),
                 // Oder watch statt read verwenden für automatisches rebuild
                 // Text('Willkommen ${context.watch<AuthBloc>().state.benutzer.benutzername}', style: const TextStyle(fontSize: 20)),
@@ -80,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        FieldWidget(image: "assets/images/protokoll.png", name: "Protokoll", onTap: () {
+                        FieldWidget(image: "assets/images/protokoll.png", name: "Protokoll", onTap: context.read<AuthBloc>().state.benutzer.rolle == 'controller' ? null : () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const ProtokollPage()));
                         },),
                         FieldWidget(image: "assets/images/konto.png", name: "Konto", onTap: () {

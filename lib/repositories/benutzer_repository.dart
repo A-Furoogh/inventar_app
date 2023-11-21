@@ -4,14 +4,38 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:inventar_app/models/benutzer.dart';
 
-class AuthRepository {
+class BenutzerRepository {
   // Endpoint für die Authentifizierung
   final String endpoint = 'https://ahmad-furoogh.de.cool/myBenutzerApi.php';
 
-  Future<bool> signUp(String benutzername, String passwort) async {
+  /*Future<bool> signUp(String benutzername, String passwort) async {
     Map<String, dynamic> body = {
       'benutzername': benutzername,
       'passwort': passwort,
+    };
+    try {
+      Response response = await post(Uri.parse(endpoint),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(body));
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(response.reasonPhrase);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+  */
+
+  // Benutzer hinzufügen
+  Future<bool> addBenutzer(Benutzer benutzer) async {
+    Map<String, dynamic> body = {
+      'benutzername': benutzer.benutzername,
+      'passwort': benutzer.passwort,
+      'rolle': benutzer.rolle,
     };
     try {
       Response response = await post(Uri.parse(endpoint),

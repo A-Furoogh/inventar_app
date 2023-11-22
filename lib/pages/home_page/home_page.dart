@@ -85,12 +85,14 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        FieldWidget(image: "assets/images/protokoll.png", name: "Protokoll", onTap: context.read<AuthBloc>().state.benutzer.rolle == 'controller' ? null : () {
+                        FieldWidget(image: "assets/images/protokoll.png", name: "Protokoll", onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const ProtokollPage()));
-                        },),
-                        FieldWidget(image: "assets/images/konto.png", name: "Konto", onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const KontoPage()));
-                        },),
+                        }, isDisabled: context.read<AuthBloc>().state.benutzer.rolle == 'controller',),
+                        GestureDetector(
+                          child: FieldWidget(image: "assets/images/konto.png", name: "Konto", onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const KontoPage()));
+                          }, isDisabled: context.read<AuthBloc>().state.benutzer.rolle == 'controller',)
+                        ),
                       ],
                     ))
               ],

@@ -91,9 +91,14 @@ class _LoginPageState extends State<LoginPage> {
                       ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            BlocProvider.of<AuthBloc>(context).add(LoginEvent(
-                                _usernameController.text,
-                                _passwordController.text));
+                              /*context.read<AuthBloc>().add(
+                                  AuthLoginEvent(
+                                      benutzername: _usernameController.text,
+                                      passwort: _passwordController.text));
+                                      */
+                              BlocProvider.of<AuthBloc>(context).add(LoginEvent(
+                                  _usernameController.text,
+                                  _passwordController.text));
                           }
                         },
                         style: ElevatedButton.styleFrom(

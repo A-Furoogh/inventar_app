@@ -109,7 +109,7 @@ class _LagerPageState extends State<LagerPage> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('QR-Code für Lagerplatz erstellen',
+                      const Text('Barcode für Lagerplatz erstellen',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),
                       const SizedBox(

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
+
+import 'package:pdf/widgets.dart' as pw;
 
 
 class BarcodeGeneratedPage extends StatefulWidget {
@@ -24,7 +28,7 @@ class _BarcodeGeneratedPageState extends State<BarcodeGeneratedPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton.icon(
-              onPressed: () {
+              onPressed: () async {
                 _printBarcode();
               },
               icon: const Icon(Icons.print_rounded),
@@ -62,6 +66,38 @@ class _BarcodeGeneratedPageState extends State<BarcodeGeneratedPage> {
     ),
     );
   }
-  Future<void> _printBarcode() async {
+
+  void _printBarcode() async {
+    final doc = pw.Document();
+
+    doc.addPage(
+      pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) {
+          return pw.Center(
+            child: pw.Column(
+              children: [
+                pw.BarcodeWidget(
+                  barcode: pw.Barcode.code128(),
+                  data: widget.barcodeData,
+                  width: 400,
+                  height: 200,
+                  drawText: false,
+                ),
+                pw.SizedBox(height: 15),
+                pw.Text(widget.barcodeData, style: const pw.TextStyle(fontSize: 30)),
+              ],
+              )
+          );
+        },
+      ),
+    );
+
+    await Printing.layoutPdf(
+      onLayout: (PdfPageFormat format) async => doc.save(),
+    );
   }
+
+  //Future<String> _generateBarcodeBase64() async {}
+
 }

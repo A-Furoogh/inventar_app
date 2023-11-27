@@ -31,7 +31,7 @@ class FieldWidget extends StatelessWidget {
                   width: 150,
                   height: 150,
                   alignment: Alignment.center,
-                  opacity: isDisabled ? const AlwaysStoppedAnimation(0.5) : const AlwaysStoppedAnimation(1),
+                  opacity: isDisabled ? const AlwaysStoppedAnimation(0.3) : const AlwaysStoppedAnimation(1),
                 )),
             const SizedBox(height: 10),
             Text(name, style: const TextStyle(fontSize: 26))

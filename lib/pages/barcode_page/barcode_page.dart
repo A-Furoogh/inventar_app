@@ -98,6 +98,4 @@ class _BarcodeGeneratedPageState extends State<BarcodeGeneratedPage> {
     );
   }
 
-  //Future<String> _generateBarcodeBase64() async {}
-
 }

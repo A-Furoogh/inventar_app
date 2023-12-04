@@ -72,13 +72,22 @@ class _LagerPageState extends State<LagerPage> {
                             width: 200,
                             height: 50,
                             child: TextField(
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
                                 fillColor: Colors.white,
                                 filled: true,
                                 labelText: 'Lager Code',
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _lagerSearchController.clear();
+                                    });
+                                  },
+                                  child: Icon(Icons.clear, color: _lagerSearchController.text.isEmpty ? Colors.grey[500] : Colors.grey[700]),
+                                )
                               ),
                               controller: _lagerSearchController,
+                              onChanged: (value) => setState(() { _lagerSearchController.text = value; }),
                             ),
                           ),
                           const SizedBox(
@@ -122,13 +131,22 @@ class _LagerPageState extends State<LagerPage> {
                             width: 200,
                             height: 50,
                             child: TextField(
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
                                 fillColor: Colors.white,
                                 filled: true,
                                 labelText: 'Nr. des Lagerplatzes',
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _lagerCreateController.clear();
+                                    });
+                                  },
+                                  child: Icon(Icons.clear, color: _lagerCreateController.text.isEmpty ? Colors.grey[500] : Colors.grey[700]),
+                                ),
                               ),
                               controller: _lagerCreateController,
+                              onChanged: (value) => setState(() { _lagerCreateController.text = value; }),
                             ),
                           ),
                           const SizedBox(

@@ -87,6 +87,19 @@ class ArtikelRepository {
     });
   }
 
+  Future<List<Artikel>> getLagerArtikels(String lagerId) {
+    List<Artikel> lagerArtikels = [];
+    return getArtikels().then((artikel) {
+      for (Artikel a in artikel) {
+        if (a.lagerplatzId == lagerId) {
+          lagerArtikels.add(a);
+        }
+      }
+      return lagerArtikels;
+    });
+  }
+  
+
   // Konvertieren von Image in Base64
   Future<String> convertImageToBase64(String imagePath) async {
     try {

@@ -14,15 +14,17 @@ class ArtikelTile extends StatelessWidget {
   final String? beschreibung;
   final String? artikelNr;
 
+  final bool? isLagerArtikel;
 
-  const ArtikelTile({super.key, this.image, required this.bezeichnung, required this.artikelId, required this.bestand, this.mindestbestand = 0, this.bestellgrenze = 0, this.lagerplatzId = '', this.beschreibung= ' ', this.artikelNr = ''});
+
+  const ArtikelTile({super.key, this.image, required this.bezeichnung, required this.artikelId, required this.bestand, this.mindestbestand = 0, this.bestellgrenze = 0, this.lagerplatzId = '', this.beschreibung= ' ', this.artikelNr = '', this.isLagerArtikel = false});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Card(
-        color: const Color.fromARGB(255, 209, 235, 212),
+        color: isLagerArtikel == true ? const Color.fromARGB(255, 209, 226, 235) : const Color.fromARGB(255, 209, 235, 212),
         elevation: 5,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -68,7 +70,7 @@ class ArtikelTile extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text( 
                       'Min.bestand: $mindestbestand',
-                      style: const TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16, color: mindestbestand! > bestand ? Colors.red : Colors.black87), // Hier wurde eine Änderung durchgeführt.
                     ),
                   ],
                 ),),

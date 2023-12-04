@@ -72,6 +72,16 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
         emit(ArtikelErrorState(e.toString()));
       }
     });
+
+    on<LoadLagerArtikelEvent>((event, emit) async {
+      emit(const ArtikelLoadingState());
+      try {
+        final List<Artikel> artikel = await _artikelRepository.getLagerArtikels(event.lagerId);
+        emit(LagerArtikelLoadedState(artikel));
+      } catch (e) {
+        emit(ArtikelErrorState(e.toString()));
+      }
+    });
     
   }
 

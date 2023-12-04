@@ -60,6 +60,15 @@ final class ArtikelSelectEvent extends ArtikelEvent {
   List<Object> get props => [artikel];
 }
 
+final class LoadLagerArtikelEvent extends ArtikelEvent {
+  final String lagerId;
+
+  const LoadLagerArtikelEvent(this.lagerId);
+
+  @override
+  List<Object> get props => [lagerId];
+}
+
 /*
 final class ArtikelClearEvent extends ArtikelEvent {
   const ArtikelClearEvent();

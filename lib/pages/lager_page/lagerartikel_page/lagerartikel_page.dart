@@ -1,32 +1,24 @@
 import 'dart:convert';
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
 import 'package:inventar_app/models/artikel.dart';
-import 'package:inventar_app/pages/barcode_page/barcode_page.dart';
 
-class ArtikelUDPage extends StatefulWidget {
-
+class LagerArtikelPage extends StatefulWidget {
   final Artikel artikel;
 
-  const ArtikelUDPage({super.key, required this.artikel});
+  const LagerArtikelPage({super.key, required this.artikel});
 
   @override
-  State<ArtikelUDPage> createState() => _ArtikelUDPageState();
+  State<LagerArtikelPage> createState() => _LagerArtikelPageState();
 }
 
-class _ArtikelUDPageState extends State<ArtikelUDPage> {
-  final TextEditingController _bezeichnungController = TextEditingController();
+class _LagerArtikelPageState extends State<LagerArtikelPage> {
   final TextEditingController _bestandController = TextEditingController();
   final TextEditingController _minBestandController = TextEditingController();
-  final TextEditingController _bestellgrenzeController = TextEditingController();
-  final TextEditingController _beschreibungController = TextEditingController();
+  final TextEditingController _bestellgrenzeController =
+      TextEditingController();
   String _lagerplatzIdController = '';
   String _artikelNrController = '';
   // Image controller
@@ -40,15 +32,12 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
   bool _artikelChanged = false;
 
   @override
-  void initState(){
-    
+  void initState() {
     super.initState();
-  
-    _bezeichnungController.text = widget.artikel.bezeichnung;
+
     _bestandController.text = widget.artikel.bestand.toString();
     _minBestandController.text = widget.artikel.mindestbestand.toString();
     _bestellgrenzeController.text = widget.artikel.bestellgrenze.toString();
-    _beschreibungController.text = widget.artikel.beschreibung ?? '';
     _lagerplatzIdController = widget.artikel.lagerplatzId ?? '';
     _lagerplatzCodeController.text = widget.artikel.lagerplatzId ?? '';
     _artikelNrController = widget.artikel.artikelNr ?? '';
@@ -58,22 +47,20 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
     }
 
     // Füge Listener hinzu, um zu prüfen, ob sich die Eingaben geändert haben
-    _bezeichnungController.addListener(_onControllerChanged);
     _bestandController.addListener(_onControllerChanged);
     _minBestandController.addListener(_onControllerChanged);
     _bestellgrenzeController.addListener(_onControllerChanged);
-    _beschreibungController.addListener(_onControllerChanged);
     _lagerplatzCodeController.addListener(_onControllerChanged);
     _artikelNrCodeController.addListener(_onControllerChanged);
   }
 
   // Prüfe, ob sich die Eingaben geändert haben
   void _onControllerChanged() {
-    if (_bezeichnungController.text != widget.artikel.bezeichnung ||
-        _bestandController.text != widget.artikel.bestand.toString() ||
-        _minBestandController.text != widget.artikel.mindestbestand.toString() ||
-        _bestellgrenzeController.text != widget.artikel.bestellgrenze.toString() ||
-        _beschreibungController.text != widget.artikel.beschreibung ||
+    if (_bestandController.text != widget.artikel.bestand.toString() ||
+        _minBestandController.text !=
+            widget.artikel.mindestbestand.toString() ||
+        _bestellgrenzeController.text !=
+            widget.artikel.bestellgrenze.toString() ||
         _lagerplatzIdController != widget.artikel.lagerplatzId ||
         _artikelNrCodeController.text != widget.artikel.artikelNr) {
       setState(() {
@@ -86,11 +73,14 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Produkt Updaten'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('Produkt Umlagern'),
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent,
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -107,20 +97,15 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                       padding: const EdgeInsets.all(4),
                       child: Row(
                         children: [
-                          GestureDetector(
-                              onTap: _changeImage,
-                              child: _imageController != null
-                                  ? Image.memory(
-                                      _imageController!,
-                                      width: 150,
-                                      height: 150,
-                                      fit: BoxFit.cover)
-                                  : const Image(
-                                      image: AssetImage(
-                                          'assets/images/default_artikel.png'),
-                                      width: 150,
-                                      height: 150,
-                                      fit: BoxFit.cover)),
+                          _imageController != null
+                              ? Image.memory(_imageController!,
+                                  width: 150, height: 150, fit: BoxFit.cover)
+                              : const Image(
+                                  image: AssetImage(
+                                      'assets/images/default_artikel.png'),
+                                  width: 150,
+                                  height: 150,
+                                  fit: BoxFit.cover),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
@@ -146,21 +131,26 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(2.0),
-                                          child: TextFormField(
-                                            decoration: const InputDecoration(
-                                              border: OutlineInputBorder(),
-                                              hintText: 'Bezeichnung',
-                                              fillColor: Colors.white60,
-                                              filled: true,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white60,
+                                              border: Border.all(
+                                                  color: Colors.black54),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(5)),
                                             ),
-                                            controller: _bezeichnungController,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Bitte geben Sie eine Bezeichnung ein.';
-                                              }
-                                              return null;
-                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                widget.artikel.bezeichnung,
+                                                style: const TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -189,22 +179,31 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                         SizedBox(
                                           width: 80,
                                           height: 40,
-                                          child: TextFormField(
-                                            decoration: const InputDecoration(
-                                              border: OutlineInputBorder(),
-                                              fillColor: Colors.white60,
-                                              filled: true,
+                                          child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white60,
+                                              border: Border.all(
+                                                  color: Colors.black54),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(5)),
                                             ),
-                                            keyboardType: TextInputType.number,
-                                            controller: _bestandController,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return 'Bitte geben Sie einen Bestand ein.';
-                                              }
-                                              return null;
-                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                widget.artikel.bestand
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
                                           ),
+                                        ),
                                         ),
                                       ],
                                     ),
@@ -234,15 +233,31 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                         SizedBox(
                                           width: 80,
                                           height: 40,
-                                          child: TextField(
-                                            decoration: const InputDecoration(
-                                              border: OutlineInputBorder(),
-                                              fillColor: Colors.white60,
-                                              filled: true,
+                                          child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white60,
+                                              border: Border.all(
+                                                  color: Colors.black54),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(5)),
                                             ),
-                                            keyboardType: TextInputType.number,
-                                            controller: _minBestandController,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                widget.artikel.mindestbestand
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold, color: int.parse(_minBestandController.text) > int.parse(_bestandController.text) ? Colors.red : Colors.black87),
+                                              ),
+                                            ),
                                           ),
+                                        ),
                                         ),
                                       ],
                                     ),
@@ -278,16 +293,32 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                               padding: const EdgeInsets.all(4.0),
                               child: SizedBox(
                                 height: 40,
-                                child: TextField(
-                                  decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    hintText: 'Bestellgrenze',
-                                    fillColor: Colors.white60,
-                                    filled: true,
-                                  ),
-                                  keyboardType: TextInputType.number,
-                                  controller: _bestellgrenzeController,
-                                ),
+                                child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white60,
+                                              border: Border.all(
+                                                  color: Colors.black54),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(5)),
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                widget.artikel.bestellgrenze
+                                                    .toString(),
+                                                    textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                               ),
                             ),
                           ),
@@ -310,23 +341,37 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: TextField(
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Beschreibung (optional)',
-                                fillColor: Colors.white60,
-                                filled: true,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white60,
+                                  border: Border.all(color: Colors.black54),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5)),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    widget.artikel.beschreibung ??
+                                        'Keine Beschreibung vorhanden.',
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                                ),
                               ),
-                              controller: _beschreibungController,
                             ),
-                          ),
+                          )
                         ],
                       ),
-                    ),Container(
+                    ),
+                    Container(
                       color: Colors.blue[100],
-                      child: Padding(                            // ProduktNr
+                      child: Padding(
+                        // ProduktNr
                         padding: const EdgeInsets.all(4),
                         child: Column(
                           children: [
@@ -347,30 +392,40 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                             Row(
                               children: [
                                 Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(padding: const EdgeInsets.all(4),
-                              child: SizedBox(
-                                width: 150,
-                                child: ElevatedButton(
-                                  onPressed: _artikelNrController.isNotEmpty && _artikelNrController != 'Ungültiger QR-Code' && _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.' ? () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => BarcodeGeneratedPage(barcodeData: _artikelNrController)));
-                                  } : null,
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                      foregroundColor: Colors.black,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                      )), 
-                                  child: const Row(
-                                    children: [
-                                      Icon(CupertinoIcons.barcode),
-                                      Text(' Barcode',
-                                          style: TextStyle(fontSize: 22)),
-                                    ],
-                                  )),
-                              ),),
-                            ),
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: SizedBox(
+                                      width: 150,
+                                      child: ElevatedButton(
+                                          onPressed: _artikelNrController
+                                                      .isNotEmpty &&
+                                                  _artikelNrController !=
+                                                      'Ungültiger QR-Code' &&
+                                                  _artikelNrController !=
+                                                      'Fehlgeschlagen beim erhalten der Platform-version.'
+                                              ? () {
+                                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => BarcodeGeneratedPage(barcodeData: _artikelNrController)));
+                                                }
+                                              : null,
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.white,
+                                              foregroundColor: Colors.black,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15.0),
+                                              )),
+                                          child: const Row(
+                                            children: [
+                                              Icon(CupertinoIcons.barcode),
+                                              Text(' Barcode',
+                                                  style:
+                                                      TextStyle(fontSize: 22)),
+                                            ],
+                                          )),
+                                    ),
+                                  ),
+                                ),
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: Padding(
@@ -379,6 +434,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                       width: 220,
                                       child: ElevatedButton(
                                         onPressed: () async {
+                                          /*
                                           String result = await scanBarcode(_artikelNrCodeController);
                                           setState(() {
                                             if (result == 'Ungültiger QR-Code' || result == 'Fehlgeschlagen beim erhalten der Platform-version.') {
@@ -392,7 +448,8 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                               _artikelNrController = result;
                                               _artikelNrCodeController.text = result;
                                             }
-                                          });
+                                          }); 
+                                          */
                                         },
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.amber,
@@ -403,7 +460,8 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                             )),
                                         child: const Row(
                                           children: [
-                                            Icon(CupertinoIcons.barcode_viewfinder),
+                                            Icon(CupertinoIcons
+                                                .barcode_viewfinder),
                                             Text(' Produkt Scanen',
                                                 style: TextStyle(fontSize: 22)),
                                           ],
@@ -420,7 +478,8 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                     ),
                     Container(
                       color: Colors.green[200],
-                      child: Padding(                          // Lagerplatz
+                      child: Padding(
+                        // Lagerplatz
                         padding: const EdgeInsets.all(4),
                         child: Column(
                           children: [
@@ -446,6 +505,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                   width: 195,
                                   child: ElevatedButton(
                                     onPressed: () async {
+                                      /*
                                       String result = await scanBarcode(_lagerplatzCodeController);
                                       setState(() {
                                         if (result == 'Ungültiger QR-Code' || result == 'Fehlgeschlagen beim erhalten der Platform-version.') {
@@ -459,7 +519,8 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                           _lagerplatzIdController = result;
                                           _lagerplatzCodeController.text = result;
                                         }
-                                      });
+                                      }); 
+                                      */
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.amber,
@@ -483,59 +544,8 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                         ),
                       ),
                     ),
-                    // Button zum Speichern
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 8.0),
-                        child: ElevatedButton(
-                          onPressed: _artikelChanged ? () {
-                            if (_formKey.currentState!.validate()) {
-                              Artikel artikel = Artikel(
-                                  artikelId: widget.artikel.artikelId,
-                                  bezeichnung: _bezeichnungController.text,
-                                  bestand: int.parse(_bestandController.text),
-                                  mindestbestand: _minBestandController
-                                          .text.isNotEmpty
-                                      ? int.parse(_minBestandController.text)
-                                      : 0,
-                                  bestellgrenze: _bestellgrenzeController
-                                          .text.isNotEmpty
-                                      ? int.parse(_bestellgrenzeController.text)
-                                      : 0,
-                                  beschreibung:
-                                      _beschreibungController.text.isNotEmpty
-                                          ? _beschreibungController.text
-                                          : null,
-                                  lagerplatzId:
-                                      _lagerplatzIdController.isNotEmpty && _lagerplatzIdController != 'Ungültiger QR-Code' && _lagerplatzIdController != 'Fehlgeschlagen beim erhalten der Platform-version.'
-                                          ? _lagerplatzIdController
-                                          : null,
-                                  image: _imageController != null
-                                      ? widget.artikel.image
-                                      : null,
-                                      artikelNr: _artikelNrController.isNotEmpty && _artikelNrController != 'Ungültiger QR-Code' && _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.'
-                                          ? _artikelNrController
-                                          : null);
-                              // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
-                              BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel));
-                              Navigator.pop(context);
-                            }
-                          } : null,
-                          // Button-Style
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor:  Colors.green,
-                              foregroundColor:  Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              )),
-                          child: const Text('Speichern',
-                              style: TextStyle(fontSize: 26)),
-                        ),
-                      ),
-                    ),
-                    // Button zum Löschen
+                    
+                    // Button zum Löschen aus Lagerplatz
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
@@ -549,9 +559,9 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: const Text('Artikel löschen'),
+                                  title: const Text('Artikel aus Lagerplatz löschen'),
                                   content: const Text(
-                                      'Sind Sie sicher, dass Sie den Artikel löschen möchten?'),
+                                      'Sind Sie sicher, dass Sie den Artikel aus diesem Lagerplatz löschen möchten?'),
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () {
@@ -561,11 +571,10 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        BlocProvider.of<ArtikelBloc>(context).add(ArtikelDeleteEvent(widget.artikel));
-                                        Navigator.of(context).pop();
+                                        //BlocProvider.of<ArtikelBloc>(context).add(ArtikelDeleteEvent(widget.artikel));
                                         Navigator.of(context).pop();
                                       },
-                                      child: const Text('Löschen'),
+                                      child: const Text('Ja'),
                                     ),
                                   ],
                                 );
@@ -579,7 +588,65 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
                               )),
-                          child: const Text('Löschen',
+                          child: const Text('Aus Lagerplatz löschen',
+                              style: TextStyle(fontSize: 26)),
+                        ),
+                      ),
+                    ),
+                    // Button zum Speichern
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 8.0),
+                        child: ElevatedButton(
+                          onPressed: _artikelChanged
+                              ? () {
+                                  if (_formKey.currentState!.validate()) {
+                                    Artikel artikel = Artikel(
+                                        artikelId: widget.artikel.artikelId,
+                                        bezeichnung: widget.artikel.bezeichnung,
+                                        bestand:
+                                            int.parse(_bestandController.text),
+                                        mindestbestand: _minBestandController.text.isNotEmpty
+                                            ? int.parse(
+                                                _minBestandController.text)
+                                            : 0,
+                                        bestellgrenze: _bestellgrenzeController.text.isNotEmpty
+                                            ? int.parse(
+                                                _bestellgrenzeController.text)
+                                            : 0,
+                                        beschreibung:
+                                            widget.artikel.beschreibung,
+                                        lagerplatzId: _lagerplatzIdController.isNotEmpty &&
+                                                _lagerplatzIdController !=
+                                                    'Ungültiger QR-Code' &&
+                                                _lagerplatzIdController !=
+                                                    'Fehlgeschlagen beim erhalten der Platform-version.'
+                                            ? _lagerplatzIdController
+                                            : null,
+                                        image: _imageController != null
+                                            ? widget.artikel.image
+                                            : null,
+                                        artikelNr: _artikelNrController.isNotEmpty &&
+                                                _artikelNrController != 'Ungültiger QR-Code' &&
+                                                _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.'
+                                            ? _artikelNrController
+                                            : null);
+                                    // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
+                                    //BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel));
+                                    Navigator.pop(context);
+                                  }
+                                }
+                              : null,
+                          // Button-Style
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              )),
+                          child: const Text('Speichern',
                               style: TextStyle(fontSize: 26)),
                         ),
                       ),
@@ -614,115 +681,5 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
         ),
       ),
     );
-  }
-
-  Future<String> scanBarcode(TextEditingController barcode) async {
-    String scanResult;
-    try {
-      scanResult = await FlutterBarcodeScanner.scanBarcode(
-          "#ff6666", "abbrechen", true, ScanMode.BARCODE);
-      // Extrahiere den Code aus scanned URL
-      if (scanResult.isNotEmpty) {
-        Uri scannedUri = Uri.parse(scanResult);
-        if (scannedUri.pathSegments.isNotEmpty) {
-          if (scannedUri.pathSegments.last == "-1") {
-            scanResult = 'Ungültiger QR-Code';
-          } else {
-            scanResult = scannedUri.pathSegments.last;
-          }
-        } else {
-          scanResult = 'Ungültiger QR-Code';
-        }
-      } else {
-        scanResult = 'Ungültiger QR-Code';
-      }
-      // ignore: avoid_print
-      print(scanResult);
-    } on PlatformException {
-      scanResult = 'Fehlgeschlagen beim erhalten der Platform-version.';
-    }
-    if (!mounted) return '';
-
-    return scanResult;
-  }
-
-  Future<void> _changeImage() async {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Quelle für Bild auswählen'),
-          actions: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton.icon(
-                  onPressed: () async {
-                    Navigator.of(context).pop();
-                    final picker = ImagePicker();
-                    final pickedFile = await picker.pickImage(source: ImageSource.camera);
-                    _processImage(pickedFile);
-                  },
-                  label: const Text('Kamera'),
-                  icon: const Icon(Icons.camera_alt),
-                ),
-                TextButton.icon(
-                    onPressed: () async {
-                      Navigator.of(context).pop();
-                      final picker = ImagePicker();
-                      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-                      _processImage(pickedFile);
-                    },
-                    label: const Text('Galerie'),
-                    icon: const Icon(Icons.photo_library)),
-              ],
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _processImage(XFile? pickedFile) {
-    if (pickedFile != null) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            title: const Text('Bild bestätigen'),
-            content: SizedBox(
-              height: 300,
-              child: Image.file(
-                File(pickedFile.path),
-                width: 200,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Abbrechen'),
-              ),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    _imageController = File(pickedFile.path).readAsBytesSync();
-                    widget.artikel.image = File(pickedFile.path).path;
-                    _artikelChanged = true;
-                  });
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Bestätigen'),
-              ),
-            ],
-          );
-        },
-      );
-    }
   }
 }

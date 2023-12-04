@@ -63,3 +63,13 @@ final class ArtikelSelectState extends ArtikelState {
   @override
   List<Object> get props => [ selectedArtikel];
 }
+
+final class LagerArtikelLoadedState extends ArtikelState {
+
+  final List<Artikel> lagerArtikel;
+
+  const LagerArtikelLoadedState(this.lagerArtikel)  : super(lagerArtikel);
+
+  @override
+  List<Object> get props => [lagerArtikel];
+}

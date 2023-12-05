@@ -83,101 +83,54 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
       ),
-      body: Form(
-        key: _formKey,
-        child: Container(
-          color: Colors.grey[300],
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Row(
-                      children: [
-                        _imageController != null
-                            ? Image.memory(_imageController!,
-                                width: 150, height: 150, fit: BoxFit.cover)
-                            : const Image(
-                                image: AssetImage(
-                                    'assets/images/default_artikel.png'),
-                                width: 150,
-                                height: 150,
-                                fit: BoxFit.cover),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(4),
-                                  child: Column(
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.all(4.0),
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.label_important,
-                                                color: Colors.grey),
-                                            Text('Bezeichnung: ',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 22)),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white60,
-                                            border: Border.all(
-                                                color: Colors.black54),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(5)),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              widget.artikel.bezeichnung,
-                                              style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Row(
-                                    children: [
-                                      const Expanded(
-                                        child: Padding(
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Container(
+            color: Colors.grey[300],
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Row(
+                        children: [
+                          _imageController != null
+                              ? Image.memory(_imageController!,
+                                  width: 150, height: 150, fit: BoxFit.cover)
+                              : const Image(
+                                  image: AssetImage(
+                                      'assets/images/default_artikel.png'),
+                                  width: 150,
+                                  height: 150,
+                                  fit: BoxFit.cover),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: Column(
+                                      children: [
+                                        const Padding(
                                           padding: EdgeInsets.all(4.0),
                                           child: Row(
                                             children: [
                                               Icon(Icons.label_important,
                                                   color: Colors.grey),
-                                              Text('Bestand: ',
+                                              Text('Bezeichnung: ',
                                                   style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 18)),
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 22)),
                                             ],
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 80,
-                                        height: 40,
-                                        child: Padding(
+                                        Padding(
                                           padding: const EdgeInsets.all(2.0),
                                           child: Container(
                                             decoration: BoxDecoration(
@@ -189,392 +142,288 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                                       Radius.circular(5)),
                                             ),
                                             child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
+                                              padding: const EdgeInsets.all(8.0),
                                               child: Text(
-                                                widget.artikel.bestand
-                                                    .toString(),
+                                                widget.artikel.bezeichnung,
                                                 style: const TextStyle(
                                                     fontSize: 18,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                    fontWeight: FontWeight.bold),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Row(
-                                    children: [
-                                      const Expanded(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(4.0),
-                                          child: Row(
-                                            children: [
-                                              Icon(Icons.label_important,
-                                                  color: Colors.grey),
-                                              Text(
-                                                'Min.Bestand: ',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16),
-                                              ),
-                                            ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      children: [
+                                        const Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(4.0),
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.label_important,
+                                                    color: Colors.grey),
+                                                Text('Bestand: ',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18)),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 80,
-                                        height: 40,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white60,
-                                              border: Border.all(
-                                                  color: Colors.black54),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(5)),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                widget.artikel.mindestbestand
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: int.parse(
-                                                                _minBestandController
-                                                                    .text) >
-                                                            int.parse(
-                                                                _bestandController
-                                                                    .text)
-                                                        ? Colors.red
-                                                        : Colors.black87),
+                                        SizedBox(
+                                          width: 80,
+                                          height: 40,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.white60,
+                                                border: Border.all(
+                                                    color: Colors.black54),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(5)),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  _bestandController.text,
+                                                  style: const TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Row(
+                                      children: [
+                                        const Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(4.0),
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.label_important,
+                                                    color: Colors.grey),
+                                                Text(
+                                                  'Min.Bestand: ',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 80,
+                                          height: 40,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.white60,
+                                                border: Border.all(
+                                                    color: Colors.black54),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(5)),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  widget.artikel.mindestbestand
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: int.parse(
+                                                                  _minBestandController
+                                                                      .text) >
+                                                              int.parse(
+                                                                  _bestandController
+                                                                      .text)
+                                                          ? Colors.red
+                                                          : Colors.black87),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Row(
-                      children: [
-                        const Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                Icon(Icons.label_important, color: Colors.grey),
-                                Text('Bestellgrenze: ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18)),
-                              ],
+                    Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Row(
+                        children: [
+                          const Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.label_important, color: Colors.grey),
+                                  Text('Bestellgrenze: ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18)),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: SizedBox(
-                              height: 40,
-                              child: Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white60,
-                                    border: Border.all(color: Colors.black54),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(5)),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      widget.artikel.bestellgrenze.toString(),
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: SizedBox(
+                                height: 40,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white60,
+                                      border: Border.all(color: Colors.black54),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(5)),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        widget.artikel.bestellgrenze.toString(),
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Column(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Row(
-                            children: [
-                              Icon(Icons.label_important, color: Colors.grey),
-                              Text('Beschreibung: ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18)),
-                            ],
+                    Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Column(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.label_important, color: Colors.grey),
+                                Text('Beschreibung: ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18)),
+                              ],
+                            ),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white60,
-                                border: Border.all(color: Colors.black54),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(5)),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  widget.artikel.beschreibung ??
-                                      'Keine Beschreibung vorhanden.',
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white60,
+                                  border: Border.all(color: Colors.black54),
+                                  borderRadius:
+                                      const BorderRadius.all(Radius.circular(5)),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    widget.artikel.beschreibung ??
+                                        'Keine Beschreibung vorhanden.',
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    color: Colors.green[200],
-                    child: Padding(
-                      // ProduktNr
-                      padding: const EdgeInsets.all(4),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: SizedBox(
-                            width: 220,
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    int quantity = 0; // Initial quantity value
-                                    TextEditingController einlagernController =
-                                        TextEditingController();
-
-                                    // ignore: unused_element
-                                    void increaseQuantity() {
-                                      setState(() {
-                                        quantity++;
-                                        einlagernController.text =
-                                            quantity.toString();
-                                      });
-                                    }
-
-                                    // ignore: unused_element
-                                    void decreaseQuantity() {
-                                      setState(() {
-                                        if (quantity > 0) {
-                                          quantity--;
-                                          einlagernController.text =
-                                              quantity.toString();
-                                        }
-                                      });
-                                    }
-
-                                    return AlertDialog(
-                                      title: const Text('Produkt einlagern'),
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Text(
-                                              'Wie viel möchten Sie einlagern?'),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              children: [
-                                                IconButton(
-                                                  icon:
-                                                      const Icon(Icons.remove),
-                                                  onPressed: decreaseQuantity,
-                                                ),
-                                                Expanded(
-                                                  child: TextField(
-                                                    controller:
-                                                        einlagernController,
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      hintText: 'Anzahl',
-                                                      border:
-                                                          OutlineInputBorder(),
-                                                    ),
-                                                    style: const TextStyle(
-                                                        fontSize: 18),
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    textAlign: TextAlign.center,
-                                                    onChanged: (value) {
-                                                      // Handle changes to the text field if needed
-                                                      // You can also validate the input here
-                                                      if (value.isNotEmpty &&
-                                                          value is int) {
-                                                        quantity =
-                                                            int.parse(value);
-                                                      }
-                                                    },
-                                                  ),
-                                                ),
-                                                IconButton(
-                                                  icon: const Icon(Icons.add),
-                                                  onPressed: increaseQuantity,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Abbrechen'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            if (einlagernController
-                                                .text.isNotEmpty) {
-                                              int enteredQuantity = int.parse(
-                                                  einlagernController.text);
-                                              // addiere die eingelagerte Menge auf den aktuellen Bestand
-                                              _bestandController.text =
-                                                  (int.parse(_bestandController
-                                                              .text) +
-                                                          enteredQuantity)
-                                                      .toString();
-                                            }
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.green[400],
-                                  foregroundColor: Colors.black,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  )),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.arrow_circle_right,
-                                    color: Colors.green[900],
-                                    size: 28,
-                                  ),
-                                  const Text(
-                                    ' Einlagern',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                  Container(
-                    color: Colors.red[100],
-                    child: Padding(
-                      // ProduktNr
-                      padding: const EdgeInsets.all(4),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: SizedBox(
-                            width: 220,
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    int quantity = 0; // Initial quantity value
-                                    TextEditingController einlagernController =
-                                        TextEditingController();
-                                    final GlobalKey<FormState> formKey =
-                                        GlobalKey<FormState>();
-
-                                    // ignore: unused_element
-                                    void increaseQuantity() {
-                                      setState(() {
-                                        quantity++;
-                                        einlagernController.text =
-                                            quantity.toString();
-                                      });
-                                    }
-
-                                    // ignore: unused_element
-                                    void decreaseQuantity() {
-                                      setState(() {
-                                        if (quantity > 0) {
-                                          quantity--;
+                    Container(
+                      color: Colors.green[200],
+                      child: Padding(
+                        // ProduktNr
+                        padding: const EdgeInsets.all(4),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: SizedBox(
+                              width: 220,
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      int quantity = 0; // Initial quantity value
+                                      TextEditingController einlagernController =
+                                          TextEditingController();
+      
+                                      // ignore: unused_element
+                                      void increaseQuantity() {
+                                        setState(() {
+                                          quantity++;
                                           einlagernController.text =
                                               quantity.toString();
-                                        }
-                                      });
-                                    }
-
-                                    return Form(
-                                      key: formKey,
-                                      child: AlertDialog(
-                                        title: const Text('Produkt auslagern'),
+                                        });
+                                      }
+      
+                                      // ignore: unused_element
+                                      void decreaseQuantity() {
+                                        setState(() {
+                                          if (quantity > 0) {
+                                            quantity--;
+                                            einlagernController.text =
+                                                quantity.toString();
+                                          }
+                                        });
+                                      }
+      
+                                      return AlertDialog(
+                                        title: const Text('Produkt einlagern'),
                                         content: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             const Text(
-                                                'Wie viel möchten Sie auslagern?'),
+                                                'Wie viel möchten Sie einlagern?'),
                                             Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
+                                              padding: const EdgeInsets.all(8.0),
                                               child: Row(
                                                 children: [
                                                   IconButton(
-                                                    icon: const Icon(
-                                                        Icons.remove),
+                                                    icon:
+                                                        const Icon(Icons.remove),
                                                     onPressed: decreaseQuantity,
                                                   ),
                                                   Expanded(
-                                                    child: TextFormField(
+                                                    child: TextField(
                                                       controller:
                                                           einlagernController,
                                                       decoration:
@@ -587,22 +436,15 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                                           fontSize: 18),
                                                       keyboardType:
                                                           TextInputType.number,
-                                                      textAlign:
-                                                          TextAlign.center,
+                                                      textAlign: TextAlign.center,
                                                       onChanged: (value) {
-                                                        if (value.isNotEmpty) {
+                                                        // Handle changes to the text field if needed
+                                                        // You can also validate the input here
+                                                        if (value.isNotEmpty &&
+                                                            value is int) {
                                                           quantity =
                                                               int.parse(value);
                                                         }
-                                                      },
-                                                      validator: (value) {
-                                                        if (quantity >
-                                                            int.parse(
-                                                                _bestandController
-                                                                    .text)) {
-                                                          return 'Wenig Benstand!';
-                                                        }
-                                                        return null;
                                                       },
                                                     ),
                                                   ),
@@ -629,195 +471,346 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                                 int enteredQuantity = int.parse(
                                                     einlagernController.text);
                                                 // addiere die eingelagerte Menge auf den aktuellen Bestand
-                                                if (_formKey.currentState!
-                                                    .validate()) {
-                                                  _bestandController
-                                                      .text = (int.parse(
-                                                              _bestandController
-                                                                  .text) -
-                                                          enteredQuantity)
-                                                      .toString();
-                                                  Navigator.pop(context);
-                                                }
+                                                _bestandController.text =
+                                                    (int.parse(_bestandController
+                                                                .text) +
+                                                            enteredQuantity)
+                                                        .toString();
                                               }
+                                              Navigator.pop(context);
                                             },
                                             child: const Text('Ok'),
                                           ),
                                         ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.red[200],
-                                  foregroundColor: Colors.black,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  )),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.arrow_circle_left,
-                                    color: Colors.red[500],
-                                    size: 28,
-                                  ),
-                                  const Text(
-                                    ' Auslagern',
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                ],
+                                      );
+                                    },
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green[400],
+                                    foregroundColor: Colors.black,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    )),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.arrow_circle_right,
+                                      color: Colors.green[900],
+                                      size: 28,
+                                    ),
+                                    const Text(
+                                      ' Einlagern',
+                                      style: TextStyle(fontSize: 22),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-
-                  // Button zum Löschen aus Lagerplatz
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12.0, horizontal: 8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Mit dem ArtikelDeleteEvent wird der Artikel in der Datenbank gelöscht
-                          // Ein ShowDialog bestätigt das Löschen
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text(
-                                    'Artikel aus Lagerplatz löschen'),
-                                content: const Text(
-                                    'Sind Sie sicher, dass Sie den Artikel aus diesem Lagerplatz löschen möchten?'),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
+                    Container(
+                      color: Colors.red[100],
+                      child: Padding(
+                        // ProduktNr
+                        padding: const EdgeInsets.all(4),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: SizedBox(
+                              width: 220,
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      int quantity = 0; // Initial quantity value
+                                      TextEditingController einlagernController =
+                                          TextEditingController();
+                                      final GlobalKey<FormState> formKey =
+                                          GlobalKey<FormState>();
+      
+                                      // ignore: unused_element
+                                      void increaseQuantity() {
+                                        setState(() {
+                                          quantity++;
+                                          einlagernController.text =
+                                              quantity.toString();
+                                        });
+                                      }
+      
+                                      // ignore: unused_element
+                                      void decreaseQuantity() {
+                                        setState(() {
+                                          if (quantity > 0) {
+                                            quantity--;
+                                            einlagernController.text =
+                                                quantity.toString();
+                                          }
+                                        });
+                                      }
+      
+                                      return Form(
+                                        key: formKey,
+                                        child: AlertDialog(
+                                          title: const Text('Produkt auslagern'),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const Text(
+                                                  'Wie viel möchten Sie auslagern?'),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  children: [
+                                                    IconButton(
+                                                      icon: const Icon(
+                                                          Icons.remove),
+                                                      onPressed: decreaseQuantity,
+                                                    ),
+                                                    Expanded(
+                                                      child: TextFormField(
+                                                        controller:
+                                                            einlagernController,
+                                                        decoration:
+                                                            const InputDecoration(
+                                                          hintText: 'Anzahl',
+                                                          border:
+                                                              OutlineInputBorder(),
+                                                        ),
+                                                        style: const TextStyle(
+                                                            fontSize: 18),
+                                                        keyboardType:
+                                                            TextInputType.number,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        onChanged: (value) {
+                                                          if (value.isNotEmpty) {
+                                                            quantity =
+                                                                int.parse(value);
+                                                          }
+                                                        },
+                                                        validator: (value) {
+                                                          if (quantity >
+                                                              int.parse(
+                                                                  _bestandController
+                                                                      .text)) {
+                                                            return 'Wenig Benstand!';
+                                                          }
+                                                          return null;
+                                                        },
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      icon: const Icon(Icons.add),
+                                                      onPressed: increaseQuantity,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text('Abbrechen'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                if (einlagernController
+                                                    .text.isNotEmpty) {
+                                                  int enteredQuantity = int.parse(
+                                                      einlagernController.text);
+                                                  // subtrahiere die eingelagerte Menge auf den aktuellen Bestand
+                                                  if (formKey.currentState!.validate()) 
+                                                  {
+                                                    setState(() {
+                                                      _bestandController.text = (int.parse(_bestandController.text) - enteredQuantity).toString();
+                                                    });
+                                                    Navigator.pop(context);
+                                                  }
+                                                }
+                                              },
+                                              child: const Text('Ok'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
                                     },
-                                    child: const Text('Abbrechen'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      _lagerplatzIdController.text = '';
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Ja'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        // Button-Style
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            )),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              CupertinoIcons.square_arrow_left_fill,
-                              size: 30,
-                              color: Colors.grey[200],
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red[200],
+                                    foregroundColor: Colors.black,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    )),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.arrow_circle_left,
+                                      color: Colors.red[500],
+                                      size: 28,
+                                    ),
+                                    const Text(
+                                      ' Auslagern',
+                                      style: TextStyle(fontSize: 22),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                            const Text(' Aus Lagerplatz löschen',
-                                style: TextStyle(fontSize: 22)),
-                          ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  // Button zum Speichern
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 8.0),
-                      child: ElevatedButton(
-                        onPressed: _artikelChanged
-                            ? () {
-                                if (_formKey.currentState!.validate()) {
-                                  Artikel artikel = Artikel(
-                                      artikelId: widget.artikel.artikelId,
-                                      bezeichnung: widget.artikel.bezeichnung,
-                                      bestand:
-                                          int.parse(_bestandController.text),
-                                      mindestbestand:
-                                          _minBestandController.text.isNotEmpty
-                                              ? int.parse(
-                                                  _minBestandController.text)
-                                              : 0,
-                                      bestellgrenze: _bestellgrenzeController
-                                              .text.isNotEmpty
-                                          ? int.parse(
-                                              _bestellgrenzeController.text)
-                                          : 0,
-                                      beschreibung: widget.artikel.beschreibung,
-                                      lagerplatzId: _lagerplatzIdController
-                                              .text.isNotEmpty
-                                          ? _lagerplatzIdController.text
-                                          : null,
-                                      image: _imageController != null
-                                          ? widget.artikel.image
-                                          : null,
-                                      artikelNr: _artikelNrController
-                                                  .isNotEmpty &&
-                                              _artikelNrController !=
-                                                  'Ungültiger QR-Code' &&
-                                              _artikelNrController !=
-                                                  'Fehlgeschlagen beim erhalten der Platform-version.'
-                                          ? _artikelNrController
-                                          : null);
-                                  // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
-                                  BlocProvider.of<ArtikelBloc>(context)
-                                      .add(ArtikelUpdateEvent(artikel));
-                                  Navigator.pop(context);
+      
+                    // Button zum Löschen aus Lagerplatz
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12.0, horizontal: 8.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Mit dem ArtikelDeleteEvent wird der Artikel in der Datenbank gelöscht
+                            // Ein ShowDialog bestätigt das Löschen
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text(
+                                      'Artikel aus Lagerplatz löschen'),
+                                  content: const Text(
+                                      'Sind Sie sicher, dass Sie den Artikel aus diesem Lagerplatz löschen möchten?'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Abbrechen'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        _lagerplatzIdController.text = '';
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Ja'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          // Button-Style
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              )),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                CupertinoIcons.square_arrow_left_fill,
+                                size: 30,
+                                color: Colors.grey[200],
+                              ),
+                              const Text(' Aus Lagerplatz löschen',
+                                  style: TextStyle(fontSize: 22)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Button zum Speichern
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 8.0),
+                        child: ElevatedButton(
+                          onPressed: _artikelChanged
+                              ? () {
+                                  if (_formKey.currentState!.validate()) {
+                                    Artikel artikel = Artikel(
+                                        artikelId: widget.artikel.artikelId,
+                                        bezeichnung: widget.artikel.bezeichnung,
+                                        bestand:
+                                            int.parse(_bestandController.text),
+                                        mindestbestand:
+                                            _minBestandController.text.isNotEmpty
+                                                ? int.parse(
+                                                    _minBestandController.text)
+                                                : 0,
+                                        bestellgrenze: _bestellgrenzeController
+                                                .text.isNotEmpty
+                                            ? int.parse(
+                                                _bestellgrenzeController.text)
+                                            : 0,
+                                        beschreibung: widget.artikel.beschreibung,
+                                        lagerplatzId: _lagerplatzIdController
+                                                .text.isNotEmpty
+                                            ? _lagerplatzIdController.text
+                                            : null,
+                                        image: _imageController != null
+                                            ? widget.artikel.image
+                                            : null,
+                                        artikelNr: _artikelNrController.isNotEmpty
+                                            ? _artikelNrController
+                                            : null);
+                                    // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
+                                    BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel, onCompleteCallback: () {
+                                      Navigator.pop(context);
+                                    }));
+                                  }
                                 }
-                              }
-                            : null,
-                        // Button-Style
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            )),
-                        child: const Text('Speichern',
-                            style: TextStyle(fontSize: 26)),
+                              : null,
+                          // Button-Style
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              )),
+                          child: const Text('Speichern',
+                              style: TextStyle(fontSize: 26)),
+                        ),
                       ),
                     ),
-                  ),
-                  // Button zum Abbrechen
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        // Button-Style
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red[900],
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            )),
-                        child: const Text('Abbrechen',
-                            style: TextStyle(fontSize: 26)),
+                    // Button zum Abbrechen
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 8.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          // Button-Style
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red[900],
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              )),
+                          child: const Text('Abbrechen',
+                              style: TextStyle(fontSize: 26)),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

@@ -25,9 +25,8 @@ final class ArtikelAddEvent extends ArtikelEvent {
 
 final class ArtikelUpdateEvent extends ArtikelEvent {
   final Artikel artikel;
-  final VoidCallback? onCompleteCallback;
 
-  const ArtikelUpdateEvent(this.artikel, {this.onCompleteCallback});
+  const ArtikelUpdateEvent(this.artikel);
 
   @override
   List<Object> get props => [artikel];

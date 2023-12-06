@@ -68,6 +68,38 @@ class BenutzerRepository {
     }
   }
 
+  // Benutzer löschen
+  Future<bool> deleteBenutzer(Benutzer benutzer) async {
+    Response response = await delete(Uri.parse(endpoint),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(benutzer.toJson()));
+    if (response.statusCode != 200) {
+      throw Exception(response.reasonPhrase);
+    } else {
+      return true;
+    }
+  }
+
+  // Benutzer aktualisieren
+  Future<bool> updateBenutzer(Benutzer benutzer) async {
+    try {
+      Response response = await put(Uri.parse(endpoint),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(benutzer.toJson()));
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        throw Exception(response.reasonPhrase);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   // login durch Benutzername und Passwort und vergleiche mit der Datenbank und falls erfolgreich, dann rückgabe des Benutzers
   Future<Benutzer> login(String benutzername, String password) async {
     var benutzer = await getBenutzer();

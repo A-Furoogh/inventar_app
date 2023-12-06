@@ -786,9 +786,8 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                             ? _artikelNrController
                                             : null);
                                     // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
-                                    BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel, onCompleteCallback: () {
-                                      Navigator.pop(context);
-                                    }));
+                                    BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel));
+                                    Navigator.pop(context);
                                   }
                                 }
                               : null,

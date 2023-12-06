@@ -8,33 +8,33 @@ sealed class BenutzerState extends Equatable {
 }
 
 // Initial state
-final class BenutzerInitial extends BenutzerState {
-  const BenutzerInitial();
+final class BenutzerInitialState extends BenutzerState {
+  const BenutzerInitialState();
 
   @override
   List<Object> get props => [];
 }
 
-final class BenutzerLoading extends BenutzerState {
-  const BenutzerLoading();
+final class BenutzerLoadingState extends BenutzerState {
+  const BenutzerLoadingState();
 
   @override
   List<Object> get props => [];
 }
 
-final class BenutzerLoaded extends BenutzerState {
+final class BenutzerLoadedState extends BenutzerState {
   final List<Benutzer> benutzer;
 
-  const BenutzerLoaded(this.benutzer);
+  const BenutzerLoadedState(this.benutzer);
 
   @override
   List<Object> get props => [benutzer];
 }
 
-final class BenutzerError extends BenutzerState {
+final class BenutzerErrorState extends BenutzerState {
   final String message;
 
-  const BenutzerError(this.message);
+  const BenutzerErrorState(this.message);
 
   @override
   List<Object> get props => [message];

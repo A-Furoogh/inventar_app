@@ -15,3 +15,28 @@ class AddbenutzerEvent extends BenutzerEvent {
   @override
   List<Object> get props => [benutzer];
 }
+
+class DeletebenutzerEvent extends BenutzerEvent {
+  final Benutzer benutzer;
+
+  const DeletebenutzerEvent(this.benutzer);
+
+  @override
+  List<Object> get props => [benutzer];
+}
+
+class UpdatebenutzerEvent extends BenutzerEvent {
+  final Benutzer benutzer;
+
+  const UpdatebenutzerEvent(this.benutzer);
+
+  @override
+  List<Object> get props => [benutzer];
+}
+
+class LoadbenutzerEvent extends BenutzerEvent {
+  const LoadbenutzerEvent();
+
+  @override
+  List<Object> get props => [];
+}

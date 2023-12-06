@@ -23,7 +23,7 @@ class _AddbenutzerPageState extends State<AddbenutzerPage> {
       appBar: AppBar(title: const Text('Neuer Benutzer'), centerTitle: true),
       body: BlocBuilder<BenutzerBloc, BenutzerState>(
         builder: (context, state) {
-          if (state is BenutzerLoading) {
+          if (state is BenutzerLoadingState) {
             return const Center(child: CircularProgressIndicator());
           }
           return Center(
@@ -35,8 +35,8 @@ class _AddbenutzerPageState extends State<AddbenutzerPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      const Icon(Icons.person_add_alt,
-                          size: 150, color: Colors.grey),
+                      Icon(Icons.person_add_rounded,
+                          size: 150, color: Colors.green[400]),
                       TextFormField(
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
@@ -116,7 +116,7 @@ class _AddbenutzerPageState extends State<AddbenutzerPage> {
                             if (_formKey.currentState!.validate()) {
                               // Add the new benutzer to the database through BenuzterBloc
                               try {
-                                BlocProvider.of<BenutzerBloc>(context)
+                                context.read<BenutzerBloc>()
                                     .add(AddbenutzerEvent(Benutzer(
                                   benutzername: _benutzernameController.text,
                                   passwort: _passwortController.text,

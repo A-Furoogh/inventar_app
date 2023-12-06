@@ -108,7 +108,6 @@ class BenutzerRepository {
           element.benutzername == benutzername && element.passwort == password,
       orElse: () => throw Exception('Benutzername oder Passwort ist falsch'),
     );
-
     return Future.value(user);
   }
 

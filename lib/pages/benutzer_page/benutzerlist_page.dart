@@ -46,6 +46,7 @@ class _BenutzerPageState extends State<BenutzerPage> {
                     label: const Text('Benutzer hinzufügen')),
                 Expanded(
                   child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
                       padding: const EdgeInsets.all(8),
                       itemCount: state.benutzer.length,
                       itemBuilder: (context, index) {

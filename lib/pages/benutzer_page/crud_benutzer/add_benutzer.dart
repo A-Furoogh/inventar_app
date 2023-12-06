@@ -18,6 +18,12 @@ class _AddbenutzerPageState extends State<AddbenutzerPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+    _rollenController.text = 'admin';
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Neuer Benutzer'), centerTitle: true),
@@ -91,10 +97,10 @@ class _AddbenutzerPageState extends State<AddbenutzerPage> {
                                   value: 'admin', child: Text('Admin')),
                               DropdownMenuItem(
                                   value: 'productmanager',
-                                  child: Text('Produktmanager')),
+                                  child: Text('Produkt manager')),
                               DropdownMenuItem(
                                   value: 'logistics manager',
-                                  child: Text('Logistikmanager')),
+                                  child: Text('Logistik manager')),
                               DropdownMenuItem(
                                   value: 'controller',
                                   child: Text('Kontrolleur')),

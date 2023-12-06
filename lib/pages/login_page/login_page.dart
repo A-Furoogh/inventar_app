@@ -96,9 +96,16 @@ class _LoginPageState extends State<LoginPage> {
                                       benutzername: _usernameController.text,
                                       passwort: _passwordController.text));
                                       */
-                              BlocProvider.of<AuthBloc>(context).add(LoginEvent(
+                              try {
+                                BlocProvider.of<AuthBloc>(context).add(LoginEvent(
                                   _usernameController.text,
                                   _passwordController.text));
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text(
+                                            'Benutzername oder Passwort falsch.')));
+                              }
                           }
                         },
                         style: ElevatedButton.styleFrom(

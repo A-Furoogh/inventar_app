@@ -8,6 +8,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
+import 'package:inventar_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:inventar_app/models/artikel.dart';
 import 'package:inventar_app/pages/barcode_page/barcode_page.dart';
 
@@ -39,10 +40,14 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
 
   bool _artikelChanged = false;
 
+  bool _isLogisticsManager = false;
+
   @override
   void initState(){
     
     super.initState();
+
+    _isLogisticsManager = context.read<AuthBloc>().state.benutzer.rolle == 'logistics manager';
   
     _bezeichnungController.text = widget.artikel.bezeichnung;
     _bestandController.text = widget.artikel.bestand.toString();
@@ -108,7 +113,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                       child: Row(
                         children: [
                           GestureDetector(
-                              onTap: _changeImage,
+                              onTap: _isLogisticsManager ? null : _changeImage,
                               child: _imageController != null
                                   ? Image.memory(
                                       _imageController!,
@@ -147,11 +152,15 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                         Padding(
                                           padding: const EdgeInsets.all(2.0),
                                           child: TextFormField(
-                                            decoration: const InputDecoration(
-                                              border: OutlineInputBorder(),
+                                            decoration: InputDecoration(
+                                              border: const OutlineInputBorder(),
                                               hintText: 'Bezeichnung',
                                               fillColor: Colors.white60,
                                               filled: true,
+                                              enabled: _isLogisticsManager ? false : true,
+                                            ),
+                                            style: const TextStyle(
+                                                color: Colors.black87,
                                             ),
                                             controller: _bezeichnungController,
                                             validator: (value) {
@@ -195,8 +204,11 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                               fillColor: Colors.white60,
                                               filled: true,
                                             ),
+                                            enabled: _isLogisticsManager ? false : true,
                                             keyboardType: TextInputType.number,
                                             controller: _bestandController,
+                                            style: const TextStyle(
+                                                color: Colors.black87),
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty) {
@@ -240,8 +252,11 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                               fillColor: Colors.white60,
                                               filled: true,
                                             ),
+                                            enabled: _isLogisticsManager ? false : true,
                                             keyboardType: TextInputType.number,
                                             controller: _minBestandController,
+                                            style: const TextStyle(
+                                                color: Colors.black87),
                                           ),
                                         ),
                                       ],
@@ -287,6 +302,9 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                   ),
                                   keyboardType: TextInputType.number,
                                   controller: _bestellgrenzeController,
+                                  enabled: _isLogisticsManager ? false : true,
+                                  style: const TextStyle(
+                                      color: Colors.black87),
                                 ),
                               ),
                             ),
@@ -319,7 +337,9 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                 fillColor: Colors.white60,
                                 filled: true,
                               ),
+                              enabled: _isLogisticsManager ? false : true,
                               controller: _beschreibungController,
+                              style: const TextStyle(color: Colors.black87),
                             ),
                           ),
                         ],
@@ -542,7 +562,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 4.0, horizontal: 8.0),
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: _isLogisticsManager ? null : () {
                             // Mit dem ArtikelDeleteEvent wird der Artikel in der Datenbank gelöscht
                             // Ein ShowDialog bestätigt das Löschen
                             showDialog(

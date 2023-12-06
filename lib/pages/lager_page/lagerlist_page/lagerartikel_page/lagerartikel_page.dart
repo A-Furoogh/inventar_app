@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
+import 'package:inventar_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:inventar_app/models/artikel.dart';
 
 class LagerArtikelPage extends StatefulWidget {
@@ -31,11 +32,15 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  bool _buttonLoeschenDisabled = false;  
+
   bool _artikelChanged = false;
 
   @override
   void initState() {
     super.initState();
+
+    _buttonLoeschenDisabled =  context.read<AuthBloc>().state.benutzer.rolle == 'controller';
 
     _bestandController.text = widget.artikel.bestand.toString();
     _minBestandController.text = widget.artikel.mindestbestand.toString();
@@ -407,7 +412,13 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                       }
       
                                       return AlertDialog(
-                                        title: const Text('Produkt einlagern'),
+                                        title: const Row(
+                                          children: [
+                                            Text('Produkt einlagern '),
+                                            Icon(Icons.add, color: Colors.green, size: 36,)
+                                          ],
+                                        ),
+                                        backgroundColor: Colors.green[50],
                                         content: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
@@ -557,7 +568,13 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                       return Form(
                                         key: formKey,
                                         child: AlertDialog(
-                                          title: const Text('Produkt auslagern'),
+                                          title: const Row(
+                                            children: [
+                                              Text('Produkt auslagern'),
+                                              Icon(Icons.remove, color: Colors.red, size: 36,)
+                                            ],
+                                          ),
+                                          backgroundColor: Colors.red[50],
                                           content: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
@@ -680,7 +697,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 12.0, horizontal: 8.0),
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () => _buttonLoeschenDisabled ? null : {
                             // Mit dem ArtikelDeleteEvent wird der Artikel in der Datenbank gelöscht
                             // Ein ShowDialog bestätigt das Löschen
                             showDialog(
@@ -708,12 +725,12 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                   ],
                                 );
                               },
-                            );
+                            )
                           },
                           // Button-Style
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.white,
+                              backgroundColor: _buttonLoeschenDisabled ? Colors.grey : Colors.red,
+                              foregroundColor: _buttonLoeschenDisabled ? Colors.white : Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               )),

@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:inventar_app/pages/konto_page/crud_benutzer/add_benutzer.dart';
+import 'package:inventar_app/pages/benutzer_page/crud_benutzer/add_benutzer.dart';
 
-class KontoPage extends StatefulWidget {
-  const KontoPage({super.key});
+class BenutzerPage extends StatefulWidget {
+  const BenutzerPage({super.key});
 
   @override
-  State<KontoPage> createState() => _KontoPageState();
+  State<BenutzerPage> createState() => _BenutzerPageState();
 }
 
-class _KontoPageState extends State<KontoPage> {
+class _BenutzerPageState extends State<BenutzerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Konto Page'), centerTitle: true),
+      appBar: AppBar(title: const Text('Benutzer Page'), centerTitle: true),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Icon(Icons.person, size: 150, color: Colors.grey),
-            const Text('Konto Page'),
+            const Text('Benutzer Page'),
             ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const AddbenutzerPage()));

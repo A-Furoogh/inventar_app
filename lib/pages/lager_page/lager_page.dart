@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:inventar_app/pages/barcode_page/barcode_page.dart';
-import 'package:inventar_app/pages/lager_page/lagerartikels_page/lagerartikels_page.dart';
+import 'package:inventar_app/pages/lager_page/lagerlist_page/lagerlist_page.dart';
 
 class LagerPage extends StatefulWidget {
   const LagerPage({super.key});
@@ -96,7 +96,7 @@ class _LagerPageState extends State<LagerPage> {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => LagerArtikelsPage(lagerId: _lagerSearchController.text)));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => LagerListPage(lagerId: _lagerSearchController.text)));
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(

@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
 import 'package:inventar_app/pages/artikel/artikel_tile.dart';
-import 'package:inventar_app/pages/lager_page/lagerartikel_page/lagerartikel_page.dart';
+import 'package:inventar_app/pages/lager_page/lagerlist_page/lagerartikel_page/lagerartikel_page.dart';
 
-class LagerArtikelsPage extends StatefulWidget {
+class LagerListPage extends StatefulWidget {
 
   final String lagerId;
 
-  const LagerArtikelsPage({super.key, required this.lagerId});
+  const LagerListPage({super.key, required this.lagerId});
 
   @override
-  State<LagerArtikelsPage> createState() => _LagerArtikelsPageState();
+  State<LagerListPage> createState() => _LagerListPageState();
 }
 
-class _LagerArtikelsPageState extends State<LagerArtikelsPage> {
+class _LagerListPageState extends State<LagerListPage> {
 
   @override
   void initState() {

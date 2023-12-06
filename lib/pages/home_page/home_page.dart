@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:inventar_app/blocs/auth_bloc/auth_bloc.dart';
-import 'package:inventar_app/pages/Konto_page/konto_page.dart';
 import 'package:inventar_app/pages/artikel/artikel_page.dart';
+import 'package:inventar_app/pages/benutzer_page/benutzer_page.dart';
 import 'package:inventar_app/pages/home_page/fields_tile.dart';
 import 'package:inventar_app/pages/lager_page/lager_page.dart';
 import 'package:inventar_app/pages/protokoll_page/protokoll_page.dart';
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                       },),
                       FieldWidget(image: "assets/images/artikel.png", name: "Artikel", onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const ArtikelPage()));
-                      },),
+                      },isDisabled: context.read<AuthBloc>().state.benutzer.rolle == 'controller',),
                     ],
                   ),
                   ),
@@ -87,11 +87,11 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         FieldWidget(image: "assets/images/protokoll.png", name: "Protokoll", onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const ProtokollPage()));
-                        }, isDisabled: context.read<AuthBloc>().state.benutzer.rolle == 'controller',),
+                        }, isDisabled: context.read<AuthBloc>().state.benutzer.rolle == 'controller' || context.read<AuthBloc>().state.benutzer.rolle == 'logistics manager',),
                         GestureDetector(
-                          child: FieldWidget(image: "assets/images/konto.png", name: "Konto", onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const KontoPage()));
-                          }, isDisabled: context.read<AuthBloc>().state.benutzer.rolle == 'controller',)
+                          child: FieldWidget(image: "assets/images/konto.png", name: "Benutzer", onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const BenutzerPage()));
+                          }, isDisabled: context.read<AuthBloc>().state.benutzer.rolle == 'controller' || context.read<AuthBloc>().state.benutzer.rolle == 'logistics manager',)
                         ),
                       ],
                     ))

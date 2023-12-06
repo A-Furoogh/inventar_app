@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
+import 'package:inventar_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:inventar_app/pages/artikel/artikel_crud/artikel_update_delete/artikel_update_delete_page.dart';
 import 'package:inventar_app/pages/artikel/artikel_tile.dart';
 import 'package:inventar_app/pages/artikel/artikel_crud/artikel_add/artikel_add_page.dart';
@@ -101,13 +102,18 @@ class _ArtikelPageState extends State<ArtikelPage> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: context.read<AuthBloc>().state.benutzer.rolle == 'logistics manager' ? null : () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
                                       const ArtikelAddPage()));
                         },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.teal,
+                          foregroundColor: Colors.white,
+                          surfaceTintColor: Colors.grey,
+                        ),
                         child: const Text('Artikel hinzufügen +'),
                       ),
                     ),

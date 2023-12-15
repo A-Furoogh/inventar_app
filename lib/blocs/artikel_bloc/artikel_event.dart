@@ -69,6 +69,14 @@ final class LoadLagerArtikelEvent extends ArtikelEvent {
   List<Object> get props => [lagerId];
 }
 
+// Zum wiederaufrufen der Artikel-Liste, um API Aufrufe zu sparen
+final class ArtikelReloadEvent extends ArtikelEvent {
+  const ArtikelReloadEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
 /*
 final class ArtikelClearEvent extends ArtikelEvent {
   const ArtikelClearEvent();

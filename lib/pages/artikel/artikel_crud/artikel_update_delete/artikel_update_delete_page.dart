@@ -1,6 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,7 +31,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
   String _lagerplatzIdController = '';
   String _artikelNrController = '';
   // Image controller
-  Uint8List? _imageController;
+  String? _imageController;
 
   final _lagerplatzCodeController = TextEditingController();
   final _artikelNrCodeController = TextEditingController();
@@ -49,17 +49,17 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
 
     _isLogisticsManager = context.read<AuthBloc>().state.benutzer.rolle == 'logistics manager';
   
-    _bezeichnungController.text = widget.artikel.bezeichnung;
+    _bezeichnungController.text = widget.artikel.bezeichnung ?? '';
     _bestandController.text = widget.artikel.bestand.toString();
     _minBestandController.text = widget.artikel.mindestbestand.toString();
     _bestellgrenzeController.text = widget.artikel.bestellgrenze.toString();
     _beschreibungController.text = widget.artikel.beschreibung ?? '';
     _lagerplatzIdController = widget.artikel.lagerplatzId ?? '';
     _lagerplatzCodeController.text = widget.artikel.lagerplatzId ?? '';
-    _artikelNrController = widget.artikel.artikelNr ?? '';
-    _artikelNrCodeController.text = widget.artikel.artikelNr ?? '';
+    _artikelNrController = widget.artikel.ean ?? '';
+    _artikelNrCodeController.text = widget.artikel.ean ?? '';
     if (widget.artikel.image != null) {
-      _imageController = base64Decode(widget.artikel.image!);
+      _imageController = widget.artikel.image;
     }
 
     // Füge Listener hinzu, um zu prüfen, ob sich die Eingaben geändert haben
@@ -80,7 +80,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
         _bestellgrenzeController.text != widget.artikel.bestellgrenze.toString() ||
         _beschreibungController.text != widget.artikel.beschreibung ||
         _lagerplatzIdController != widget.artikel.lagerplatzId ||
-        _artikelNrCodeController.text != widget.artikel.artikelNr) {
+        _artikelNrCodeController.text != widget.artikel.ean) {
       setState(() {
         _artikelChanged = true;
       });
@@ -115,11 +115,20 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                           GestureDetector(
                               onTap: _isLogisticsManager ? null : _changeImage,
                               child: _imageController != null
-                                  ? Image.memory(
-                                      _imageController!,
+                                  ? CachedNetworkImage(
+                                      imageUrl: _imageController!,
                                       width: 150,
                                       height: 150,
-                                      fit: BoxFit.cover)
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) => Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: Image.asset('assets/images/default_artikel.png', fit: BoxFit.cover, width: 150, height: 150,),
+                                        ),
+                                      ),
+                                      errorWidget: (context, error, stackTrace) => const Icon(Icons.broken_image, size: 150, color: Colors.grey,)
+                                      )
                                   : const Image(
                                       image: AssetImage(
                                           'assets/images/default_artikel.png'),
@@ -329,17 +338,19 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(4.0),
+                            padding: const EdgeInsets.all(2.0),
                             child: TextField(
-                              decoration: const InputDecoration(
+                              decoration: const InputDecoration( 
                                 border: OutlineInputBorder(),
                                 hintText: 'Beschreibung (optional)',
                                 fillColor: Colors.white60,
                                 filled: true,
+                                contentPadding: EdgeInsets.all(4),
                               ),
                               enabled: _isLogisticsManager ? false : true,
                               controller: _beschreibungController,
                               style: const TextStyle(color: Colors.black87),
+                              maxLines: 5,
                             ),
                           ),
                         ],
@@ -535,7 +546,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                   image: _imageController != null
                                       ? widget.artikel.image
                                       : null,
-                                      artikelNr: _artikelNrController.isNotEmpty && _artikelNrController != 'Ungültiger QR-Code' && _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.'
+                                      ean: _artikelNrController.isNotEmpty && _artikelNrController != 'Ungültiger QR-Code' && _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.'
                                           ? _artikelNrController
                                           : null);
                               // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
@@ -731,7 +742,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
               TextButton(
                 onPressed: () {
                   setState(() {
-                    _imageController = File(pickedFile.path).readAsBytesSync();
+                    _imageController = /*File(pickedFile.path).readAsBytesSync();*/ File(pickedFile.path).path;
                     widget.artikel.image = File(pickedFile.path).path;
                     _artikelChanged = true;
                   });

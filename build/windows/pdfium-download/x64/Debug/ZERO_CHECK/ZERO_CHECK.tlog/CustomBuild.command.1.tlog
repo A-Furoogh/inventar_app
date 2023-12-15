@@ -1,0 +1,10 @@
+^F:\INVENTAR_APP\BUILD\WINDOWS\PDFIUM-DOWNLOAD\CMAKEFILES\EDC80EBF4007A0DA8C0FD7A4757E0D19\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SF:/inventar_app/build/windows/pdfium-download -BF:/inventar_app/build/windows/pdfium-download --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file F:/inventar_app/build/windows/pdfium-download/pdfium-download.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,14 @@
+# Target labels
+ pdfium-download
+# Source files and their labels
+F:/inventar_app/build/windows/pdfium-download/CMakeFiles/pdfium-download
+F:/inventar_app/build/windows/pdfium-download/CMakeFiles/edc80ebf4007a0da8c0fd7a4757e0d19/pdfium-download.rule
+F:/inventar_app/build/windows/pdfium-download/CMakeFiles/ebf65d027e2f5c567fd504e882822760/pdfium-download-complete.rule
+F:/inventar_app/build/windows/pdfium-download/CMakeFiles/65a759f2a4ee1f617033c19139bc48f4/pdfium-download-build.rule
+F:/inventar_app/build/windows/pdfium-download/CMakeFiles/65a759f2a4ee1f617033c19139bc48f4/pdfium-download-configure.rule
+F:/inventar_app/build/windows/pdfium-download/CMakeFiles/65a759f2a4ee1f617033c19139bc48f4/pdfium-download-download.rule
+F:/inventar_app/build/windows/pdfium-download/CMakeFiles/65a759f2a4ee1f617033c19139bc48f4/pdfium-download-install.rule
+F:/inventar_app/build/windows/pdfium-download/CMakeFiles/65a759f2a4ee1f617033c19139bc48f4/pdfium-download-mkdir.rule
+F:/inventar_app/build/windows/pdfium-download/CMakeFiles/65a759f2a4ee1f617033c19139bc48f4/pdfium-download-patch.rule
+F:/inventar_app/build/windows/pdfium-download/CMakeFiles/65a759f2a4ee1f617033c19139bc48f4/pdfium-download-test.rule
+F:/inventar_app/build/windows/pdfium-download/CMakeFiles/65a759f2a4ee1f617033c19139bc48f4/pdfium-download-update.rule

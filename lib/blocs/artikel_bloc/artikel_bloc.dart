@@ -9,14 +9,15 @@ part 'artikel_state.dart';
 class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
 
   final ArtikelRepository _artikelRepository;
+  List<Artikel> _loadedArtikels = [];
 
   ArtikelBloc(this._artikelRepository) : super(const ArtikelLoadingState()) {
 
     on<ArtikelLoadEvent>((event, emit) async {
       emit(const ArtikelLoadingState());
       try {
-        final List<Artikel> artikel = await _artikelRepository.getArtikels();
-        emit(ArtikelLoadedState(artikel));
+        _loadedArtikels = await _artikelRepository.getArtikels();
+        emit(ArtikelLoadedState(loadedArtikel: _loadedArtikels));
       } catch (e) {
         emit(ArtikelErrorState(e.toString()));
       }
@@ -26,8 +27,8 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
       emit(const ArtikelLoadingState());
       try {
         await _artikelRepository.addArtikel(event.artikel);
-        final List<Artikel> artikel = await _artikelRepository.getArtikels();
-        emit(ArtikelLoadedState(artikel));
+        final List<Artikel> artikels = await _artikelRepository.getArtikels();
+        emit(ArtikelLoadedState(loadedArtikel: artikels));
       } catch (e) {
         emit(ArtikelErrorState(e.toString()));
       }
@@ -37,8 +38,8 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
       try {
         emit(const ArtikelLoadingState());
         await _artikelRepository.updateArtikel(event.artikel);
-        final List<Artikel> artikel = await _artikelRepository.getArtikels();
-        emit(ArtikelLoadedState(artikel));
+        final List<Artikel> artikels = await _artikelRepository.getArtikels();
+        emit(ArtikelLoadedState(loadedArtikel: artikels));
       } catch (e) {
         emit(ArtikelErrorState(e.toString()));
       }
@@ -49,7 +50,7 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
         emit(const ArtikelLoadingState());
         await _artikelRepository.deleteArtikel(event.artikel);
         final List<Artikel> artikel = await _artikelRepository.getArtikels();
-        emit(ArtikelLoadedState(artikel));
+        emit(ArtikelLoadedState(loadedArtikel: artikel));
       } catch (e) {
         emit(ArtikelErrorState(e.toString()));
       }
@@ -57,8 +58,8 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
 
     on<ArtikelSearchEvent>((event, emit) async {
       try {
-        final List<Artikel> artikel = await _artikelRepository.searchArtikel(event.search);
-        emit(ArtikelSearchState(artikel));
+        final List<Artikel> filteredArtikel = _artikelRepository.filterArtikel(_loadedArtikels, event.search);
+        emit(ArtikelSearchState(filteredArtikel: filteredArtikel));
       } catch (e) {
         emit(ArtikelErrorState(e.toString()));
       }
@@ -82,6 +83,15 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
         emit(ArtikelErrorState(e.toString()));
       }
     });
+
+    on<ArtikelReloadEvent>((event, emit) {
+      emit(const ArtikelLoadingState());
+      try {
+        emit(ArtikelLoadedState(loadedArtikel: _loadedArtikels));
+      } catch (e) {
+        emit(ArtikelErrorState(e.toString()));
+      }
+    },);
     
   }
 
@@ -90,4 +100,5 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
       yield ArtikelSelectState(event.artikel);
     }
   }
+
 }

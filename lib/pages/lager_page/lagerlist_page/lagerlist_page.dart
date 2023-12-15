@@ -41,7 +41,9 @@ class _LagerListPageState extends State<LagerListPage> {
             return Column(
               children: [
                 Expanded(
-                  child: ListView.builder(
+                  child: state.artikel.isEmpty
+                      ? const Center(child: Text(' Keine Artikel mit dieser Lagernummer! ',textAlign: TextAlign.center , style: TextStyle(fontSize: 22), softWrap: true))
+                      : ListView.builder(
                     itemCount: state.artikel.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
@@ -49,14 +51,13 @@ class _LagerListPageState extends State<LagerListPage> {
                           child: ArtikelTile(
                             isLagerArtikel: true,
                             image: state.artikel[index].image,
-                            bezeichnung: state.artikel[index].bezeichnung,
+                            bezeichnung: state.artikel[index].bezeichnung ?? ' Keine Bezeichnung vorhanden',
                             artikelId: state.artikel[index].artikelId.toString(),
                              bestand: state.artikel[index].bestand,
                              mindestbestand: state.artikel[index].mindestbestand,
                              lagerplatzId: state.artikel[index].lagerplatzId,
                              bestellgrenze: state.artikel[index].bestellgrenze,
-                             beschreibung: state.artikel[index].beschreibung,
-                             artikelNr: state.artikel[index].artikelNr,
+                             artikelNr: state.artikel[index].ean,
                         ),
                         ),
                         onTap: () {

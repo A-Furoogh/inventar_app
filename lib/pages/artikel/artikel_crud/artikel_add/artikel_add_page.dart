@@ -1,11 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
+import 'package:inventar_app/constants/global_functions.dart';
 import 'package:inventar_app/models/artikel.dart';
 import 'package:inventar_app/pages/barcode_page/barcode_page.dart';
 
@@ -22,8 +21,6 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
   final TextEditingController _minBestandController = TextEditingController();
   final TextEditingController _bestellgrenzeController = TextEditingController();
   final TextEditingController _beschreibungController = TextEditingController();
-  String _lagerplatzIdController = '';
-  String _artikelNrController = '';
   // Image controller
   File? _pickedImage;
 
@@ -298,11 +295,12 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                                   width: 220,
                                   child: ElevatedButton(
                                     onPressed: () async {
-                                      String result = await scanBarcode(_artikelNrCodeController);
-                                      setState(() {
-                                        _artikelNrCodeController.text = result;
-                                        _artikelNrController = result;
-                                      });
+                                      String result = await GlobalFunctions.scanBarcode();
+                                      if (result.isNotEmpty && !result.contains('QR-Code')) {
+                                        setState(() {
+                                          _artikelNrCodeController.text = result;
+                                        });
+                                      }
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.amber,
@@ -354,11 +352,12 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                                   width: 195,
                                   child: ElevatedButton(
                                     onPressed: () async {
-                                      String result = await scanBarcode(_lagerplatzCodeController);
-                                      setState(() {
-                                        _lagerplatzIdController = result;
-                                        _lagerplatzCodeController.text = result;
-                                      });
+                                      String result = await GlobalFunctions.scanBarcode();
+                                      if (result.isNotEmpty && !result.contains('QR-Code')) {
+                                        setState(() {
+                                          _lagerplatzCodeController.text = result;
+                                        });
+                                      }
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.amber,
@@ -407,21 +406,19 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                                           ? _beschreibungController.text
                                           : null,
                                   lagerplatzId:
-                                      _lagerplatzIdController.isNotEmpty && _lagerplatzIdController != 'Ungültiger QR-Code' && _lagerplatzIdController != 'Fehlgeschlagen beim erhalten der Platform-version.'
-                                          ? _lagerplatzIdController
+                                      _lagerplatzCodeController.text.isNotEmpty
+                                          ? _lagerplatzCodeController.text
                                           : null,
-                                  image: _pickedImage != null
-                                      ? _pickedImage!.path
-                                      : null,
-                                      artikelNr: _artikelNrController.isNotEmpty && _artikelNrController != 'Ungültiger QR-Code' && _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.'
-                                          ? _artikelNrController
+                                  image: _pickedImage?.path,
+                                  ean: _artikelNrCodeController.text.isNotEmpty
+                                          ? _artikelNrCodeController.text
                                           : null,);
                               BlocProvider.of<ArtikelBloc>(context)
                                   .add(ArtikelAddEvent(artikel));
                               Navigator.pop(context);
-                              if (_artikelNrController.isNotEmpty && _artikelNrController != 'Ungültiger QR-Code' && _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.') {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => BarcodeGeneratedPage(barcodeData: _artikelNrController,)));
-                              }
+                                if (_artikelNrCodeController.text.isNotEmpty) {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => BarcodeGeneratedPage(barcodeData: _artikelNrCodeController.text,)));
+                                }
                             }
                           },
                           child: const Text('Hinzufügen',
@@ -437,36 +434,6 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
         ),
       ),
     );
-  }
-
-   Future<String> scanBarcode(TextEditingController barcode) async {
-    String scanResult;
-    try {
-      scanResult = await FlutterBarcodeScanner.scanBarcode(
-          "#ff6666", "abbrechen", true, ScanMode.BARCODE);
-      // Extrahiere den Code aus scanned URL
-      if (scanResult.isNotEmpty) {
-        Uri scannedUri = Uri.parse(scanResult);
-        if (scannedUri.pathSegments.isNotEmpty) {
-          if (scannedUri.pathSegments.last == "-1") {
-            scanResult = 'Ungültiger QR-Code';
-          } else {
-            scanResult = scannedUri.pathSegments.last;
-          }
-        } else {
-          scanResult = 'Ungültiger QR-Code';
-        }
-      } else {
-        scanResult = 'Ungültiger QR-Code';
-      }
-      // ignore: avoid_print
-      print(scanResult);
-    } on PlatformException {
-      scanResult = 'Fehlgeschlagen beim erhalten der Platform-version.';
-    }
-    if (!mounted) return '';
-
-    return scanResult;
   }
 
   Future<void> _changeImage() async {

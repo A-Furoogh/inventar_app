@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.teal,
+        useMaterial3: false,
       ),
       themeMode: ThemeMode.system,
     );

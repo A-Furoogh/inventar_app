@@ -1,0 +1,10 @@
+^F:\BUCKET\LAGER-APP\LAGER-APP\BUILD\WINDOWS\X64\PDFIUM-DOWNLOAD\CMAKEFILES\74243916F35FD0B2F3F0A65F01805AD2\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SF:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download -BF:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file F:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download/pdfium-download.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

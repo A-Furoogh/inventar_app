@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "F:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download/CMakeFiles/pdfium-download"
+		},
+		{
+			"file" : "F:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download/CMakeFiles/74243916f35fd0b2f3f0a65f01805ad2/pdfium-download.rule"
+		},
+		{
+			"file" : "F:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download/CMakeFiles/df7e5d0b3cc85c95e61756c0fe3875b1/pdfium-download-complete.rule"
+		},
+		{
+			"file" : "F:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download/CMakeFiles/ba35742688572fadba2e29a4878d8b81/pdfium-download-build.rule"
+		},
+		{
+			"file" : "F:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download/CMakeFiles/ba35742688572fadba2e29a4878d8b81/pdfium-download-configure.rule"
+		},
+		{
+			"file" : "F:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download/CMakeFiles/ba35742688572fadba2e29a4878d8b81/pdfium-download-download.rule"
+		},
+		{
+			"file" : "F:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download/CMakeFiles/ba35742688572fadba2e29a4878d8b81/pdfium-download-install.rule"
+		},
+		{
+			"file" : "F:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download/CMakeFiles/ba35742688572fadba2e29a4878d8b81/pdfium-download-mkdir.rule"
+		},
+		{
+			"file" : "F:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download/CMakeFiles/ba35742688572fadba2e29a4878d8b81/pdfium-download-patch.rule"
+		},
+		{
+			"file" : "F:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download/CMakeFiles/ba35742688572fadba2e29a4878d8b81/pdfium-download-test.rule"
+		},
+		{
+			"file" : "F:/Bucket/lager-app/lager-app/build/windows/x64/pdfium-download/CMakeFiles/ba35742688572fadba2e29a4878d8b81/pdfium-download-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"pdfium-download"
+		],
+		"name" : "pdfium-download"
+	}
+}

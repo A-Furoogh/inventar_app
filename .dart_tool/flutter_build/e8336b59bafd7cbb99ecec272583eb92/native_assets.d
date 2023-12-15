@@ -1,0 +1,1 @@
+ F:\\Bucket\\lager-app\\lager-app\\.dart_tool\\flutter_build\\e8336b59bafd7cbb99ecec272583eb92\\native_assets.yaml: 

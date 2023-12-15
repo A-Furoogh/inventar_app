@@ -21,7 +21,7 @@ final class ArtikelLoadedState extends ArtikelState {
 
   final List<Artikel> loadedArtikel;
 
-  const ArtikelLoadedState(this.loadedArtikel)  : super(loadedArtikel);
+  const ArtikelLoadedState({required this.loadedArtikel})  : super(loadedArtikel);
 
   @override
   List<Object> get props => [loadedArtikel];
@@ -43,16 +43,6 @@ final class ArtikelEmptyState extends ArtikelState {
   List<Object> get props => [];
 }
 
-final class ArtikelSearchState extends ArtikelState {
-
-  final List<Artikel> searchedArtikel;
-
-  const ArtikelSearchState( this.searchedArtikel) : super(searchedArtikel);
-
-  @override
-  List<Object> get props => [searchedArtikel];
-}
-
 // Artikel auswählen und zurückgeben (für Inventur)
 final class ArtikelSelectState extends ArtikelState {
 
@@ -72,4 +62,14 @@ final class LagerArtikelLoadedState extends ArtikelState {
 
   @override
   List<Object> get props => [lagerArtikel];
+}
+
+final class ArtikelSearchState extends ArtikelState {
+
+  final List<Artikel> filteredArtikel;
+
+  const ArtikelSearchState({required this.filteredArtikel})  : super(filteredArtikel);
+
+  @override
+  List<Object> get props => [filteredArtikel];
 }

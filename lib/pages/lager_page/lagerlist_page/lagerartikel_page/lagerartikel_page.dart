@@ -1,6 +1,4 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +23,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
   final _lagerplatzIdController = TextEditingController();
   String _artikelNrController = '';
   // Image controller
-  Uint8List? _imageController;
+  String? _imageController;
 
   final _lagerplatzCodeController = TextEditingController();
   final _artikelNrCodeController = TextEditingController();
@@ -47,10 +45,10 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
     _bestellgrenzeController.text = widget.artikel.bestellgrenze.toString();
     _lagerplatzIdController.text = widget.artikel.lagerplatzId ?? '';
     _lagerplatzCodeController.text = widget.artikel.lagerplatzId ?? '';
-    _artikelNrController = widget.artikel.artikelNr ?? '';
-    _artikelNrCodeController.text = widget.artikel.artikelNr ?? '';
+    _artikelNrController = widget.artikel.ean ?? '';
+    _artikelNrCodeController.text = widget.artikel.ean ?? '';
     if (widget.artikel.image != null) {
-      _imageController = base64Decode(widget.artikel.image!);
+      _imageController = widget.artikel.image!;
     }
 
     // Füge Listener hinzu, um zu prüfen, ob sich die Eingaben geändert haben
@@ -69,7 +67,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
         _bestellgrenzeController.text !=
             widget.artikel.bestellgrenze.toString() ||
         _lagerplatzIdController.text != widget.artikel.lagerplatzId ||
-        _artikelNrCodeController.text != widget.artikel.artikelNr) {
+        _artikelNrCodeController.text != widget.artikel.ean) {
       setState(() {
         _artikelChanged = true;
       });
@@ -105,8 +103,20 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                       child: Row(
                         children: [
                           _imageController != null
-                              ? Image.memory(_imageController!,
-                                  width: 150, height: 150, fit: BoxFit.cover)
+                              ? CachedNetworkImage(
+                                      imageUrl: _imageController!,
+                                      width: 150,
+                                      height: 150,
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) => Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: Image.asset('assets/images/default_artikel.png', fit: BoxFit.cover, width: 150, height: 150,),
+                                        ),
+                                      ),
+                                      errorWidget: (context, error, stackTrace) => const Icon(Icons.broken_image, size: 150, color: Colors.grey,)
+                                      )
                               : const Image(
                                   image: AssetImage(
                                       'assets/images/default_artikel.png'),
@@ -149,7 +159,8 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                             child: Padding(
                                               padding: const EdgeInsets.all(8.0),
                                               child: Text(
-                                                widget.artikel.bezeichnung,
+                                                widget.artikel.bezeichnung ??
+                                                    'Keine Bezeichnung vorhanden.',
                                                 style: const TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.bold),
@@ -381,7 +392,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: SizedBox(
-                              width: 220,
+                              width: 240,
                               child: ElevatedButton(
                                 onPressed: () async {
                                   showDialog(
@@ -414,7 +425,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                       return AlertDialog(
                                         title: const Row(
                                           children: [
-                                            Text('Produkt einlagern '),
+                                            Text('Bestand erhöhen '),
                                             Icon(Icons.add, color: Colors.green, size: 36,)
                                           ],
                                         ),
@@ -423,7 +434,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             const Text(
-                                                'Wie viel möchten Sie einlagern?'),
+                                                'Wie viel möchten Sie hinzufügen?'),
                                             Padding(
                                               padding: const EdgeInsets.all(8.0),
                                               child: Row(
@@ -512,7 +523,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                       size: 28,
                                     ),
                                     const Text(
-                                      ' Einlagern',
+                                      ' Bestand erhöhen',
                                       style: TextStyle(fontSize: 22),
                                     ),
                                   ],
@@ -533,7 +544,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: SizedBox(
-                              width: 220,
+                              width: 260,
                               child: ElevatedButton(
                                 onPressed: () async {
                                   showDialog(
@@ -570,7 +581,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                         child: AlertDialog(
                                           title: const Row(
                                             children: [
-                                              Text('Produkt auslagern'),
+                                              Text('Bestand reduzieren'),
                                               Icon(Icons.remove, color: Colors.red, size: 36,)
                                             ],
                                           ),
@@ -579,7 +590,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               const Text(
-                                                  'Wie viel möchten Sie auslagern?'),
+                                                  'Wie viel möchten Sie reduzieren?'),
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
@@ -678,7 +689,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                       size: 28,
                                     ),
                                     const Text(
-                                      ' Auslagern',
+                                      ' Bestand reduzieren',
                                       style: TextStyle(fontSize: 22),
                                     ),
                                   ],
@@ -782,7 +793,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                         image: _imageController != null
                                             ? widget.artikel.image
                                             : null,
-                                        artikelNr: _artikelNrController.isNotEmpty
+                                        ean: _artikelNrController.isNotEmpty
                                             ? _artikelNrController
                                             : null);
                                     // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert

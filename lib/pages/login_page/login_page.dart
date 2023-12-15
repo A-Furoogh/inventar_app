@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
               Text('Anmelden', style: TextStyle(fontSize: 20)),
             ],
           ),
-          centerTitle: true),
+          centerTitle: true,),
       body: Form(
         key: _formKey,
         child: Container(

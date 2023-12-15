@@ -1,0 +1,10 @@
+^F:\INVENTAR_APP\BUILD\WINDOWS\CMAKEFILES\FFE899037421E19178BE2DB49F7A0DFC\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SF:/inventar_app/windows -BF:/inventar_app/build/windows --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file F:/inventar_app/build/windows/inventar_app.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

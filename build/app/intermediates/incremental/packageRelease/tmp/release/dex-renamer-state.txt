@@ -1,0 +1,4 @@
+#Fri Dec 15 15:37:41 CET 2023
+base.0=F\:\\Bucket\\lager-app\\lager-app\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

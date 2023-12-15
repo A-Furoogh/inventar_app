@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:inventar_app/constants/global_functions.dart';
 import 'package:inventar_app/pages/barcode_page/barcode_page.dart';
 import 'package:inventar_app/pages/lager_page/lagerlist_page/lagerlist_page.dart';
 
@@ -48,10 +47,12 @@ class _LagerPageState extends State<LagerPage> {
                           style: TextStyle(fontSize: 20)),
                       ElevatedButton.icon(
                         onPressed: () async {
-                          String scanResult = await scanBarcode();
-                          setState(() {
+                          String scanResult = await GlobalFunctions.scanBarcode();
+                          if (scanResult.isNotEmpty && !scanResult.contains('QR-Code')) {
+                            setState(() {
                             _lagerSearchController.text = scanResult;
                           });
+                          }
                         },
                         icon: const Icon(Icons.qr_code_scanner),
                         label: const Text('Lager Code Scannen'),
@@ -181,35 +182,5 @@ class _LagerPageState extends State<LagerPage> {
         ),
       ),
     );
-  }
-
-  Future<String> scanBarcode() async {
-    String scanResult;
-    try {
-      scanResult = await FlutterBarcodeScanner.scanBarcode(
-          "#ff6666", "abbrechen", true, ScanMode.QR);
-      // Extrahiere den Code aus scanned URL
-      if (scanResult.isNotEmpty) {
-        Uri scannedUri = Uri.parse(scanResult);
-        if (scannedUri.pathSegments.isNotEmpty) {
-          if (scannedUri.pathSegments.last == "-1") {
-            scanResult = 'Ungültiger QR-Code';
-          } else {
-            scanResult = scannedUri.pathSegments.last;
-          }
-        } else {
-          scanResult = 'Ungültiger QR-Code';
-        }
-      } else {
-        scanResult = 'Ungültiger QR-Code';
-      }
-      // ignore: avoid_print
-      print(scanResult);
-    } on PlatformException {
-      scanResult = 'Fehlgeschlagen beim erhalten der Platform-version.';
-    }
-    if (!mounted) return '';
-
-    return scanResult;
   }
 }

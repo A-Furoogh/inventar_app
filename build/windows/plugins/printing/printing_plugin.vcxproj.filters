@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="F:\inventar_app\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\printing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\inventar_app\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\printing_plugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\inventar_app\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\print_job.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="F:\inventar_app\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\printing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\inventar_app\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\include\printing\printing_plugin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\inventar_app\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\print_job.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="F:\inventar_app\windows\flutter\ephemeral\.plugin_symlinks\printing\windows\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{F1FCC197-CB4A-3ED5-855F-D8099322F34F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{FB1FFABC-805B-34F1-8DBE-B7EEA6E31350}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

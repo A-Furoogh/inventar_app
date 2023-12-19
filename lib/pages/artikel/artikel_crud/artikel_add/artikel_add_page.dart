@@ -7,6 +7,7 @@ import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
 import 'package:inventar_app/constants/global_functions.dart';
 import 'package:inventar_app/models/artikel.dart';
 import 'package:inventar_app/pages/barcode_page/barcode_page.dart';
+import 'package:path/path.dart' as path;
 
 class ArtikelAddPage extends StatefulWidget {
   const ArtikelAddPage({super.key});

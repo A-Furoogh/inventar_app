@@ -32,7 +32,7 @@ class Artikel {
       bestand: json['stock'] as int?,
       mindestbestand: json['customFields']?['rmd_wawi_min_stock'] as int?,
       bestellgrenze: json['customFields']?['rmd_wawi_order_amount'] as int?,
-      image: json['included']?['url'] as String?,
+      image: json['included']?['url'] as String?, // Für jetzt nicht relevant
       lagerplatzId: json['customFields']?['rmd_wawi_lagerplatz'] as String?, // falls das Feld nicht existiert.
       ean: json['ean'] as String?,
     );
@@ -48,7 +48,7 @@ class Artikel {
         if (bestellgrenze != null) 'rmd_wawi_order_amount': bestellgrenze,
         if (lagerplatzId != null) 'rmd_wawi_lagerplatz': lagerplatzId,
       },
-      if (image != null) 'image': image,
+      //if (image != null) 'image': image,
       if (ean != null) 'ean': ean,
       if (artikelId == null) 'taxId': taxId, // required
       if (artikelId == null) 'productNumber': generateProductNumber(), // required  !!! wird mit einer Random productNumber generiert

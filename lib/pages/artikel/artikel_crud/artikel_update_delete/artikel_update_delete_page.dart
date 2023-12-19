@@ -39,6 +39,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool _artikelChanged = false;
+  bool _imageChanged = false;
 
   bool _isLogisticsManager = false;
 
@@ -114,27 +115,35 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                         children: [
                           GestureDetector(
                               onTap: _isLogisticsManager ? null : _changeImage,
-                              child: _imageController != null
-                                  ? CachedNetworkImage(
-                                      imageUrl: _imageController!,
+                              child: _imageChanged
+                                  ? SizedBox(
                                       width: 150,
                                       height: 150,
-                                      fit: BoxFit.cover,
-                                      placeholder: (context, url) => Center(
-                                        child: SizedBox(
-                                          width: 50,
-                                          height: 50,
-                                          child: Image.asset('assets/images/default_artikel.png', fit: BoxFit.cover, width: 150, height: 150,),
-                                        ),
+                                      child: Image.file(
+                                        File(_imageController!),
+                                        fit: BoxFit.cover,
                                       ),
-                                      errorWidget: (context, error, stackTrace) => const Icon(Icons.broken_image, size: 150, color: Colors.grey,)
-                                      )
-                                  : const Image(
-                                      image: AssetImage(
-                                          'assets/images/default_artikel.png'),
-                                      width: 150,
-                                      height: 150,
-                                      fit: BoxFit.cover)),
+                                    )
+                                  : widget.artikel.image != null
+                                      ? SizedBox(
+                                          width: 150,
+                                          height: 150,
+                                          child: CachedNetworkImage(
+                                            imageUrl: widget.artikel.image!,
+                                            fit: BoxFit.cover,
+                                            placeholder: (context, url) =>
+                                                const CircularProgressIndicator(),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    const Icon(Icons.error),
+                                          ),
+                                        )
+                                      : SizedBox(
+                                          width: 150,
+                                          height: 150,
+                                          child: Image.asset(
+                                              'assets/images/no_image.png'),
+                                        )),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
@@ -543,9 +552,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                       _lagerplatzIdController.isNotEmpty && _lagerplatzIdController != 'Ungültiger QR-Code' && _lagerplatzIdController != 'Fehlgeschlagen beim erhalten der Platform-version.'
                                           ? _lagerplatzIdController
                                           : null,
-                                  image: _imageController != null
-                                      ? widget.artikel.image
-                                      : null,
+                                  image: _imageController,
                                       ean: _artikelNrController.isNotEmpty && _artikelNrController != 'Ungültiger QR-Code' && _artikelNrController != 'Fehlgeschlagen beim erhalten der Platform-version.'
                                           ? _artikelNrController
                                           : null);
@@ -743,7 +750,8 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                 onPressed: () {
                   setState(() {
                     _imageController = /*File(pickedFile.path).readAsBytesSync();*/ File(pickedFile.path).path;
-                    widget.artikel.image = File(pickedFile.path).path;
+                    //widget.artikel.image = File(pickedFile.path).path;  // nicht relevant für jetzt
+                    _imageChanged = true;
                     _artikelChanged = true;
                   });
                   Navigator.of(context).pop();

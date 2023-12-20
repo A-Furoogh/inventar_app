@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                         GestureDetector(
                           child: FieldWidget(image: "assets/images/konto.png", name: "Benutzer", onTap: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => const BenutzerPage()));
-                          }, isDisabled: context.read<AuthBloc>().state.benutzer.rolle == 'controller' || context.read<AuthBloc>().state.benutzer.rolle == 'logistics manager',)
+                          }, isDisabled: context.read<AuthBloc>().state.benutzer.rolle == 'controller' || context.read<AuthBloc>().state.benutzer.rolle == 'logistics manager' || context.read<AuthBloc>().state.benutzer.rolle == 'product manager',)
                         ),
                       ],
                     ))

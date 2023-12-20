@@ -51,17 +51,20 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
     _isLogisticsManager = context.read<AuthBloc>().state.benutzer.rolle == 'logistics manager';
   
     _bezeichnungController.text = widget.artikel.bezeichnung ?? '';
-    _bestandController.text = widget.artikel.bestand.toString();
-    _minBestandController.text = widget.artikel.mindestbestand.toString();
-    _bestellgrenzeController.text = widget.artikel.bestellgrenze.toString();
+    if (widget.artikel.bestand != null) {
+      _bestandController.text = widget.artikel.bestand.toString();
+    }
+    if (widget.artikel.mindestbestand != null) {
+      _minBestandController.text = widget.artikel.mindestbestand.toString();
+    }
+    if (widget.artikel.bestellgrenze != null) {
+      _bestellgrenzeController.text = widget.artikel.bestellgrenze.toString();
+    }
     _beschreibungController.text = widget.artikel.beschreibung ?? '';
     _lagerplatzIdController = widget.artikel.lagerplatzId ?? '';
     _lagerplatzCodeController.text = widget.artikel.lagerplatzId ?? '';
     _artikelNrController = widget.artikel.ean ?? '';
     _artikelNrCodeController.text = widget.artikel.ean ?? '';
-    if (widget.artikel.image != null) {
-      _imageController = widget.artikel.image;
-    }
 
     // Füge Listener hinzu, um zu prüfen, ob sich die Eingaben geändert haben
     _bezeichnungController.addListener(_onControllerChanged);
@@ -142,7 +145,7 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                           width: 150,
                                           height: 150,
                                           child: Image.asset(
-                                              'assets/images/no_image.png'),
+                                              'assets/images/default_artikel.png'),
                                         )),
                           Expanded(
                             child: Padding(
@@ -557,7 +560,20 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                           ? _artikelNrController
                                           : null);
                               // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
-                              BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel));
+                              try {
+                                BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                        backgroundColor: Colors.green[300],
+                                        content: const Text(
+                                            'Artikel erfolgreich geupdatet',
+                                            style:
+                                                TextStyle(color: Colors.black))));
+                              } catch (e) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                        content: Text(e.toString())));
+                              }
                               Navigator.pop(context);
                             }
                           } : null,
@@ -599,7 +615,22 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        BlocProvider.of<ArtikelBloc>(context).add(ArtikelDeleteEvent(widget.artikel));
+                                        try {
+                                          BlocProvider.of<ArtikelBloc>(context).add(ArtikelDeleteEvent(widget.artikel));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  backgroundColor:
+                                                      Colors.orange[300],
+                                                  content: const Text(
+                                                      'Artikel erfolgreich gelöscht',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.black))));
+                                        } catch (e) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(e.toString())));
+                                        }
                                         Navigator.of(context).pop();
                                         Navigator.of(context).pop();
                                       },

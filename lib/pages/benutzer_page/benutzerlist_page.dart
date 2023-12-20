@@ -72,7 +72,17 @@ class _BenutzerPageState extends State<BenutzerPage> {
                                           Navigator.pop(context);
                                         }, child: const Text('Abbrechen')),
                                         TextButton(onPressed: () {
-                                          context.read<BenutzerBloc>().add(DeletebenutzerEvent(state.benutzer[index]));
+                                          try {
+                                            context.read<BenutzerBloc>().add(DeletebenutzerEvent(state.benutzer[index]));
+                                          } catch (e) {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text(e.toString())));
+                                          }
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                               backgroundColor: Colors.orange[300],
+                                               content: const Text(
+                                                    'Benutzer erfolgreich gelöscht', style: TextStyle(color: Colors.black))));
                                           Navigator.pop(context);
                                         }, child: const Text('Löschen')),
                                       ],

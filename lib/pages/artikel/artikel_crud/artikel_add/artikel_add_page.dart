@@ -7,7 +7,6 @@ import 'package:inventar_app/blocs/artikel_bloc/artikel_bloc.dart';
 import 'package:inventar_app/constants/global_functions.dart';
 import 'package:inventar_app/models/artikel.dart';
 import 'package:inventar_app/pages/barcode_page/barcode_page.dart';
-import 'package:path/path.dart' as path;
 
 class ArtikelAddPage extends StatefulWidget {
   const ArtikelAddPage({super.key});
@@ -414,9 +413,21 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                                   ean: _artikelNrCodeController.text.isNotEmpty
                                           ? _artikelNrCodeController.text
                                           : null,);
-                              BlocProvider.of<ArtikelBloc>(context)
+                              try {
+                                BlocProvider.of<ArtikelBloc>(context)
                                   .add(ArtikelAddEvent(artikel));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: Colors.green[300],
+                                  content: const Text(
+                                      'Produkt erfolgreich hinzugefügt',
+                                      style: TextStyle(color: Colors.black))));
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(e.toString())));
+                              }
                               Navigator.pop(context);
+                              
                                 if (_artikelNrCodeController.text.isNotEmpty) {
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => BarcodeGeneratedPage(barcodeData: _artikelNrCodeController.text,)));
                                 }

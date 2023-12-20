@@ -115,13 +115,6 @@ class ArtikelRepository {
       String standardTaxId = result['data'][1]['id'];
       print('Standard Tax ID: $standardTaxId');
 
-      String mediaId = '';
-
-      if (artikel.image != null) {
-        mediaId =  await addImageIntoNewMedia(artikel.image!);
-        print('mediaId: $mediaId');
-      }
-
       Response productResponse = await post(Uri.parse(productEndpoint),
         headers: <String, String>{
           'Content-Type': 'application/json',
@@ -143,7 +136,11 @@ class ArtikelRepository {
       String articleId = Uri.parse(locationHeader).pathSegments.last;
       print('Article ID: $articleId');
       // Füge das hochgeladenes Bild zu einem Artikel hinzu
-      await relateImageToArtikel(articleId, mediaId);
+      if (artikel.image != null) {
+        String mediaId =  await addImageIntoNewMedia(artikel.image!);
+        print('mediaId: $mediaId');
+        await relateImageToArtikel(articleId, mediaId);
+      }
     }
   }
 
@@ -303,7 +300,7 @@ class ArtikelRepository {
       }
     }
     catch (e) {
-      print('Error  from addImageToArtikel(): $e');
+      print('Error  aus relateImageToArtikel(): $e');
       throw Exception(e);
     }
   }

@@ -21,7 +21,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
   final TextEditingController _bestellgrenzeController =
       TextEditingController();
   final _lagerplatzIdController = TextEditingController();
-  String _artikelNrController = '';
+  String _eanNrController = '';
   // Image controller
   String? _imageController;
 
@@ -45,7 +45,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
     _bestellgrenzeController.text = widget.artikel.bestellgrenze.toString();
     _lagerplatzIdController.text = widget.artikel.lagerplatzId ?? '';
     _lagerplatzCodeController.text = widget.artikel.lagerplatzId ?? '';
-    _artikelNrController = widget.artikel.ean ?? '';
+    _eanNrController = widget.artikel.ean ?? '';
     _artikelNrCodeController.text = widget.artikel.ean ?? '';
     if (widget.artikel.image != null) {
       _imageController = widget.artikel.image!;
@@ -775,26 +775,12 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                         bezeichnung: widget.artikel.bezeichnung,
                                         bestand:
                                             int.parse(_bestandController.text),
-                                        mindestbestand:
-                                            _minBestandController.text.isNotEmpty
-                                                ? int.parse(
-                                                    _minBestandController.text)
-                                                : 0,
-                                        bestellgrenze: _bestellgrenzeController
-                                                .text.isNotEmpty
-                                            ? int.parse(
-                                                _bestellgrenzeController.text)
-                                            : 0,
-                                        beschreibung: widget.artikel.beschreibung,
                                         lagerplatzId: _lagerplatzIdController
                                                 .text.isNotEmpty
                                             ? _lagerplatzIdController.text
                                             : null,
-                                        image: _imageController != null
-                                            ? widget.artikel.image
-                                            : null,
-                                        ean: _artikelNrController.isNotEmpty
-                                            ? _artikelNrController
+                                        ean: _eanNrController.isNotEmpty
+                                            ? _eanNrController
                                             : null);
                                     // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
                                     BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel));

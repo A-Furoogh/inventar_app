@@ -96,7 +96,7 @@ class _AddbenutzerPageState extends State<AddbenutzerPage> {
                               DropdownMenuItem(
                                   value: 'admin', child: Text('Admin')),
                               DropdownMenuItem(
-                                  value: 'productmanager',
+                                  value: 'product manager',
                                   child: Text('Produkt manager')),
                               DropdownMenuItem(
                                   value: 'logistics manager',
@@ -128,16 +128,17 @@ class _AddbenutzerPageState extends State<AddbenutzerPage> {
                                   passwort: _passwortController.text,
                                   rolle: _rollenController.text,
                                 )));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      backgroundColor: Colors.green[300],
+                                      content: const Text(
+                                          'Benutzer erfolgreich hinzugefügt', style: TextStyle(color: Colors.black))));
                               } catch (e) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(content: Text(e.toString())));
                               }
                               Navigator.pop(context);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      backgroundColor: Colors.green[300],
-                                      content: const Text(
-                                          'Benutzer erfolgreich hinzugefügt', style: TextStyle(color: Colors.black))));
+                              Navigator.pop(context);
                             }
                           },
                           icon: const Icon(Icons.person_add),

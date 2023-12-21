@@ -4,7 +4,7 @@
             "outputFile": "com.example.inventar_app-mergeDebugResources-32:/values-w820dp-v13/values-w820dp-v13.xml",
             "map": [
                 {
-                    "source": "F:\\Bucket\\lager-app\\lager-app\\build\\flutter_barcode_scanner\\intermediates\\packaged_res\\debug\\values-w820dp-v13\\values-w820dp-v13.xml",
+                    "source": "D:\\Flutter_Projects\\Inventar_Neu\\inventar_app\\build\\flutter_barcode_scanner\\intermediates\\packaged_res\\debug\\values-w820dp-v13\\values-w820dp-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

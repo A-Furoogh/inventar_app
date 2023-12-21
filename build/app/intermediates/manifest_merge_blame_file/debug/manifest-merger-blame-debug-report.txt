@@ -13,22 +13,22 @@
 13         to allow setting breakpoints, to provide hot reload, etc.
 14    -->
 15    <uses-permission android:name="android.permission.INTERNET" />
-15-->F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:4:5-66
-15-->F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:4:22-64
+15-->D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:4:5-66
+15-->D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:4:22-64
 16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-16-->F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:5:5-78
-16-->F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:5:22-76
+16-->D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:5:5-78
+16-->D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:5:22-76
 17    <uses-permission android:name="android.permission.CAMERA" />
-17-->[:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-65
-17-->[:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-62
+17-->[:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-65
+17-->[:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-62
 18
 19    <uses-feature android:name="android.hardware.camera" />
-19-->[:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-60
-19-->[:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:11:19-57
+19-->[:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-60
+19-->[:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:11:19-57
 20
 21    <uses-permission android:name="android.permission.FLASHLIGHT" />
-21-->[:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:13:5-69
-21-->[:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:13:22-66
+21-->[:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:13:5-69
+21-->[:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:13:22-66
 22
 23    <permission
 23-->[androidx.core:core:1.10.1] C:\Users\Furoogh\.gradle\caches\transforms-3\c4988ff80110f75080a936fc6f044848\transformed\core-1.10.1\AndroidManifest.xml:22:5-24:47
@@ -49,9 +49,9 @@
 33        android:icon="@mipmap/ic_launcher"
 34        android:label="Inventar"
 35        android:largeHeap="true"
-35-->[:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:16:9-33
+35-->[:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:16:9-33
 36        android:theme="@style/Theme.AppCompat.NoActionBar" >
-36-->[:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:17:9-59
+36-->[:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:17:9-59
 37        <activity
 38            android:name="com.example.inventar_app.MainActivity"
 39            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -86,42 +86,42 @@
 68            android:value="2" />
 69
 70        <activity android:name="com.amolg.flutterbarcodescanner.BarcodeCaptureActivity" />
-70-->[:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:18:9-91
-70-->[:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:18:19-88
+70-->[:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:18:9-91
+70-->[:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:18:19-88
 71
 72        <provider
-72-->[:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
+72-->[:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
 73            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-73-->[:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-82
+73-->[:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-82
 74            android:authorities="com.example.inventar_app.flutter.image_provider"
-74-->[:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-74
+74-->[:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-74
 75            android:exported="false"
-75-->[:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
+75-->[:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
 76            android:grantUriPermissions="true" >
-76-->[:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
+76-->[:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
 77            <meta-data
-77-->[:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
+77-->[:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
 78                android:name="android.support.FILE_PROVIDER_PATHS"
-78-->[:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
+78-->[:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
 79                android:resource="@xml/flutter_image_picker_file_paths" />
-79-->[:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
+79-->[:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
 80        </provider>
 81        <provider
-81-->[:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
+81-->[:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
 82            android:name="net.nfet.flutter.printing.PrintFileProvider"
-82-->[:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-71
+82-->[:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-71
 83            android:authorities="com.example.inventar_app.flutter.printing"
-83-->[:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-68
+83-->[:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-68
 84            android:exported="false"
-84-->[:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
+84-->[:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
 85            android:grantUriPermissions="true" >
-85-->[:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
+85-->[:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
 86            <meta-data
-86-->[:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
+86-->[:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
 87                android:name="android.support.FILE_PROVIDER_PATHS"
-87-->[:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
+87-->[:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
 88                android:resource="@xml/flutter_printing_file_paths" />
-88-->[:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
+88-->[:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
 89        </provider>
 90
 91        <activity

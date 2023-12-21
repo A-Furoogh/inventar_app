@@ -1,6 +1,6 @@
-#Thu Dec 21 13:00:22 CET 2023
-base.0=F\:\\Bucket\\lager-app\\lager-app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-base.1=F\:\\Bucket\\lager-app\\lager-app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
+#Thu Dec 21 14:26:34 CET 2023
+base.0=D\:\\Flutter_Projects\\Inventar_Neu\\inventar_app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+base.1=D\:\\Flutter_Projects\\Inventar_Neu\\inventar_app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
 path.0=classes.dex
 path.1=classes2.dex
 renamed.0=classes.dex

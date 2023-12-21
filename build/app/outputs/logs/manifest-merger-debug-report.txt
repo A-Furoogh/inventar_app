@@ -1,12 +1,12 @@
 -- Merging decision tree log ---
 application
-INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:7:5-37:19
-MERGED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:15:5-19:19
-MERGED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:15:5-19:19
-MERGED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
-MERGED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
-MERGED from [:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
-MERGED from [:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
+INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:7:5-37:19
+MERGED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:15:5-19:19
+MERGED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:15:5-19:19
+MERGED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
+MERGED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
+MERGED from [:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
+MERGED from [:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
 MERGED from [com.google.android.material:material:1.3.0] C:\Users\Furoogh\.gradle\caches\transforms-3\5cc8db564d46f28c055925bb471009a5\transformed\material-1.3.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.3.0] C:\Users\Furoogh\.gradle\caches\transforms-3\5cc8db564d46f28c055925bb471009a5\transformed\material-1.3.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\Furoogh\.gradle\caches\transforms-3\21656ca58ebc2f5b695d36d1899076be\transformed\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
@@ -38,24 +38,24 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Fu
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.10.1] C:\Users\Furoogh\.gradle\caches\transforms-3\c4988ff80110f75080a936fc6f044848\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
 	android:largeHeap
-		ADDED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:16:9-33
+		ADDED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:16:9-33
 	android:theme
-		ADDED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:17:9-59
+		ADDED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:17:9-59
 	android:name
-		INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml
 manifest
-ADDED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:1:1-38:12
-INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:1:1-38:12
-INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:1:1-38:12
-INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:1:1-38:12
-MERGED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:1:1-38:12
-MERGED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
-MERGED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
-MERGED from [:flutter_plugin_android_lifecycle] F:\Bucket\lager-app\lager-app\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
-MERGED from [:sqflite] F:\Bucket\lager-app\lager-app\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
-MERGED from [:device_info_plus] F:\Bucket\lager-app\lager-app\build\device_info_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
-MERGED from [:path_provider_android] F:\Bucket\lager-app\lager-app\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
-MERGED from [:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
+ADDED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:1:1-38:12
+INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:1:1-38:12
+INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:1:1-38:12
+INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:1:1-38:12
+MERGED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:1:1-38:12
+MERGED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
+MERGED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
+MERGED from [:flutter_plugin_android_lifecycle] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:sqflite] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:device_info_plus] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\device_info_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:path_provider_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
 MERGED from [com.google.android.material:material:1.3.0] C:\Users\Furoogh\.gradle\caches\transforms-3\5cc8db564d46f28c055925bb471009a5\transformed\material-1.3.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\Furoogh\.gradle\caches\transforms-3\21656ca58ebc2f5b695d36d1899076be\transformed\constraintlayout-2.0.1\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\Furoogh\.gradle\caches\transforms-3\09a71f45a2f110948b735c42a8fac7af\transformed\appcompat-1.2.0\AndroidManifest.xml:17:1-24:12
@@ -112,51 +112,51 @@ MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\User
 MERGED from [androidx.print:print:1.0.0] C:\Users\Furoogh\.gradle\caches\transforms-3\c24f99b8bdfeb14f29b2ef7a86a4db48\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Furoogh\.gradle\caches\transforms-3\db3ce0e4102f75753fdc0e9c2753a822\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Furoogh\.gradle\caches\transforms-3\937d6edc8055f6701a18eeac1a67afe6\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:17:1-22:12
-INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\debug\AndroidManifest.xml:1:1-7:12
-INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\debug\AndroidManifest.xml:1:1-7:12
-INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 	package
-		INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml
-		ADDED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:1:1-38:12
-		INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\debug\AndroidManifest.xml
+		INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:1:1-38:12
+		INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\debug\AndroidManifest.xml
 	android:versionName
-		INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml
-		ADDED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:1:1-38:12
-		INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\debug\AndroidManifest.xml
+		INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:1:1-38:12
+		INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
-		INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml
-		ADDED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:1:1-38:12
-		INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\debug\AndroidManifest.xml
+		INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:1:1-38:12
+		INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
-		ADDED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:1:11-69
+		ADDED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:1:11-69
 uses-permission#android.permission.INTERNET
-ADDED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:4:5-66
-MERGED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:4:5-66
-MERGED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:4:5-66
+ADDED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:4:5-66
+MERGED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:4:5-66
+MERGED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:4:5-66
 	android:name
-		ADDED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:4:22-64
+		ADDED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:4:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:5:5-78
+ADDED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:5:5-78
 	android:name
-		ADDED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml:5:22-76
+		ADDED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml:5:22-76
 uses-sdk
-INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml
-INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml
-MERGED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:flutter_plugin_android_lifecycle] F:\Bucket\lager-app\lager-app\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:flutter_plugin_android_lifecycle] F:\Bucket\lager-app\lager-app\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:sqflite] F:\Bucket\lager-app\lager-app\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:sqflite] F:\Bucket\lager-app\lager-app\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:device_info_plus] F:\Bucket\lager-app\lager-app\build\device_info_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:device_info_plus] F:\Bucket\lager-app\lager-app\build\device_info_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:path_provider_android] F:\Bucket\lager-app\lager-app\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:path_provider_android] F:\Bucket\lager-app\lager-app\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml
+INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml
+MERGED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_plugin_android_lifecycle] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_plugin_android_lifecycle] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:sqflite] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:sqflite] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:device_info_plus] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\device_info_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:device_info_plus] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\device_info_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:path_provider_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:path_provider_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.android.material:material:1.3.0] C:\Users\Furoogh\.gradle\caches\transforms-3\5cc8db564d46f28c055925bb471009a5\transformed\material-1.3.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.material:material:1.3.0] C:\Users\Furoogh\.gradle\caches\transforms-3\5cc8db564d46f28c055925bb471009a5\transformed\material-1.3.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\Furoogh\.gradle\caches\transforms-3\21656ca58ebc2f5b695d36d1899076be\transformed\constraintlayout-2.0.1\AndroidManifest.xml:5:5-7:41
@@ -269,56 +269,56 @@ MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Furoogh\.gradle\cac
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Furoogh\.gradle\caches\transforms-3\db3ce0e4102f75753fdc0e9c2753a822\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Furoogh\.gradle\caches\transforms-3\937d6edc8055f6701a18eeac1a67afe6\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Furoogh\.gradle\caches\transforms-3\937d6edc8055f6701a18eeac1a67afe6\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
-INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\debug\AndroidManifest.xml
-INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\debug\AndroidManifest.xml
+INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\debug\AndroidManifest.xml
+INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\debug\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml
-		INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\debug\AndroidManifest.xml
+		INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\debug\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\main\AndroidManifest.xml
-		INJECTED from F:\Bucket\lager-app\lager-app\android\app\src\debug\AndroidManifest.xml
+		INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Flutter_Projects\Inventar_Neu\inventar_app\android\app\src\debug\AndroidManifest.xml
 uses-permission#android.permission.CAMERA
-ADDED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-65
+ADDED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-65
 	android:name
-		ADDED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-62
+		ADDED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-62
 uses-feature#android.hardware.camera
-ADDED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-60
+ADDED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-60
 	android:name
-		ADDED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:11:19-57
+		ADDED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:11:19-57
 uses-permission#android.permission.FLASHLIGHT
-ADDED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:13:5-69
+ADDED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:13:5-69
 	android:name
-		ADDED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:13:22-66
+		ADDED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:13:22-66
 activity#com.amolg.flutterbarcodescanner.BarcodeCaptureActivity
-ADDED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:18:9-91
+ADDED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:18:9-91
 	android:name
-		ADDED from [:flutter_barcode_scanner] F:\Bucket\lager-app\lager-app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:18:19-88
+		ADDED from [:flutter_barcode_scanner] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\flutter_barcode_scanner\intermediates\merged_manifest\debug\AndroidManifest.xml:18:19-88
 provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
-ADDED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
+ADDED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
 	android:grantUriPermissions
-		ADDED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
+		ADDED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
 	android:authorities
-		ADDED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-74
+		ADDED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-74
 	android:exported
-		ADDED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
+		ADDED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
 	android:name
-		ADDED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-82
+		ADDED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-82
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
+ADDED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
 	android:resource
-		ADDED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
+		ADDED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
 	android:name
-		ADDED from [:image_picker_android] F:\Bucket\lager-app\lager-app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
+		ADDED from [:image_picker_android] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
 provider#net.nfet.flutter.printing.PrintFileProvider
-ADDED from [:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
+ADDED from [:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
 	android:grantUriPermissions
-		ADDED from [:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
+		ADDED from [:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
 	android:authorities
-		ADDED from [:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-68
+		ADDED from [:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-68
 	android:exported
-		ADDED from [:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
+		ADDED from [:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
 	android:name
-		ADDED from [:printing] F:\Bucket\lager-app\lager-app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-71
+		ADDED from [:printing] D:\Flutter_Projects\Inventar_Neu\inventar_app\build\printing\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-71
 activity#com.google.android.gms.common.api.GoogleApiActivity
 ADDED from [com.google.android.gms:play-services-base:17.4.0] C:\Users\Furoogh\.gradle\caches\transforms-3\1a7d33a1dd6289df9ecade9fe9e3ac6f\transformed\jetified-play-services-base-17.4.0\AndroidManifest.xml:23:9-26:75
 	android:exported

@@ -21,7 +21,7 @@
     },
     {
       "name": "barcode",
-      "rootUri": "file:///C:/Users/Furoogh/AppData/Local/Pub/Cache/hosted/pub.dev/barcode-2.2.4",
+      "rootUri": "file:///C:/Users/Furoogh/AppData/Local/Pub/Cache/hosted/pub.dev/barcode-2.2.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -81,9 +81,9 @@
     },
     {
       "name": "cli_util",
-      "rootUri": "file:///C:/Users/Furoogh/AppData/Local/Pub/Cache/hosted/pub.dev/cli_util-0.4.0",
+      "rootUri": "file:///C:/Users/Furoogh/AppData/Local/Pub/Cache/hosted/pub.dev/cli_util-0.4.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "clock",
@@ -183,7 +183,7 @@
     },
     {
       "name": "flutter",
-      "rootUri": "file:///F:/dev/Flutter/flutter/packages/flutter",
+      "rootUri": "file:///C:/scr/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -237,13 +237,13 @@
     },
     {
       "name": "flutter_test",
-      "rootUri": "file:///F:/dev/Flutter/flutter/packages/flutter_test",
+      "rootUri": "file:///C:/scr/flutter/packages/flutter_test",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
       "name": "flutter_web_plugins",
-      "rootUri": "file:///F:/dev/Flutter/flutter/packages/flutter_web_plugins",
+      "rootUri": "file:///C:/scr/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -273,15 +273,15 @@
     },
     {
       "name": "image_picker",
-      "rootUri": "file:///C:/Users/Furoogh/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker-1.0.4",
+      "rootUri": "file:///C:/Users/Furoogh/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker-1.0.5",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "image_picker_android",
-      "rootUri": "file:///C:/Users/Furoogh/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.8+2",
+      "rootUri": "file:///C:/Users/Furoogh/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.9+1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "image_picker_for_web",
@@ -291,9 +291,9 @@
     },
     {
       "name": "image_picker_ios",
-      "rootUri": "file:///C:/Users/Furoogh/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_ios-0.8.8+4",
+      "rootUri": "file:///C:/Users/Furoogh/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_ios-0.8.9",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "image_picker_linux",
@@ -489,7 +489,7 @@
     },
     {
       "name": "sky_engine",
-      "rootUri": "file:///F:/dev/Flutter/flutter/bin/cache/pkg/sky_engine",
+      "rootUri": "file:///C:/scr/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -537,9 +537,9 @@
     },
     {
       "name": "synchronized",
-      "rootUri": "file:///C:/Users/Furoogh/AppData/Local/Pub/Cache/hosted/pub.dev/synchronized-3.1.0",
+      "rootUri": "file:///C:/Users/Furoogh/AppData/Local/Pub/Cache/hosted/pub.dev/synchronized-3.1.0+1",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     },
     {
       "name": "term_glyph",
@@ -614,7 +614,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-12-18T15:41:47.592204Z",
+  "generated": "2023-12-21T13:23:58.044543Z",
   "generator": "pub",
   "generatorVersion": "3.2.3"
 }

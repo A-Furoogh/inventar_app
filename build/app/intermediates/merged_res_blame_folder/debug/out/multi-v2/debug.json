@@ -4458,7 +4458,7 @@
             "outputFile": "com.example.inventar_app-merged_res-34:/values-w820dp-v13_values-w820dp-v13.arsc.flat",
             "map": [
                 {
-                    "source": "F:\\Bucket\\lager-app\\lager-app\\build\\flutter_barcode_scanner\\intermediates\\packaged_res\\debug\\values-w820dp-v13\\values-w820dp-v13.xml",
+                    "source": "D:\\Flutter_Projects\\Inventar_Neu\\inventar_app\\build\\flutter_barcode_scanner\\intermediates\\packaged_res\\debug\\values-w820dp-v13\\values-w820dp-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -4717,6 +4717,25 @@
                     }
                 },
                 {
+                    "source": "D:\\Flutter_Projects\\Inventar_Neu\\inventar_app\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "3,14",
+                        "startColumns": "4,4",
+                        "startOffsets": "173,818",
+                        "endLines": "7,16",
+                        "endColumns": "12,12",
+                        "endOffsets": "476,982"
+                    },
+                    "to": {
+                        "startLines": "3085,3137",
+                        "startColumns": "4,4",
+                        "startOffsets": "200120,203805",
+                        "endLines": "3088,3139",
+                        "endColumns": "12,12",
+                        "endOffsets": "200296,203969"
+                    }
+                },
+                {
                     "source": "C:\\Users\\Furoogh\\.gradle\\caches\\transforms-3\\d9fefd3231d7c549dee86f94a8a71d09\\transformed\\media-1.0.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,5,6,7,8,10,11,12,13,14",
@@ -4820,23 +4839,6 @@
                         "startOffsets": "56212,56252,56946,57170,57225,58656,58710,58762,58811,58872",
                         "endColumns": "39,46,42,54,46,53,51,48,60,49",
                         "endOffsets": "56247,56294,56984,57220,57267,58705,58757,58806,58867,58917"
-                    }
-                },
-                {
-                    "source": "F:\\Bucket\\lager-app\\lager-app\\build\\flutter_barcode_scanner\\intermediates\\packaged_res\\debug\\values\\values.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,113,169,219,291,355,437,507,627,784,818,919,973,1043",
-                        "endColumns": "57,55,49,71,63,81,69,119,156,33,100,53,69,47",
-                        "endOffsets": "108,164,214,286,350,432,502,622,779,813,914,968,1038,1086"
-                    },
-                    "to": {
-                        "startLines": "597,598,1071,1072,1073,1074,1075,1115,1166,1167,1173,1174,1177,1178",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "32712,32770,63009,63059,63131,63195,63277,67819,76601,76758,77594,77695,77873,77943",
-                        "endColumns": "57,55,49,71,63,81,69,119,156,33,100,53,69,47",
-                        "endOffsets": "32765,32821,63054,63126,63190,63272,63342,67934,76753,76787,77690,77744,77938,77986"
                     }
                 },
                 {
@@ -4988,6 +4990,23 @@
                     }
                 },
                 {
+                    "source": "D:\\Flutter_Projects\\Inventar_Neu\\inventar_app\\build\\flutter_barcode_scanner\\intermediates\\packaged_res\\debug\\values\\values.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,113,169,219,291,355,437,507,627,784,818,919,973,1043",
+                        "endColumns": "57,55,49,71,63,81,69,119,156,33,100,53,69,47",
+                        "endOffsets": "108,164,214,286,350,432,502,622,779,813,914,968,1038,1086"
+                    },
+                    "to": {
+                        "startLines": "597,598,1071,1072,1073,1074,1075,1115,1166,1167,1173,1174,1177,1178",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "32712,32770,63009,63059,63131,63195,63277,67819,76601,76758,77594,77695,77873,77943",
+                        "endColumns": "57,55,49,71,63,81,69,119,156,33,100,53,69,47",
+                        "endOffsets": "32765,32821,63054,63126,63190,63272,63342,67934,76753,76787,77690,77744,77938,77986"
+                    }
+                },
+                {
                     "source": "C:\\Users\\Furoogh\\.gradle\\caches\\transforms-3\\8d45f58db1b5efd11956cf5f8829d6d3\\transformed\\jetified-savedstate-1.2.1\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2",
@@ -5002,25 +5021,6 @@
                         "startOffsets": "59105",
                         "endColumns": "53",
                         "endOffsets": "59154"
-                    }
-                },
-                {
-                    "source": "F:\\Bucket\\lager-app\\lager-app\\android\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "3,14",
-                        "startColumns": "4,4",
-                        "startOffsets": "176,832",
-                        "endLines": "7,16",
-                        "endColumns": "12,12",
-                        "endOffsets": "483,998"
-                    },
-                    "to": {
-                        "startLines": "3085,3137",
-                        "startColumns": "4,4",
-                        "startOffsets": "200120,203805",
-                        "endLines": "3088,3139",
-                        "endColumns": "12,12",
-                        "endOffsets": "200296,203969"
                     }
                 },
                 {
@@ -7078,14 +7078,14 @@
             "outputFile": "com.example.inventar_app-merged_res-34:/values-night-v8_values-night-v8.arsc.flat",
             "map": [
                 {
-                    "source": "F:\\Bucket\\lager-app\\lager-app\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "D:\\Flutter_Projects\\Inventar_Neu\\inventar_app\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
-                        "startOffsets": "175,831",
+                        "startOffsets": "172,817",
                         "endLines": "7,16",
                         "endColumns": "12,12",
-                        "endOffsets": "482,997"
+                        "endOffsets": "475,981"
                     },
                     "to": {
                         "startLines": "2,6",

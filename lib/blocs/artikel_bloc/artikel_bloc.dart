@@ -92,7 +92,6 @@ class ArtikelBloc extends Bloc<ArtikelEvent, ArtikelState> {
         emit(ArtikelErrorState(e.toString()));
       }
     },);
-    
   }
 
   Stream<ArtikelState> mapEventToState(ArtikelEvent event) async* {

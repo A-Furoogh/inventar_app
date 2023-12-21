@@ -768,7 +768,7 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                             vertical: 10.0, horizontal: 8.0),
                         child: ElevatedButton(
                           onPressed: _artikelChanged
-                              ? () {
+                              ? () async {
                                   if (_formKey.currentState!.validate()) {
                                     Artikel artikel = Artikel(
                                         artikelId: widget.artikel.artikelId,
@@ -782,8 +782,58 @@ class _LagerArtikelPageState extends State<LagerArtikelPage> {
                                         ean: _eanNrController.isNotEmpty
                                             ? _eanNrController
                                             : null);
-                                    // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
+                                    try {
+                                      // Mit dem ArtikelAddEvent wird der Artikel in der Datenbank gespeichert
                                     BlocProvider.of<ArtikelBloc>(context).add(ArtikelUpdateEvent(artikel));
+                                    
+                                    if (widget.artikel.bestand != null) {
+                                      if (_artikelChanged && widget.artikel.bestand! < int.parse(_bestandController.text)) {
+                                        int diff = int.parse(_bestandController.text) - widget.artikel.bestand!;
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                        content: RichText(text: TextSpan(
+                                          text: 'Der Bestand wurde um ',
+                                          style: const TextStyle(color: Colors.white),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text: '$diff',
+                                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
+                                            ),
+                                            const TextSpan(
+                                              text: ' erhöht.'
+                                            )
+                                          ]
+                                        )),
+                                        backgroundColor: Colors.green[500],
+                                      ));
+                                      }
+                                      else if (_artikelChanged && widget.artikel.bestand! > int.parse(_bestandController.text)) {
+                                        int diff = widget.artikel.bestand! - int.parse(_bestandController.text);
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                        content: RichText(text: TextSpan(
+                                          text: 'Der Bestand wurde um ',
+                                          style: const TextStyle(color: Colors.white),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text: '$diff',
+                                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
+                                            ),
+                                            const TextSpan(
+                                              text: ' reduziert.'
+                                            )
+                                          ]
+                                        )),
+                                        backgroundColor: Colors.orange[500],
+                                      ));
+                                      }
+                                    }
+                                    } catch (e) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                        content: Text(
+                                            'Fehler beim Speichern des Artikels.'),
+                                        backgroundColor: Colors.red,
+                                      ));
+                                    }
                                     Navigator.pop(context);
                                   }
                                 }

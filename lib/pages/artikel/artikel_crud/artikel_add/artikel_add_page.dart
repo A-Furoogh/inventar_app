@@ -19,7 +19,8 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
   final TextEditingController _bezeichnungController = TextEditingController();
   final TextEditingController _bestandController = TextEditingController();
   final TextEditingController _minBestandController = TextEditingController();
-  final TextEditingController _bestellgrenzeController = TextEditingController();
+  final TextEditingController _bestellgrenzeController =
+      TextEditingController();
   final TextEditingController _beschreibungController = TextEditingController();
   // Image controller
   File? _pickedImage;
@@ -28,7 +29,6 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
   final _artikelNrCodeController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -50,19 +50,50 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                       padding: const EdgeInsets.all(4),
                       child: Row(
                         children: [
-                          GestureDetector(
-                              onTap: _changeImage,
-                              child: _pickedImage != null
-                                  ? Image.file(_pickedImage!,
-                                      width: 150,
-                                      height: 150,
-                                      fit: BoxFit.cover)
-                                  : const Image(
-                                      image: AssetImage(
-                                          'assets/images/default_artikel.png'),
-                                      width: 150,
-                                      height: 150,
-                                      fit: BoxFit.cover)),
+                          Column(
+                            children: [
+                              GestureDetector(
+                                  onTap: () {
+                                    // Das Bild groß anzeigen
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          content: SizedBox(
+                                            height: 300,
+                                            child:_pickedImage != null
+                                      ? Image.file(_pickedImage!,
+                                          width: 150,
+                                          height: 150,
+                                          fit: BoxFit.cover)
+                                      : const Image(
+                                          image: AssetImage(
+                                              'assets/images/default_artikel.png'),
+                                          width: 150,
+                                          height: 150,
+                                          fit: BoxFit.contain)),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: _pickedImage != null
+                                      ? Image.file(_pickedImage!,
+                                          width: 150,
+                                          height: 150,
+                                          fit: BoxFit.cover)
+                                      : const Image(
+                                          image: AssetImage(
+                                              'assets/images/default_artikel.png'),
+                                          width: 150,
+                                          height: 150,
+                                          fit: BoxFit.cover)),
+                                TextButton.icon(
+                                                  onPressed: _changeImage,
+                                                  icon: const Icon(Icons.edit),
+                                                  label: const Text('Bild ändern'),
+                                                ),
+                            ],
+                          ),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
@@ -269,7 +300,8 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                     ),
                     Container(
                       color: Colors.blue[100],
-                      child: Padding(                            // ProduktNr
+                      child: Padding(
+                        // ProduktNr
                         padding: const EdgeInsets.all(4),
                         child: Column(
                           children: [
@@ -295,10 +327,13 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                                   width: 220,
                                   child: ElevatedButton(
                                     onPressed: () async {
-                                      String result = await GlobalFunctions.scanBarcode();
-                                      if (result.isNotEmpty && !result.contains('QR-Code')) {
+                                      String result =
+                                          await GlobalFunctions.scanBarcode();
+                                      if (result.isNotEmpty &&
+                                          !result.contains('QR-Code')) {
                                         setState(() {
-                                          _artikelNrCodeController.text = result;
+                                          _artikelNrCodeController.text =
+                                              result;
                                         });
                                       }
                                     },
@@ -326,7 +361,8 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                     ),
                     Container(
                       color: Colors.green[200],
-                      child: Padding(                          // Lagerplatz
+                      child: Padding(
+                        // Lagerplatz
                         padding: const EdgeInsets.all(4),
                         child: Column(
                           children: [
@@ -352,10 +388,13 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                                   width: 195,
                                   child: ElevatedButton(
                                     onPressed: () async {
-                                      String result = await GlobalFunctions.scanBarcode();
-                                      if (result.isNotEmpty && !result.contains('QR-Code')) {
+                                      String result =
+                                          await GlobalFunctions.scanBarcode();
+                                      if (result.isNotEmpty &&
+                                          !result.contains('QR-Code')) {
                                         setState(() {
-                                          _lagerplatzCodeController.text = result;
+                                          _lagerplatzCodeController.text =
+                                              result;
                                         });
                                       }
                                     },
@@ -391,46 +430,55 @@ class _ArtikelAddPageState extends State<ArtikelAddPage> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               Artikel artikel = Artikel(
-                                  bezeichnung: _bezeichnungController.text,
-                                  bestand: int.parse(_bestandController.text),
-                                  mindestbestand: _minBestandController
-                                          .text.isNotEmpty
-                                      ? int.parse(_minBestandController.text)
-                                      : 0,
-                                  bestellgrenze: _bestellgrenzeController
-                                          .text.isNotEmpty
-                                      ? int.parse(_bestellgrenzeController.text)
-                                      : 0,
-                                  beschreibung:
-                                      _beschreibungController.text.isNotEmpty
-                                          ? _beschreibungController.text
-                                          : null,
-                                  lagerplatzId:
-                                      _lagerplatzCodeController.text.isNotEmpty
-                                          ? _lagerplatzCodeController.text
-                                          : null,
-                                  image: _pickedImage?.path,
-                                  ean: _artikelNrCodeController.text.isNotEmpty
-                                          ? _artikelNrCodeController.text
-                                          : null,);
+                                bezeichnung: _bezeichnungController.text,
+                                bestand: int.parse(_bestandController.text),
+                                mindestbestand:
+                                    _minBestandController.text.isNotEmpty
+                                        ? int.parse(_minBestandController.text)
+                                        : 0,
+                                bestellgrenze: _bestellgrenzeController
+                                        .text.isNotEmpty
+                                    ? int.parse(_bestellgrenzeController.text)
+                                    : 0,
+                                beschreibung:
+                                    _beschreibungController.text.isNotEmpty
+                                        ? _beschreibungController.text
+                                        : null,
+                                lagerplatzId:
+                                    _lagerplatzCodeController.text.isNotEmpty
+                                        ? _lagerplatzCodeController.text
+                                        : null,
+                                image: _pickedImage?.path,
+                                ean: _artikelNrCodeController.text.isNotEmpty
+                                    ? _artikelNrCodeController.text
+                                    : null,
+                              );
                               try {
                                 BlocProvider.of<ArtikelBloc>(context)
-                                  .add(ArtikelAddEvent(artikel));
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.green[300],
-                                  content: const Text(
-                                      'Produkt erfolgreich hinzugefügt',
-                                      style: TextStyle(color: Colors.black))));
+                                    .add(ArtikelAddEvent(artikel));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        backgroundColor: Colors.green[300],
+                                        content: const Text(
+                                            'Produkt erfolgreich hinzugefügt',
+                                            style: TextStyle(
+                                                color: Colors.black))));
                               } catch (e) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(e.toString())));
+                                    SnackBar(content: Text(e.toString())));
                               }
                               Navigator.pop(context);
-                              
-                                if (_artikelNrCodeController.text.isNotEmpty) {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => BarcodeGeneratedPage(barcodeData: _artikelNrCodeController.text,)));
-                                }
+
+                              if (_artikelNrCodeController.text.isNotEmpty) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            BarcodeGeneratedPage(
+                                              barcodeData:
+                                                  _artikelNrCodeController.text,
+                                            )));
+                              }
                             }
                           },
                           child: const Text('Hinzufügen',

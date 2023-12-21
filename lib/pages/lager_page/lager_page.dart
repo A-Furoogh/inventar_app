@@ -51,6 +51,7 @@ class _LagerPageState extends State<LagerPage> {
                           if (scanResult.isNotEmpty && !scanResult.contains('QR-Code')) {
                             setState(() {
                             _lagerSearchController.text = scanResult;
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => LagerListPage(lagerId: _lagerSearchController.text)));
                           });
                           }
                         },

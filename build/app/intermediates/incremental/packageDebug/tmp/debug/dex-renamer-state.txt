@@ -1,4 +1,4 @@
-#Wed Dec 20 08:36:26 CET 2023
+#Thu Dec 21 13:00:22 CET 2023
 base.0=F\:\\Bucket\\lager-app\\lager-app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 base.1=F\:\\Bucket\\lager-app\\lager-app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex
 path.0=classes.dex

@@ -116,37 +116,90 @@ class _ArtikelUDPageState extends State<ArtikelUDPage> {
                       padding: const EdgeInsets.all(4),
                       child: Row(
                         children: [
-                          GestureDetector(
-                              onTap: _isLogisticsManager ? null : _changeImage,
-                              child: _imageChanged
-                                  ? SizedBox(
-                                      width: 150,
-                                      height: 150,
-                                      child: Image.file(
-                                        File(_imageController!),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    )
-                                  : widget.artikel.image != null
+                          Column(
+                            children: [
+                              GestureDetector(
+                                  onTap: _isLogisticsManager ? null : () {
+                                    // Das Bild groß anzeigen
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          content: SizedBox(
+                                            height: 300,
+                                            child: _imageChanged
                                       ? SizedBox(
                                           width: 150,
                                           height: 150,
-                                          child: CachedNetworkImage(
-                                            imageUrl: widget.artikel.image!,
+                                          child: Image.file(
+                                            File(_imageController!),
                                             fit: BoxFit.cover,
-                                            placeholder: (context, url) =>
-                                                const CircularProgressIndicator(),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    const Icon(Icons.error),
                                           ),
                                         )
-                                      : SizedBox(
+                                      : widget.artikel.image != null
+                                          ? SizedBox(
+                                              width: 150,
+                                              height: 150,
+                                              child: CachedNetworkImage(
+                                                imageUrl: widget.artikel.image!,
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) =>
+                                                    const CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(Icons.error),
+                                              ),
+                                            )
+                                          : SizedBox(
+                                              width: 150,
+                                              height: 150,
+                                              child: Image.asset(
+                                                  'assets/images/default_artikel.png'),
+                                            )
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: _imageChanged
+                                      ? SizedBox(
                                           width: 150,
                                           height: 150,
-                                          child: Image.asset(
-                                              'assets/images/default_artikel.png'),
-                                        )),
+                                          child: Image.file(
+                                            File(_imageController!),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        )
+                                      : widget.artikel.image != null
+                                          ? SizedBox(
+                                              width: 150,
+                                              height: 150,
+                                              child: CachedNetworkImage(
+                                                imageUrl: widget.artikel.image!,
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) =>
+                                                    const CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(Icons.error),
+                                              ),
+                                            )
+                                          : SizedBox(
+                                              width: 150,
+                                              height: 150,
+                                              child: Image.asset(
+                                                  'assets/images/default_artikel.png'),
+                                            )),
+                                TextButton.icon(
+                                                  onPressed: _isLogisticsManager ? null : _changeImage,
+                                                  icon: const Icon(Icons.edit),
+                                                  label: const Text('Bild ändern'),
+                                                ),
+                            ],
+                          ),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),

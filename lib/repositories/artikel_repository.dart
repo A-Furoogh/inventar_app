@@ -305,6 +305,43 @@ class ArtikelRepository {
     }
   }
 
+ // Lösche das erste Bild von einem Artikel
+  Future<void> deleteImageFromArtikel(String artikelId) async {
+    try {
+      String token = await AuthorizationRepository.getBearerToken();
+      String mediaEndpoint = "https://reimedia.de/shop/dev/public/api/product/$artikelId/media";
+      Response mediaResponse = await get(Uri.parse(mediaEndpoint),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
+        );
+      if (mediaResponse.statusCode == 200) {
+        final Map<String, dynamic> mediaResult = jsonDecode(mediaResponse.body);
+        if (mediaResult.containsKey('data')) {
+          final dynamic mediaData = mediaResult['data'];
+          if (mediaData is List && mediaData.isNotEmpty) {
+            String mediaId = mediaData[0]['id'];
+            Response deleteMediaResponse = await delete(Uri.parse("$mediaEndpoint/$mediaId"), headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $token'
+            });
+            if (deleteMediaResponse.statusCode != 204) {
+              print(deleteMediaResponse.body);
+              throw Exception(deleteMediaResponse.reasonPhrase);
+            }
+          }
+        }
+      }
+    }
+    catch (e) {
+      print('Error  aus deleteImageFromArtikel(): $e');
+      throw Exception(e);
+    }
+  }
+
   String generateRandomHex(int length) {
   final random = Random();
   const chars = '0123456789ABCDEF';
